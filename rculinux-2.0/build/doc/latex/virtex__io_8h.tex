@@ -1,0 +1,136 @@
+\hypertarget{virtex__io_8h}{
+\section{virtex\_\-io.h File Reference}
+\label{virtex__io_8h}\index{virtex_io.h@{virtex\_\-io.h}}
+}
+
+
+This graph shows which files directly or indirectly include this file:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=132pt]{virtex__io_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \hyperlink{virtex__io_8h_75f4be62601536615a2a722cb286a894}{VIRTEX\_\-MAGIC\_\-NR}~'o'
+\item 
+\#define \hyperlink{virtex__io_8h_82f8ea8226df1c7ea43aec3bf7ddecf0}{VIRTEX\_\-READ\_\-REG}~\_\-IOWR(VIRTEX\_\-MAGIC\_\-NR, 1, unsigned long int)
+\item 
+\#define \hyperlink{virtex__io_8h_194d97b224594ba8cf2514dde7e24fee}{VIRTEX\_\-WRITE\_\-REG}~\_\-IOWR(VIRTEX\_\-MAGIC\_\-NR, 2, unsigned long int)
+\item 
+\#define \hyperlink{virtex__io_8h_d90f3c29f694a7d29416ab2afa9ce9dc}{VIRTEX\_\-SET\_\-REG}~\_\-IOWR(VIRTEX\_\-MAGIC\_\-NR, 3, unsigned long int)
+\item 
+\#define \hyperlink{virtex__io_8h_a6d3c1faaa97c8b289520eb13fb0b487}{VIRTEX\_\-READ\_\-FRAMES}~\_\-IOWR(VIRTEX\_\-MAGIC\_\-NR, 4, unsigned long int)
+\item 
+\#define \hyperlink{virtex__io_8h_742edef6fb003db49f1a2845715a3758}{VIRTEX\_\-WRITE\_\-WORD}~\_\-IOWR(VIRTEX\_\-MAGIC\_\-NR, 5, unsigned long int)
+\item 
+\#define \hyperlink{virtex__io_8h_7ee86d6a2d368413fb33dd3852cf5ad3}{VIRTEX\_\-READ\_\-WORD}~\_\-IOWR(VIRTEX\_\-MAGIC\_\-NR, 6, unsigned long int)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+file\_\-operations \hyperlink{virtex__io_8h_7ea4b66ca5ef438507acf956f98987cd}{virtex\_\-fops}
+\item 
+int \hyperlink{virtex__io_8h_b1c1f4bf691b18ddc8cbfb0f4f0b47c2}{bytes\_\-written}
+\item 
+static unsigned long int \hyperlink{virtex__io_8h_f662138894a99f1d07d07f482b7c2691}{header} = 0
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{virtex__io_8h_75f4be62601536615a2a722cb286a894}{
+\index{virtex_io.h@{virtex\_\-io.h}!VIRTEX_MAGIC_NR@{VIRTEX\_\-MAGIC\_\-NR}}
+\index{VIRTEX_MAGIC_NR@{VIRTEX\_\-MAGIC\_\-NR}!virtex_io.h@{virtex\_\-io.h}}
+\subsubsection[VIRTEX\_\-MAGIC\_\-NR]{\setlength{\rightskip}{0pt plus 5cm}\#define VIRTEX\_\-MAGIC\_\-NR~'o'}}
+\label{virtex__io_8h_75f4be62601536615a2a722cb286a894}
+
+
+
+
+Definition at line 25 of file virtex\_\-io.h.\hypertarget{virtex__io_8h_a6d3c1faaa97c8b289520eb13fb0b487}{
+\index{virtex_io.h@{virtex\_\-io.h}!VIRTEX_READ_FRAMES@{VIRTEX\_\-READ\_\-FRAMES}}
+\index{VIRTEX_READ_FRAMES@{VIRTEX\_\-READ\_\-FRAMES}!virtex_io.h@{virtex\_\-io.h}}
+\subsubsection[VIRTEX\_\-READ\_\-FRAMES]{\setlength{\rightskip}{0pt plus 5cm}\#define VIRTEX\_\-READ\_\-FRAMES~\_\-IOWR(VIRTEX\_\-MAGIC\_\-NR, 4, unsigned long int)}}
+\label{virtex__io_8h_a6d3c1faaa97c8b289520eb13fb0b487}
+
+
+
+
+Definition at line 29 of file virtex\_\-io.h.\hypertarget{virtex__io_8h_82f8ea8226df1c7ea43aec3bf7ddecf0}{
+\index{virtex_io.h@{virtex\_\-io.h}!VIRTEX_READ_REG@{VIRTEX\_\-READ\_\-REG}}
+\index{VIRTEX_READ_REG@{VIRTEX\_\-READ\_\-REG}!virtex_io.h@{virtex\_\-io.h}}
+\subsubsection[VIRTEX\_\-READ\_\-REG]{\setlength{\rightskip}{0pt plus 5cm}\#define VIRTEX\_\-READ\_\-REG~\_\-IOWR(VIRTEX\_\-MAGIC\_\-NR, 1, unsigned long int)}}
+\label{virtex__io_8h_82f8ea8226df1c7ea43aec3bf7ddecf0}
+
+
+
+
+Definition at line 26 of file virtex\_\-io.h.
+
+Referenced by sm\-Register\-Read().\hypertarget{virtex__io_8h_7ee86d6a2d368413fb33dd3852cf5ad3}{
+\index{virtex_io.h@{virtex\_\-io.h}!VIRTEX_READ_WORD@{VIRTEX\_\-READ\_\-WORD}}
+\index{VIRTEX_READ_WORD@{VIRTEX\_\-READ\_\-WORD}!virtex_io.h@{virtex\_\-io.h}}
+\subsubsection[VIRTEX\_\-READ\_\-WORD]{\setlength{\rightskip}{0pt plus 5cm}\#define VIRTEX\_\-READ\_\-WORD~\_\-IOWR(VIRTEX\_\-MAGIC\_\-NR, 6, unsigned long int)}}
+\label{virtex__io_8h_7ee86d6a2d368413fb33dd3852cf5ad3}
+
+
+
+
+Definition at line 31 of file virtex\_\-io.h.\hypertarget{virtex__io_8h_d90f3c29f694a7d29416ab2afa9ce9dc}{
+\index{virtex_io.h@{virtex\_\-io.h}!VIRTEX_SET_REG@{VIRTEX\_\-SET\_\-REG}}
+\index{VIRTEX_SET_REG@{VIRTEX\_\-SET\_\-REG}!virtex_io.h@{virtex\_\-io.h}}
+\subsubsection[VIRTEX\_\-SET\_\-REG]{\setlength{\rightskip}{0pt plus 5cm}\#define VIRTEX\_\-SET\_\-REG~\_\-IOWR(VIRTEX\_\-MAGIC\_\-NR, 3, unsigned long int)}}
+\label{virtex__io_8h_d90f3c29f694a7d29416ab2afa9ce9dc}
+
+
+
+
+Definition at line 28 of file virtex\_\-io.h.
+
+Referenced by sm\-Register\-Write().\hypertarget{virtex__io_8h_194d97b224594ba8cf2514dde7e24fee}{
+\index{virtex_io.h@{virtex\_\-io.h}!VIRTEX_WRITE_REG@{VIRTEX\_\-WRITE\_\-REG}}
+\index{VIRTEX_WRITE_REG@{VIRTEX\_\-WRITE\_\-REG}!virtex_io.h@{virtex\_\-io.h}}
+\subsubsection[VIRTEX\_\-WRITE\_\-REG]{\setlength{\rightskip}{0pt plus 5cm}\#define VIRTEX\_\-WRITE\_\-REG~\_\-IOWR(VIRTEX\_\-MAGIC\_\-NR, 2, unsigned long int)}}
+\label{virtex__io_8h_194d97b224594ba8cf2514dde7e24fee}
+
+
+
+
+Definition at line 27 of file virtex\_\-io.h.
+
+Referenced by sm\-Register\-Write().\hypertarget{virtex__io_8h_742edef6fb003db49f1a2845715a3758}{
+\index{virtex_io.h@{virtex\_\-io.h}!VIRTEX_WRITE_WORD@{VIRTEX\_\-WRITE\_\-WORD}}
+\index{VIRTEX_WRITE_WORD@{VIRTEX\_\-WRITE\_\-WORD}!virtex_io.h@{virtex\_\-io.h}}
+\subsubsection[VIRTEX\_\-WRITE\_\-WORD]{\setlength{\rightskip}{0pt plus 5cm}\#define VIRTEX\_\-WRITE\_\-WORD~\_\-IOWR(VIRTEX\_\-MAGIC\_\-NR, 5, unsigned long int)}}
+\label{virtex__io_8h_742edef6fb003db49f1a2845715a3758}
+
+
+
+
+Definition at line 30 of file virtex\_\-io.h.
+
+\subsection{Variable Documentation}
+\hypertarget{virtex__io_8h_b1c1f4bf691b18ddc8cbfb0f4f0b47c2}{
+\index{virtex_io.h@{virtex\_\-io.h}!bytes_written@{bytes\_\-written}}
+\index{bytes_written@{bytes\_\-written}!virtex_io.h@{virtex\_\-io.h}}
+\subsubsection[bytes\_\-written]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{virtex__io_8h_b1c1f4bf691b18ddc8cbfb0f4f0b47c2}{bytes\_\-written}}}
+\label{virtex__io_8h_b1c1f4bf691b18ddc8cbfb0f4f0b47c2}
+
+
+\hypertarget{virtex__io_8h_f662138894a99f1d07d07f482b7c2691}{
+\index{virtex_io.h@{virtex\_\-io.h}!header@{header}}
+\index{header@{header}!virtex_io.h@{virtex\_\-io.h}}
+\subsubsection[header]{\setlength{\rightskip}{0pt plus 5cm}unsigned long int \hyperlink{virtex__io_8h_f662138894a99f1d07d07f482b7c2691}{header} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{virtex__io_8h_f662138894a99f1d07d07f482b7c2691}
+
+
+
+
+Definition at line 37 of file virtex\_\-io.h.\hypertarget{virtex__io_8h_7ea4b66ca5ef438507acf956f98987cd}{
+\index{virtex_io.h@{virtex\_\-io.h}!virtex_fops@{virtex\_\-fops}}
+\index{virtex_fops@{virtex\_\-fops}!virtex_io.h@{virtex\_\-io.h}}
+\subsubsection[virtex\_\-fops]{\setlength{\rightskip}{0pt plus 5cm}struct file\_\-operations \hyperlink{virtex__io_8h_7ea4b66ca5ef438507acf956f98987cd}{virtex\_\-fops}}}
+\label{virtex__io_8h_7ea4b66ca5ef438507acf956f98987cd}
+
+

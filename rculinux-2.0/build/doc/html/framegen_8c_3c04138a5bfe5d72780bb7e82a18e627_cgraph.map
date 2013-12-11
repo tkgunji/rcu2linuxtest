@@ -1,0 +1,12 @@
+base referer
+rect $framegen_8c.html#64470613eeeb13398e90523259a10d8b 168,5 237,35
+rect $group__dcsc__msg__buffer__access.html#g5b2ecab6b0a6383afebde1ea486dae43 363,31 475,60
+rect $framehelpers_8c.html#53be595c1a44f646523cdd1f89a0a8a2 108,109 297,139
+rect $framehelpers_8c.html#0f9757d4eb4fa8fc58c951361f67af7c 123,163 283,192
+rect $group__dcsc__msg__buffer__access.html#gfc4448a8f5f9654cf54ad494f1558594 148,216 257,245
+rect $group__dcsc__msg__buffer__access.html#g602216accce6913989f8b04b36157cd6 141,269 264,299
+rect $group__dcsc__msg__buffer__access.html#gac62a9e57c67af4cb9178b4426ec12fb 133,323 272,352
+rect $framehelpers_8c.html#8bc9e8e93d38aa4c254464aa672690df 379,109 459,139
+rect $group__dcsc__msg__buffer__access.html#g95f13464dd4da9231a53e7adbb0e7d4e 353,216 484,245
+rect $dcscMsgBufferInterface_8c.html#a9d00574024c4f782faa8c581cf0c59c 348,269 489,299
+rect $dcscMsgBufferInterface_8c.html#c96d3bfc6ae5b24fd200339b9073a655 369,323 468,352

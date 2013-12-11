@@ -1,0 +1,2244 @@
+\hypertarget{dcscMsgBufferInterface_8c}{
+\section{dcsc\-Msg\-Buffer\-Interface.c File Reference}
+\label{dcscMsgBufferInterface_8c}\index{dcscMsgBufferInterface.c@{dcscMsgBufferInterface.c}}
+}
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$linux/errno.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include \char`\"{}dcs\_\-driver.h\char`\"{}}\par
+{\tt \#include \char`\"{}dcsc\-Msg\-Buffer\-Interface.h\char`\"{}}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+
+
+Include dependency graph for dcsc\-Msg\-Buffer\-Interface.c:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=237pt]{dcscMsgBufferInterface_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \hyperlink{structmsgbuf__header__t}{msgbuf\_\-header\_\-t}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_75864786bfd0bad3cf52e822b1aaef39}{DCSC\_\-FIRMWARE\_\-VERSION\_\-ADDRESS}~0
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_08c75f626c3068c6dbd6f17dbf246aaf}{DCSC\_\-FIRMWARE\_\-VERSION\_\-MINOR\_\-SIZE}~6
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_a54dd4c7c4acc8de9dd8fe086d7cf6bb}{DCSC\_\-FIRMWARE\_\-VERSION\_\-MAJOR\_\-SIZE}~5
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_d30381d8a13f9c5a6d045b768fbd53cb}{DCSC\_\-FIRMWARE\_\-VERSION\_\-DAY\_\-SIZE}~5
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_13b20d9f2d646d2fadda6007cd26cdaa}{DCSC\_\-FIRMWARE\_\-VERSION\_\-MONTH\_\-SIZE}~4
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_db991679898c54c6b6d935308c2a932c}{DCSC\_\-FIRMWARE\_\-VERSION\_\-YEAR\_\-SIZE}~12
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_b76c7cf445c9d8ff50871ec2799d4ee0}{DCSC\_\-FIRMWARE\_\-VERSION\_\-MINOR\_\-BITSHIFT}~0
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_f37e79037bea859eb7494a1498dd025f}{DCSC\_\-FIRMWARE\_\-VERSION\_\-MAJOR\_\-BITSHIFT}~DCSC\_\-FIRMWARE\_\-VERSION\_\-MINOR\_\-BITSHIFT+DCSC\_\-FIRMWARE\_\-VERSION\_\-MINOR\_\-SIZE
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_98488604371322be337cf91565994da6}{DCSC\_\-FIRMWARE\_\-VERSION\_\-DAY\_\-BITSHIFT}~DCSC\_\-FIRMWARE\_\-VERSION\_\-MAJOR\_\-BITSHIFT+DCSC\_\-FIRMWARE\_\-VERSION\_\-MAJOR\_\-SIZE
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_a391627a6013906ce8256191379fc84c}{DCSC\_\-FIRMWARE\_\-VERSION\_\-MONTH\_\-BITSHIFT}~DCSC\_\-FIRMWARE\_\-VERSION\_\-DAY\_\-BITSHIFT+DCSC\_\-FIRMWARE\_\-VERSION\_\-DAY\_\-SIZE
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_e086c0440209876059019004ba708309}{DCSC\_\-FIRMWARE\_\-VERSION\_\-YEAR\_\-BITSHIFT}~DCSC\_\-FIRMWARE\_\-VERSION\_\-MONTH\_\-BITSHIFT+DCSC\_\-FIRMWARE\_\-VERSION\_\-MONTH\_\-SIZE
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_49531fceea54dcf50eabdfe556c96209}{RCU\_\-FIRMWARE\_\-VERSION\_\-ADDRESS}~0x1001
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_b1aac628137507cee08f784b077dc7a3}{RCUBUS\_\-DRIVER\_\-VERSION\_\-MAJOR\_\-BITSHIFT}~16
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_d8ee646d2645be3776385a511ada8857}{RCUBUS\_\-DRIVER\_\-VERSION\_\-MAJOR\_\-SIZE}~16
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_df7585e2ae0887eafd6d5f8e5a067456}{RCUBUS\_\-DRIVER\_\-VERSION\_\-MINOR\_\-BITSHIFT}~0
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_6c870bb288c3c18682b030fc5a6ba8b6}{RCUBUS\_\-DRIVER\_\-VERSION\_\-MINOR\_\-SIZE}~16
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_1baa1f37dbf9e2a31b9ba3c5fe03f8c2}{DCSC\_\-REQUIRED\_\-DRIVER\_\-VERSION\_\-MAJOR}~0
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_bfb122dc93ebc51560b36ce3e3a72587}{DCSC\_\-REQUIRED\_\-DRIVER\_\-VERSION\_\-MINOR}~6
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_5e5a4ee8bc8d4a47d5639877453a5902}{GENERAL\_\-CTRL\_\-REG\_\-ADDR}~0x00
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_5e48c2311cfed1989bded60dc5db6465}{MAJOR\_\-VERSION\_\-NO\_\-REG\_\-ADDR}~0x04
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_6e51c6ce734d0318a349af8c96562a65}{MINOR\_\-VERSION\_\-NO\_\-REG\_\-ADDR}~0x08
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_5bba619a22aacc925c7a8c1810a1b765}{REGISTER\_\-3\_\-ADDR}~0x0c
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_9b55850ff8e03f4d0b43ce298cfa3474}{COMMAND\_\-EXECUTE}~0x80
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_2f7ccffc078c85ecb3702c7e891a82ed}{BUFFER\_\-REREAD}~0x40
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_70f50b8b60e6daf81f2732470016be3d}{COMMAND\_\-READY}~0x01
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_71390dabb2b6067dc3341f17e7468fa3}{SIGNAL\_\-CONFIGURATION}~0x20
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_4d1f864d075f2c5485bdac2fbd2d6fdc}{DIRECT\_\-BUS\_\-ACTIVATE}~0x08
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_9d6e5e94f720e2db30b0cbf27a8d8348}{SELECTMAP\_\-ACTIVATE}~0x04
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_b6c9d26af633ec5b8831ff7566490a4a}{FIRMWARE\_\-RESET}~0x02
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_adac1984b9e5d29e2be88f79e7992cb8}{BUFFER\_\-0\_\-EMPTY}~0x01
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_213fb5f833fc748d3797dc39faad5fd9}{BUFFER\_\-1\_\-EMPTY}~0x02
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_4dae5cf079cf8902776b9d5cada8c013}{CONFIGURATION\_\-START}~0x80
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_1c509e452a4c9c238b921a6d1f88df0b}{CONFIGURATION\_\-STATUS\_\-MASK}~0x7c
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_79e963ab962fb4877a033f8e336cfa75}{FLASH\_\-DCS\_\-ACCESS\_\-REQUIRED\_\-FW\_\-VERSION}~0x00020002
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_bc765308fc696001b67ec3f13b1e1c19}{COMPRESSED\_\-DATA\_\-REQUIRED\_\-FW\_\-VERSION}~0x00020002
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_43d1a33daf4c8a3e3e3a8be0d26c8280}{MSGBUF\_\-MODE\_\-MEMMAPPED}~0x0
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_dd15047fa00625fe09f7373fa9b96956}{MSGBUF\_\-MODE\_\-FLASH}~0x1
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_a55bbb692b1c5e89d3a5c3bee1ce8399}{POLY}~0x8408
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_b4ba6557e760a93da421bad9662f475f}{RCU\_\-FLASH\_\-SIZE}~0x1000000
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_0e2ea81bd16845c499679a5eb0954786}{RCU\_\-FLASH\_\-CMD}~0xb000
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_a1930cbdd5dc47368f763d10b8b33e76}{RCU\_\-FLASH\_\-STATUS}~0xb100
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_a574330236c8393e2a57844c9c624d4b}{RCU\_\-FLASH\_\-ADDRH}~0xb101
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_59f0a8361f2384977c2075fd804fcb37}{RCU\_\-FLASH\_\-AHMASK}~0x0ff0000
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_d37046ce6a9ba94c6cc510ae2e5b474f}{RCU\_\-FLASH\_\-AHBSHFT}~16
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_1f3db1449ecbab3e6c966fe249c050f2}{RCU\_\-FLASH\_\-ADDRL}~0xb102
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_7e4b1d5f8e6bc2649741a13165f75887}{RCU\_\-FLASH\_\-ALMASK}~0x000ffff
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_e089e7d822c06f48119e8b2ab64b63ce}{RCU\_\-FLASH\_\-DATA}~0xb103
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_4265fbc6d30be38e3c224c19f040dc24}{RCU\_\-FLASH\_\-READRES}~0xb105
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_673b122bf8515a7092b182531d32d9f7}{RCU\_\-FLASH\_\-ERASEALL}~0x02
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_6f7e2e5f89f23373f3086f1c8e8cd772}{RCU\_\-FLASH\_\-WRITECMD}~0x04
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_4d833f7a552ea655eb00a3c1e0a4625b}{RCU\_\-FLASH\_\-READCMD}~0x08
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_9202c87268203e6a08727b379fac4153}{RCU\_\-FLASH\_\-ERASESEC}~0x20
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_cb9417e9987868ff16753aeefc7c1ed7}{RCU\_\-FLASH\_\-RESETCMD}~0x10
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_446e3f66581bcc6c976dd9073fd0a30f}{RCU\_\-FLASH\_\-IDCMD}~0x01
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_2b38074d9bb2f373ffc5379832827f22}{RCU\_\-FLASH\_\-ID\_\-HADDR}~0x0
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_f8a2ca3091a13ab6480ba0299ca29d67}{RCU\_\-FLASH\_\-ID\_\-LADDR}~0x1
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_32e26443cd88b0858ebfaa8808e2ecb4}{RCU\_\-FLASH\_\-NOF\_\-SECTORS}~1024
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_56ed0b868991c0beee3f4e4f867b71bf}{RCU\_\-FLASH\_\-STATE\_\-IDLE}~0x0
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_8e7a28e78b6a1aae377f797434b578aa}{RCU\_\-FLASH\_\-STATE\_\-BUSY}~0x4000
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_160c65461ec6cf1bcc91afbd9d8ddecd}{RCU\_\-FLASH\_\-STATE\_\-MASK}~0xffff
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_e2d29784b208a711578def62cdac7973}{RCU\_\-FLASH\_\-DEFAULT\_\-WAITCYCLE}~5
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_a0c0c1c383a12804bcf210feb8664d52}{RCU\_\-FLASH\_\-ERASE\_\-WAITCYCLE}~1000000
+\item 
+\#define \hyperlink{dcscMsgBufferInterface_8c_e04589b86387e507db0bfc456e443a94}{RCU\_\-FLASH\_\-MAX\_\-WAITSTATES}~60
+\end{CompactItemize}
+\subsection*{Enumerations}
+\begin{CompactItemize}
+\item 
+enum \{ \hyperlink{dcscMsgBufferInterface_8c_61dadd085c1777f559549e05962b2c9e4e6055c7ab7b1a0a31466a8319097c8c}{e\-Flash\-Access\-Actel} =  0, 
+\hyperlink{dcscMsgBufferInterface_8c_61dadd085c1777f559549e05962b2c9e6cf7cfe71b6e370264b635cb802de05c}{e\-Flash\-Access\-Dcsc}
+ \}
+\item 
+enum \{ \hyperlink{dcscMsgBufferInterface_8c_726ca809ffd3d67ab4b8476646f266354ae6b4c2833dc22c6e2c5452e058fe71}{e\-Unknown\-State} =  0, 
+\hyperlink{dcscMsgBufferInterface_8c_726ca809ffd3d67ab4b8476646f266352ff61919acdf82129a2264a7ec8c7f03}{e\-Msg\-Buffer}, 
+\hyperlink{dcscMsgBufferInterface_8c_726ca809ffd3d67ab4b8476646f26635c27294feb964f9572a7f0902b0a028d7}{e\-Select\-Map}, 
+\hyperlink{dcscMsgBufferInterface_8c_726ca809ffd3d67ab4b8476646f266350b710956d4430ea58c0d405848ba76b9}{e\-Flash}
+ \}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+unsigned short \hyperlink{dcscMsgBufferInterface_8c_f9a8ab4280d02bb80c6c14b250affb20}{crc16} (char $\ast$data\_\-p, int length)
+\item 
+\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_e9340e51dad01e5752d7ca8446094db6}{mk\-Frst\-Wrd} (unsigned short num\-Words, unsigned short block\-Num, unsigned short format, unsigned short mode, unsigned short cmd\-Id)
+\item 
+\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_6aca27ba48e1bcae7e35a72fc2ac0b3b}{mk\-Lst\-Wrd} (unsigned short checksum)
+\item 
+\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_d96053a774a452dc4f507212d8e8481e}{mk\-End\-Marker} ()
+\item 
+void \hyperlink{group__dcsc__msg__buffer__access_g1b3027d209be85e9a8fbd14864c4b442}{print\-Buffer\-Hex} (unsigned char $\ast$\hyperlink{dcscMsgBufferInterface_8c_7fe69f55846ac3a138c130665f1f1e49}{p\-Buffer}, int i\-Buffer\-Size, int word\-Size, const char $\ast$p\-Message)
+\begin{CompactList}\small\item\em Print content of a buffer hexadecimal. \item\end{CompactList}\item 
+void \hyperlink{group__dcsc__msg__buffer__access_gc44ca908f157f8de95b81638e298e08e}{print\-Buffer\-Hex\-Formatted} (unsigned char $\ast$\hyperlink{dcscMsgBufferInterface_8c_7fe69f55846ac3a138c130665f1f1e49}{p\-Buffer}, int i\-Buffer\-Size, int i\-Word\-Size, int i\-Words\-Per\-Row, int i\-Start\-Address, const char $\ast$p\-Message)
+\begin{CompactList}\small\item\em Print content of a buffer hexadecimal formated with the address. \item\end{CompactList}\item 
+int \hyperlink{dcscMsgBufferInterface_8c_c96d3bfc6ae5b24fd200339b9073a655}{close\-Device} ()
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_a337ceffc9fe25945c09d63f808d089d}{write\-Dcsc\-Register} (int reg\-No, unsigned char data)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_e334ce2ad22afd577c920519891de60f}{read\-Dcsc\-Register} (int reg\-No, int b\-Alert)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_402b4025c3b8f16128235e68210ea9bd}{open\-Device} (const char $\ast$p\-Device\-Name)
+\item 
+int \hyperlink{group__dcsc__msg__buffer__access_gfc4448a8f5f9654cf54ad494f1558594}{init\-Rcu\-Access} (const char $\ast$p\-Device\-Name)
+\begin{CompactList}\small\item\em Initialize the interface. \item\end{CompactList}\item 
+int \hyperlink{group__dcsc__msg__buffer__access_g95f13464dd4da9231a53e7adbb0e7d4e}{init\-Rcu\-Access\-Ext} (const char $\ast$p\-Device\-Name, \hyperlink{structdcscInitArguments__t}{Tdcsc\-Init\-Arguments} $\ast$p\-Arg)
+\begin{CompactList}\small\item\em Extended initialization. \item\end{CompactList}\item 
+int \hyperlink{group__dcsc__msg__buffer__access_gac62a9e57c67af4cb9178b4426ec12fb}{release\-Rcu\-Access} ()
+\begin{CompactList}\small\item\em Close the device and release internal data structures. \item\end{CompactList}\item 
+int \hyperlink{dcscMsgBufferInterface_8c_78f494573a3ca4dc3b267928af8a6e0f}{seek\_\-dcsc} (long offset, int start)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_fca4aa5bb97ba862da2535e82c629bfd}{write\_\-dcsc} (const void $\ast$ptr, size\_\-t size, size\_\-t nmemb)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_c06280f758e4c96f4b20f6d111ffd10a}{read\_\-dcsc} (void $\ast$ptr, size\_\-t size, size\_\-t nmemb)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_11b476874e781d3f1438fc135db4cc3f}{lock\_\-device} ()
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_3abfe9e8eb9b2c1e49704fbc46d251d3}{unlock\_\-device} ()
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_32412da8a5f2e200fc616dbf07eaf718}{seize\_\-device} ()
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_2c04c83c90647100be3b49de078754af}{release\_\-device} ()
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_4891e4062ba169cebaaf6fbe90dcc538}{reset\_\-device\_\-lock} ()
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_eb7406782eb0709ab5a33d8b9e04822b}{activate\_\-device\_\-lock} ()
+\item 
+int \hyperlink{group__dcsc__msg__buffer__access_gb01774a452cb68f631a87d2d77ac79a5}{dcsc\-Lock\-Ctrl} (int cmd)
+\begin{CompactList}\small\item\em Lock the driver. \item\end{CompactList}\item 
+int \hyperlink{group__dcsc__msg__buffer__access_g8dc96e96fb45e86a27c98fbe8d816edf}{dcsc\-Driver\-Debug} (unsigned int flags)
+\begin{CompactList}\small\item\em Set debug flags for the driver. \item\end{CompactList}\item 
+int \hyperlink{dcscMsgBufferInterface_8c_28c62d594d77e45fe7fe8408b8a0eae2}{set\-Dcsc\-Register\-Bit} (int reg\-No, unsigned char pattern)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_572f7dd4ac2e9b66ae933e217ff8ca1e}{clear\-Dcsc\-Register\-Bit} (int reg\-No, unsigned char pattern)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_4f26d1498c21f8833b1966666d451a78}{check\-State} (int state, int b\-Alert)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_cd2c29af31d5576c2bc4aee2e4ba5f9b}{read\-Result\-Buffer} (unsigned char $\ast$p\-Target\-Buffer, int i\-Target\-Buffer\-Size, int i\-Start\-Offset)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_757e8e5ef9e969c08f35f9babb8e9499}{get\-Error\-From\-Status} (\_\-\_\-u32 u32Status)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_a8a3978204732cf3454e864ac9b3d56b}{get\-Cmd\-Result} (\_\-\_\-u32 u32Cmd\-Word, char $\ast$p\-Message)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_432b9d01a4f125364bafa3a318d37cd7}{check\-Msgin\-Buffer} (char $\ast$p\-Cmd\-Buffer, int i\-Cmd\-Buffer\-Size, int i\-Silent)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_ced1234f78dd88d74fcc3f7da17cf9da}{write\-To\-Msg\-In\-Buffer} (char $\ast$\hyperlink{dcscMsgBufferInterface_8c_7fe69f55846ac3a138c130665f1f1e49}{p\-Buffer}, int i\-Buffer\-Size)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_3d92f75f3bcdae5dd0b6f8f470e74eb1}{send\-Rcu\-Command} (char $\ast$p\-Cmd\-Buffer, int i\-Cmd\-Buffer\-Size, int i\-Timeout)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_7bf2a74aa584171dfbf57cbf5b622daf}{rcu\-Single\-Write\-Ext} (\_\-\_\-u32 address, \_\-\_\-u32 data, unsigned short mode)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_f552b5065e28cc51b49e235b7c7fcb5f}{rcu\-Multiple\-Write\-Ext} (\_\-\_\-u32 address, \_\-\_\-u32 $\ast$p\-Data, int i\-Size, int i\-Data\-Mode, unsigned short mode)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_93a9e9ce5c1fb26b3f59b36dec388cea}{rcu\-Single\-Read\-Ext} (\_\-\_\-u32 address, \_\-\_\-u32 $\ast$p\-Data, unsigned short mode)
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_a9d00574024c4f782faa8c581cf0c59c}{rcu\-Multiple\-Read\-Ext} (\_\-\_\-u32 address, int i\-Size, \_\-\_\-u32 $\ast$p\-Data, unsigned short mode)
+\item 
+int \hyperlink{group__dcsc__msg__buffer__access_g5b2ecab6b0a6383afebde1ea486dae43}{rcu\-Single\-Write} (\_\-\_\-u32 address, \_\-\_\-u32 data)
+\begin{CompactList}\small\item\em Write a single location (32bit word). \item\end{CompactList}\item 
+int \hyperlink{group__dcsc__msg__buffer__access_ge20afbfc92c897546e37126188804309}{rcu\-Multiple\-Write} (\_\-\_\-u32 address, \_\-\_\-u32 $\ast$p\-Data, int i\-Size, int i\-Data\-Size)
+\begin{CompactList}\small\item\em Write a number of 32bit words beginning at a location. \item\end{CompactList}\item 
+int \hyperlink{group__dcsc__msg__buffer__access_g339b5922513d0f0211d7962234faa24f}{rcu\-Single\-Read} (\_\-\_\-u32 address, \_\-\_\-u32 $\ast$p\-Data)
+\begin{CompactList}\small\item\em Read a single location (32bit word). \item\end{CompactList}\item 
+int \hyperlink{group__dcsc__msg__buffer__access_g602216accce6913989f8b04b36157cd6}{rcu\-Multiple\-Read} (\_\-\_\-u32 address, int i\-Size, \_\-\_\-u32 $\ast$p\-Data)
+\begin{CompactList}\small\item\em Read a number of 32bit words beginning at a location. \item\end{CompactList}\item 
+int \hyperlink{group__dcsc__msg__buffer__access_gf7be7371f7530e8eb6e07e6f0d969b04}{dcsc\-Provide\-Message\-Buffer} (\_\-\_\-u32 $\ast$$\ast$pp\-Buffer, int $\ast$p\-Size)
+\begin{CompactList}\small\item\em Provide the message buffer for direct access. \item\end{CompactList}\item 
+int \hyperlink{group__dcsc__msg__buffer__access_g4f25fcb80c8fad99d5d72f96e72bd941}{dcsc\-Prepare\-Message\-Buffer} (\_\-\_\-u32 $\ast$$\ast$pp\-Buffer, int $\ast$p\-Size, unsigned int cmd\-ID, unsigned int flags)
+\begin{CompactList}\small\item\em Prepare the message buffer for a specific command. \item\end{CompactList}\item 
+int \hyperlink{group__dcsc__msg__buffer__access_g96f1fe73877d927a698a396df555767e}{dcsc\-Execute\-Command} (\_\-\_\-u32 $\ast$\hyperlink{dcscMsgBufferInterface_8c_7fe69f55846ac3a138c130665f1f1e49}{p\-Buffer}, int i\-Size, \_\-\_\-u32 $\ast$$\ast$pp\-Target, int $\ast$pp\-Target\-Size, unsigned int operation)
+\begin{CompactList}\small\item\em Execute the message buffer command. \item\end{CompactList}\item 
+\_\-\_\-u32 $\ast$ \hyperlink{dcscMsgBufferInterface_8c_efcfc36007c3593b5a8a4470f491b00d}{get\-PBuffer} ()
+\item 
+\_\-\_\-u32 $\ast$ \hyperlink{dcscMsgBufferInterface_8c_0afcbf1cadaf37bebe31d943d1e17f73}{get\-PMib} ()
+\item 
+\_\-\_\-u32 $\ast$ \hyperlink{dcscMsgBufferInterface_8c_7ec2d678574ac089fb5b477f63e401b8}{get\-PMrb} ()
+\item 
+\_\-\_\-u32 $\ast$ \hyperlink{dcscMsgBufferInterface_8c_db504547e5a72663611294bb926bd78e}{get\-PReg} ()
+\item 
+\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_03db977c9332bc0aede381dd76dc56b6}{get\-Buffer\-Size} ()
+\item 
+\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_a15c12c0ed48fbec3386af023e09f686}{get\-Mib\-Size} ()
+\item 
+\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_68ca288e00b26b52c47ff1c451a7a740}{get\-Mrb\-Size} ()
+\item 
+\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_28be1bd34867ac94d07247e9a2a0f608}{get\-Reg\-Size} ()
+\item 
+int \hyperlink{group__dcsc__msg__buffer__access_gc07186b103fbe4c39531665c95e22c7e}{set\-Debug\-Options} (int options)
+\begin{CompactList}\small\item\em Set the debug options. \item\end{CompactList}\item 
+int \hyperlink{group__dcsc__msg__buffer__access_g36bb01dae6dd6edf579fe9878f9c6a20}{set\-Debug\-Option\-Flag} (int of)
+\begin{CompactList}\small\item\em Set a debug option flag. \item\end{CompactList}\item 
+int \hyperlink{group__dcsc__msg__buffer__access_g41201fc4dd5608bce4261b34eec28ca4}{clear\-Debug\-Option\-Flag} (int of)
+\begin{CompactList}\small\item\em clear a debug option flag. \item\end{CompactList}\item 
+void \hyperlink{dcscMsgBufferInterface_8c_b54d216419ff2c191363373bef5f9cfa}{reset\-Simulation} ()
+\begin{CompactList}\small\item\em Reset the simulation. \item\end{CompactList}\item 
+void \hyperlink{group__dcsc__msg__buffer__access_g0adb3aacb8d7ad32ceabe66a9dcbb401}{start\-Simulation} ()
+\begin{CompactList}\small\item\em Start register simulation. \item\end{CompactList}\item 
+void \hyperlink{group__dcsc__msg__buffer__access_gd871881385919aff64a8b679984cd018}{stop\-Simulation} ()
+\begin{CompactList}\small\item\em Stop the simulation. \item\end{CompactList}\item 
+int \hyperlink{dcscMsgBufferInterface_8c_c897f02e50f4b5ec2ff1ebb321079dff}{get\-DCSCFirmware\-Version\-No} (int i\-Verbosity)
+\item 
+void \hyperlink{group__dcsc__msg__buffer__access_g919bc832f5a0e82c07cfafd699b1b2ea}{print\-Driver\-Info} (int i\-Verbosity)
+\begin{CompactList}\small\item\em Get driver info from the driver and print it. \item\end{CompactList}\item 
+int \hyperlink{group__dcsc__msg__buffer__access_g8dac87332689e82a586ef04eed99d083}{dcsc\-Check\-Msg\-Block} (\_\-\_\-u32 $\ast$\hyperlink{dcscMsgBufferInterface_8c_7fe69f55846ac3a138c130665f1f1e49}{p\-Buffer}, int i\-Size, int i\-Verbosity)
+\begin{CompactList}\small\item\em Check a message block for correct format. \item\end{CompactList}\item 
+int \hyperlink{dcscMsgBufferInterface_8c_43a296326759e30ac7737015915ac8d4}{rcu\-Flash\-Reset} ()
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_521f7b9ab00e8e4142ef1c9be648a5ae}{rcu\-Flash\-ID} ()
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_581fec98c7a23cf22118f4814d460d7f}{rcu\-Bus\-Control\-Cmd\-Ext} (int i\-Cmd, int i\-Verbosity)
+\item 
+int \hyperlink{group__dcsc__msg__buffer__access_gf74b29f8ded2feb57974c95e4863eac8}{rcu\-Bus\-Control\-Cmd} (int i\-Cmd)
+\begin{CompactList}\small\item\em Switch bits in the control register (firmware comstat). \item\end{CompactList}\item 
+int \hyperlink{dcscMsgBufferInterface_8c_7a5b0d57fbd0a68206468a01b0a63520}{msg\-Buf\-Read\-Register} (int reg)
+\begin{CompactList}\small\item\em Read the value of a register from the register buffer. \item\end{CompactList}\item 
+int \hyperlink{dcscMsgBufferInterface_8c_82e19c9d34c7ecebcba115d2a6393b6c}{msg\-Buf\-Write\-Register} (int reg, unsigned char value)
+\begin{CompactList}\small\item\em Write an 8 bit value to a register of the register buffer. \item\end{CompactList}\item 
+int \hyperlink{group__dcsc__msg__buffer__access_g88debbd24075d2031add9459e4d90e2b}{rcu\-Flash\-Write} (\_\-\_\-u32 address, \_\-\_\-u32 $\ast$p\-Data, int i\-Size, int i\-Data\-Size)
+\begin{CompactList}\small\item\em Write to the RCU flash. \item\end{CompactList}\item 
+int \hyperlink{group__dcsc__msg__buffer__access_g24164f14711ead31a7e542711f0a08b3}{rcu\-Flash\-Read} (\_\-\_\-u32 address, int i\-Size, \_\-\_\-u32 $\ast$p\-Data)
+\begin{CompactList}\small\item\em Read a number of 16bit words from the flash memory. \item\end{CompactList}\item 
+int \hyperlink{group__dcsc__msg__buffer__access_g78e6fc883a098cf548e9d0ba618ecb16}{rcu\-Flash\-Erase} (int start\-Sec, int count)
+\begin{CompactList}\small\item\em Erase sectors of the flash. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\hyperlink{structmsgbuf__header__t}{msgbuf\_\-header\_\-t} \hyperlink{dcscMsgBufferInterface_8c_b8683822d01358638b0e48ad37ba710d}{g\_\-msgbuf\_\-header\_\-v1}
+\item 
+\hyperlink{structmsgbuf__header__t}{msgbuf\_\-header\_\-t} \hyperlink{dcscMsgBufferInterface_8c_a6f08fab2276e872d8ed942e2f26533f}{g\_\-msgbuf\_\-header\_\-v2}
+\item 
+\hyperlink{structmsgbuf__header__t}{msgbuf\_\-header\_\-t} \hyperlink{dcscMsgBufferInterface_8c_62670e9e3b9166a6f358a1f7b70e15ff}{g\_\-msgbuf\_\-header\_\-v2\_\-2}
+\item 
+\hyperlink{structmsgbuf__header__t}{msgbuf\_\-header\_\-t} $\ast$ \hyperlink{dcscMsgBufferInterface_8c_4f8d8401958df13cce96167ee736cf5b}{g\_\-p\-Msg\-Buf\_\-header} = \&\hyperlink{dcscMsgBufferInterface_8c_62670e9e3b9166a6f358a1f7b70e15ff}{g\_\-msgbuf\_\-header\_\-v2\_\-2}
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_b7be6eafc12b29f2ad199a268c57e1e9}{g\_\-options} = DBG\_\-DEFAULT
+\item 
+const char $\ast$ \hyperlink{dcscMsgBufferInterface_8c_3373d4f373b46bb9db571b5c565fbd54}{g\_\-p\-Device\-Name} = \char`\"{}/dev/rcu/msgbuf\char`\"{}
+\item 
+static int \hyperlink{dcscMsgBufferInterface_8c_d02a84219948a94ccccd8d1d74d58428}{g\_\-file} = -1
+\item 
+static unsigned int \hyperlink{dcscMsgBufferInterface_8c_5c92db463feaa40473ec2d61f9e14710}{g\_\-dcsc\-Flags} = 0
+\item 
+static int \hyperlink{dcscMsgBufferInterface_8c_d27180528fd90aa1325601260a115eac}{g\_\-verbosity} = 1
+\item 
+static int \hyperlink{dcscMsgBufferInterface_8c_f9e6a315db13d3a3ede8cc5d5863d05c}{g\_\-i\-Driver\-Version} = -1
+\item 
+static int \hyperlink{dcscMsgBufferInterface_8c_1bca35a28e993adee616d0120495093d}{g\_\-i\-Flash\-Access\-Mode} = e\-Flash\-Access\-Actel
+\item 
+static int \hyperlink{dcscMsgBufferInterface_8c_8f4368c0708871a7fbcc022cbd1feb4d}{g\_\-i\-Firmware\-Version} = 0
+\item 
+static int \hyperlink{dcscMsgBufferInterface_8c_806dbee9d4e0afc5d9537b76dfe7191d}{g\_\-b\-Compression} = 0
+\item 
+static \_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_495a8c86b1bb2d42522014597eabf37f}{message\_\-in\_\-buffer\_\-size} = 0x40
+\item 
+static \_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_79d3f044d219391a2189c05580e7dcf4}{message\_\-out\_\-buffer\_\-size} = 0x40
+\item 
+static \_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_dcf4008e0ba96c4e90ee8c3d2e00e543}{message\_\-regfile\_\-size} = 0x10
+\item 
+static \_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_b14fa248541db9ac858fb157c1a8d129}{message\_\-out\_\-buffer\_\-offset} = 0
+\item 
+static \_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_b66ee11d194ff7b952fc0a592839a85b}{regfile\_\-offset} = 0
+\item 
+\_\-\_\-u32 $\ast$ \hyperlink{dcscMsgBufferInterface_8c_7fe69f55846ac3a138c130665f1f1e49}{p\-Buffer} = NULL
+\item 
+\_\-\_\-u32 $\ast$ \hyperlink{dcscMsgBufferInterface_8c_9fbfbf38ff332fc7ff0cdd3b1e778f8a}{p\-Mib} = NULL
+\item 
+\_\-\_\-u32 $\ast$ \hyperlink{dcscMsgBufferInterface_8c_384f64ee5c06a53f375875d6781d3562}{p\-Mrb} = NULL
+\item 
+\_\-\_\-u32 $\ast$ \hyperlink{dcscMsgBufferInterface_8c_12729092e84e294358d87cc007a62a19}{p\-Reg} = NULL
+\item 
+\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_d061ecd64244a4f594e1bf7cd5c50852}{buffer\-Size} = 0
+\item 
+\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_787b1a085825360592bd33bd70bcbac6}{mib\-Size} = 0
+\item 
+\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_19b06c755c94d17a31795cf0c20f5b73}{mrb\-Size} = 0
+\item 
+\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_b0de2854a7876bceaa3732b406c60950}{reg\-Size} = 0
+\item 
+int \hyperlink{dcscMsgBufferInterface_8c_4ccde0dfa241efb5707d62b55d56fd67}{g\_\-App\-ID} = 0
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{dcscMsgBufferInterface_8c_adac1984b9e5d29e2be88f79e7992cb8}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!BUFFER_0_EMPTY@{BUFFER\_\-0\_\-EMPTY}}
+\index{BUFFER_0_EMPTY@{BUFFER\_\-0\_\-EMPTY}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[BUFFER\_\-0\_\-EMPTY]{\setlength{\rightskip}{0pt plus 5cm}\#define BUFFER\_\-0\_\-EMPTY~0x01}}
+\label{dcscMsgBufferInterface_8c_adac1984b9e5d29e2be88f79e7992cb8}
+
+
+
+
+Definition at line 78 of file dcsc\-Msg\-Buffer\-Interface.c.\hypertarget{dcscMsgBufferInterface_8c_213fb5f833fc748d3797dc39faad5fd9}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!BUFFER_1_EMPTY@{BUFFER\_\-1\_\-EMPTY}}
+\index{BUFFER_1_EMPTY@{BUFFER\_\-1\_\-EMPTY}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[BUFFER\_\-1\_\-EMPTY]{\setlength{\rightskip}{0pt plus 5cm}\#define BUFFER\_\-1\_\-EMPTY~0x02}}
+\label{dcscMsgBufferInterface_8c_213fb5f833fc748d3797dc39faad5fd9}
+
+
+
+
+Definition at line 79 of file dcsc\-Msg\-Buffer\-Interface.c.\hypertarget{dcscMsgBufferInterface_8c_2f7ccffc078c85ecb3702c7e891a82ed}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!BUFFER_REREAD@{BUFFER\_\-REREAD}}
+\index{BUFFER_REREAD@{BUFFER\_\-REREAD}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[BUFFER\_\-REREAD]{\setlength{\rightskip}{0pt plus 5cm}\#define BUFFER\_\-REREAD~0x40}}
+\label{dcscMsgBufferInterface_8c_2f7ccffc078c85ecb3702c7e891a82ed}
+
+
+
+
+Definition at line 70 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by check\-Msgin\-Buffer().\hypertarget{dcscMsgBufferInterface_8c_9b55850ff8e03f4d0b43ce298cfa3474}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!COMMAND_EXECUTE@{COMMAND\_\-EXECUTE}}
+\index{COMMAND_EXECUTE@{COMMAND\_\-EXECUTE}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[COMMAND\_\-EXECUTE]{\setlength{\rightskip}{0pt plus 5cm}\#define COMMAND\_\-EXECUTE~0x80}}
+\label{dcscMsgBufferInterface_8c_9b55850ff8e03f4d0b43ce298cfa3474}
+
+
+
+
+Definition at line 69 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by send\-Rcu\-Command().\hypertarget{dcscMsgBufferInterface_8c_70f50b8b60e6daf81f2732470016be3d}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!COMMAND_READY@{COMMAND\_\-READY}}
+\index{COMMAND_READY@{COMMAND\_\-READY}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[COMMAND\_\-READY]{\setlength{\rightskip}{0pt plus 5cm}\#define COMMAND\_\-READY~0x01}}
+\label{dcscMsgBufferInterface_8c_70f50b8b60e6daf81f2732470016be3d}
+
+
+
+
+Definition at line 71 of file dcsc\-Msg\-Buffer\-Interface.c.\hypertarget{dcscMsgBufferInterface_8c_bc765308fc696001b67ec3f13b1e1c19}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!COMPRESSED_DATA_REQUIRED_FW_VERSION@{COMPRESSED\_\-DATA\_\-REQUIRED\_\-FW\_\-VERSION}}
+\index{COMPRESSED_DATA_REQUIRED_FW_VERSION@{COMPRESSED\_\-DATA\_\-REQUIRED\_\-FW\_\-VERSION}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[COMPRESSED\_\-DATA\_\-REQUIRED\_\-FW\_\-VERSION]{\setlength{\rightskip}{0pt plus 5cm}\#define COMPRESSED\_\-DATA\_\-REQUIRED\_\-FW\_\-VERSION~0x00020002}}
+\label{dcscMsgBufferInterface_8c_bc765308fc696001b67ec3f13b1e1c19}
+
+
+
+
+Definition at line 203 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by open\-Device().\hypertarget{dcscMsgBufferInterface_8c_4dae5cf079cf8902776b9d5cada8c013}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!CONFIGURATION_START@{CONFIGURATION\_\-START}}
+\index{CONFIGURATION_START@{CONFIGURATION\_\-START}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[CONFIGURATION\_\-START]{\setlength{\rightskip}{0pt plus 5cm}\#define CONFIGURATION\_\-START~0x80}}
+\label{dcscMsgBufferInterface_8c_4dae5cf079cf8902776b9d5cada8c013}
+
+
+
+
+Definition at line 80 of file dcsc\-Msg\-Buffer\-Interface.c.\hypertarget{dcscMsgBufferInterface_8c_1c509e452a4c9c238b921a6d1f88df0b}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!CONFIGURATION_STATUS_MASK@{CONFIGURATION\_\-STATUS\_\-MASK}}
+\index{CONFIGURATION_STATUS_MASK@{CONFIGURATION\_\-STATUS\_\-MASK}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[CONFIGURATION\_\-STATUS\_\-MASK]{\setlength{\rightskip}{0pt plus 5cm}\#define CONFIGURATION\_\-STATUS\_\-MASK~0x7c}}
+\label{dcscMsgBufferInterface_8c_1c509e452a4c9c238b921a6d1f88df0b}
+
+
+
+
+Definition at line 81 of file dcsc\-Msg\-Buffer\-Interface.c.\hypertarget{dcscMsgBufferInterface_8c_75864786bfd0bad3cf52e822b1aaef39}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!DCSC_FIRMWARE_VERSION_ADDRESS@{DCSC\_\-FIRMWARE\_\-VERSION\_\-ADDRESS}}
+\index{DCSC_FIRMWARE_VERSION_ADDRESS@{DCSC\_\-FIRMWARE\_\-VERSION\_\-ADDRESS}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[DCSC\_\-FIRMWARE\_\-VERSION\_\-ADDRESS]{\setlength{\rightskip}{0pt plus 5cm}\#define DCSC\_\-FIRMWARE\_\-VERSION\_\-ADDRESS~0}}
+\label{dcscMsgBufferInterface_8c_75864786bfd0bad3cf52e822b1aaef39}
+
+
+
+
+Definition at line 41 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by get\-DCSCFirmware\-Version\-No().\hypertarget{dcscMsgBufferInterface_8c_98488604371322be337cf91565994da6}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!DCSC_FIRMWARE_VERSION_DAY_BITSHIFT@{DCSC\_\-FIRMWARE\_\-VERSION\_\-DAY\_\-BITSHIFT}}
+\index{DCSC_FIRMWARE_VERSION_DAY_BITSHIFT@{DCSC\_\-FIRMWARE\_\-VERSION\_\-DAY\_\-BITSHIFT}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[DCSC\_\-FIRMWARE\_\-VERSION\_\-DAY\_\-BITSHIFT]{\setlength{\rightskip}{0pt plus 5cm}\#define DCSC\_\-FIRMWARE\_\-VERSION\_\-DAY\_\-BITSHIFT~DCSC\_\-FIRMWARE\_\-VERSION\_\-MAJOR\_\-BITSHIFT+DCSC\_\-FIRMWARE\_\-VERSION\_\-MAJOR\_\-SIZE}}
+\label{dcscMsgBufferInterface_8c_98488604371322be337cf91565994da6}
+
+
+
+
+Definition at line 49 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by get\-DCSCFirmware\-Version\-No().\hypertarget{dcscMsgBufferInterface_8c_d30381d8a13f9c5a6d045b768fbd53cb}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!DCSC_FIRMWARE_VERSION_DAY_SIZE@{DCSC\_\-FIRMWARE\_\-VERSION\_\-DAY\_\-SIZE}}
+\index{DCSC_FIRMWARE_VERSION_DAY_SIZE@{DCSC\_\-FIRMWARE\_\-VERSION\_\-DAY\_\-SIZE}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[DCSC\_\-FIRMWARE\_\-VERSION\_\-DAY\_\-SIZE]{\setlength{\rightskip}{0pt plus 5cm}\#define DCSC\_\-FIRMWARE\_\-VERSION\_\-DAY\_\-SIZE~5}}
+\label{dcscMsgBufferInterface_8c_d30381d8a13f9c5a6d045b768fbd53cb}
+
+
+
+
+Definition at line 44 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by get\-DCSCFirmware\-Version\-No().\hypertarget{dcscMsgBufferInterface_8c_f37e79037bea859eb7494a1498dd025f}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!DCSC_FIRMWARE_VERSION_MAJOR_BITSHIFT@{DCSC\_\-FIRMWARE\_\-VERSION\_\-MAJOR\_\-BITSHIFT}}
+\index{DCSC_FIRMWARE_VERSION_MAJOR_BITSHIFT@{DCSC\_\-FIRMWARE\_\-VERSION\_\-MAJOR\_\-BITSHIFT}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[DCSC\_\-FIRMWARE\_\-VERSION\_\-MAJOR\_\-BITSHIFT]{\setlength{\rightskip}{0pt plus 5cm}\#define DCSC\_\-FIRMWARE\_\-VERSION\_\-MAJOR\_\-BITSHIFT~DCSC\_\-FIRMWARE\_\-VERSION\_\-MINOR\_\-BITSHIFT+DCSC\_\-FIRMWARE\_\-VERSION\_\-MINOR\_\-SIZE}}
+\label{dcscMsgBufferInterface_8c_f37e79037bea859eb7494a1498dd025f}
+
+
+
+
+Definition at line 48 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by get\-DCSCFirmware\-Version\-No().\hypertarget{dcscMsgBufferInterface_8c_a54dd4c7c4acc8de9dd8fe086d7cf6bb}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!DCSC_FIRMWARE_VERSION_MAJOR_SIZE@{DCSC\_\-FIRMWARE\_\-VERSION\_\-MAJOR\_\-SIZE}}
+\index{DCSC_FIRMWARE_VERSION_MAJOR_SIZE@{DCSC\_\-FIRMWARE\_\-VERSION\_\-MAJOR\_\-SIZE}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[DCSC\_\-FIRMWARE\_\-VERSION\_\-MAJOR\_\-SIZE]{\setlength{\rightskip}{0pt plus 5cm}\#define DCSC\_\-FIRMWARE\_\-VERSION\_\-MAJOR\_\-SIZE~5}}
+\label{dcscMsgBufferInterface_8c_a54dd4c7c4acc8de9dd8fe086d7cf6bb}
+
+
+
+
+Definition at line 43 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by get\-DCSCFirmware\-Version\-No().\hypertarget{dcscMsgBufferInterface_8c_b76c7cf445c9d8ff50871ec2799d4ee0}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!DCSC_FIRMWARE_VERSION_MINOR_BITSHIFT@{DCSC\_\-FIRMWARE\_\-VERSION\_\-MINOR\_\-BITSHIFT}}
+\index{DCSC_FIRMWARE_VERSION_MINOR_BITSHIFT@{DCSC\_\-FIRMWARE\_\-VERSION\_\-MINOR\_\-BITSHIFT}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[DCSC\_\-FIRMWARE\_\-VERSION\_\-MINOR\_\-BITSHIFT]{\setlength{\rightskip}{0pt plus 5cm}\#define DCSC\_\-FIRMWARE\_\-VERSION\_\-MINOR\_\-BITSHIFT~0}}
+\label{dcscMsgBufferInterface_8c_b76c7cf445c9d8ff50871ec2799d4ee0}
+
+
+
+
+Definition at line 47 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by get\-DCSCFirmware\-Version\-No().\hypertarget{dcscMsgBufferInterface_8c_08c75f626c3068c6dbd6f17dbf246aaf}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!DCSC_FIRMWARE_VERSION_MINOR_SIZE@{DCSC\_\-FIRMWARE\_\-VERSION\_\-MINOR\_\-SIZE}}
+\index{DCSC_FIRMWARE_VERSION_MINOR_SIZE@{DCSC\_\-FIRMWARE\_\-VERSION\_\-MINOR\_\-SIZE}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[DCSC\_\-FIRMWARE\_\-VERSION\_\-MINOR\_\-SIZE]{\setlength{\rightskip}{0pt plus 5cm}\#define DCSC\_\-FIRMWARE\_\-VERSION\_\-MINOR\_\-SIZE~6}}
+\label{dcscMsgBufferInterface_8c_08c75f626c3068c6dbd6f17dbf246aaf}
+
+
+
+
+Definition at line 42 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by get\-DCSCFirmware\-Version\-No().\hypertarget{dcscMsgBufferInterface_8c_a391627a6013906ce8256191379fc84c}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!DCSC_FIRMWARE_VERSION_MONTH_BITSHIFT@{DCSC\_\-FIRMWARE\_\-VERSION\_\-MONTH\_\-BITSHIFT}}
+\index{DCSC_FIRMWARE_VERSION_MONTH_BITSHIFT@{DCSC\_\-FIRMWARE\_\-VERSION\_\-MONTH\_\-BITSHIFT}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[DCSC\_\-FIRMWARE\_\-VERSION\_\-MONTH\_\-BITSHIFT]{\setlength{\rightskip}{0pt plus 5cm}\#define DCSC\_\-FIRMWARE\_\-VERSION\_\-MONTH\_\-BITSHIFT~DCSC\_\-FIRMWARE\_\-VERSION\_\-DAY\_\-BITSHIFT+DCSC\_\-FIRMWARE\_\-VERSION\_\-DAY\_\-SIZE}}
+\label{dcscMsgBufferInterface_8c_a391627a6013906ce8256191379fc84c}
+
+
+
+
+Definition at line 50 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by get\-DCSCFirmware\-Version\-No().\hypertarget{dcscMsgBufferInterface_8c_13b20d9f2d646d2fadda6007cd26cdaa}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!DCSC_FIRMWARE_VERSION_MONTH_SIZE@{DCSC\_\-FIRMWARE\_\-VERSION\_\-MONTH\_\-SIZE}}
+\index{DCSC_FIRMWARE_VERSION_MONTH_SIZE@{DCSC\_\-FIRMWARE\_\-VERSION\_\-MONTH\_\-SIZE}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[DCSC\_\-FIRMWARE\_\-VERSION\_\-MONTH\_\-SIZE]{\setlength{\rightskip}{0pt plus 5cm}\#define DCSC\_\-FIRMWARE\_\-VERSION\_\-MONTH\_\-SIZE~4}}
+\label{dcscMsgBufferInterface_8c_13b20d9f2d646d2fadda6007cd26cdaa}
+
+
+
+
+Definition at line 45 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by get\-DCSCFirmware\-Version\-No().\hypertarget{dcscMsgBufferInterface_8c_e086c0440209876059019004ba708309}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!DCSC_FIRMWARE_VERSION_YEAR_BITSHIFT@{DCSC\_\-FIRMWARE\_\-VERSION\_\-YEAR\_\-BITSHIFT}}
+\index{DCSC_FIRMWARE_VERSION_YEAR_BITSHIFT@{DCSC\_\-FIRMWARE\_\-VERSION\_\-YEAR\_\-BITSHIFT}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[DCSC\_\-FIRMWARE\_\-VERSION\_\-YEAR\_\-BITSHIFT]{\setlength{\rightskip}{0pt plus 5cm}\#define DCSC\_\-FIRMWARE\_\-VERSION\_\-YEAR\_\-BITSHIFT~DCSC\_\-FIRMWARE\_\-VERSION\_\-MONTH\_\-BITSHIFT+DCSC\_\-FIRMWARE\_\-VERSION\_\-MONTH\_\-SIZE}}
+\label{dcscMsgBufferInterface_8c_e086c0440209876059019004ba708309}
+
+
+
+
+Definition at line 51 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by get\-DCSCFirmware\-Version\-No().\hypertarget{dcscMsgBufferInterface_8c_db991679898c54c6b6d935308c2a932c}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!DCSC_FIRMWARE_VERSION_YEAR_SIZE@{DCSC\_\-FIRMWARE\_\-VERSION\_\-YEAR\_\-SIZE}}
+\index{DCSC_FIRMWARE_VERSION_YEAR_SIZE@{DCSC\_\-FIRMWARE\_\-VERSION\_\-YEAR\_\-SIZE}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[DCSC\_\-FIRMWARE\_\-VERSION\_\-YEAR\_\-SIZE]{\setlength{\rightskip}{0pt plus 5cm}\#define DCSC\_\-FIRMWARE\_\-VERSION\_\-YEAR\_\-SIZE~12}}
+\label{dcscMsgBufferInterface_8c_db991679898c54c6b6d935308c2a932c}
+
+
+
+
+Definition at line 46 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by get\-DCSCFirmware\-Version\-No().\hypertarget{dcscMsgBufferInterface_8c_1baa1f37dbf9e2a31b9ba3c5fe03f8c2}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!DCSC_REQUIRED_DRIVER_VERSION_MAJOR@{DCSC\_\-REQUIRED\_\-DRIVER\_\-VERSION\_\-MAJOR}}
+\index{DCSC_REQUIRED_DRIVER_VERSION_MAJOR@{DCSC\_\-REQUIRED\_\-DRIVER\_\-VERSION\_\-MAJOR}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[DCSC\_\-REQUIRED\_\-DRIVER\_\-VERSION\_\-MAJOR]{\setlength{\rightskip}{0pt plus 5cm}\#define DCSC\_\-REQUIRED\_\-DRIVER\_\-VERSION\_\-MAJOR~0}}
+\label{dcscMsgBufferInterface_8c_1baa1f37dbf9e2a31b9ba3c5fe03f8c2}
+
+
+
+
+Definition at line 58 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by print\-Driver\-Info().\hypertarget{dcscMsgBufferInterface_8c_bfb122dc93ebc51560b36ce3e3a72587}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!DCSC_REQUIRED_DRIVER_VERSION_MINOR@{DCSC\_\-REQUIRED\_\-DRIVER\_\-VERSION\_\-MINOR}}
+\index{DCSC_REQUIRED_DRIVER_VERSION_MINOR@{DCSC\_\-REQUIRED\_\-DRIVER\_\-VERSION\_\-MINOR}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[DCSC\_\-REQUIRED\_\-DRIVER\_\-VERSION\_\-MINOR]{\setlength{\rightskip}{0pt plus 5cm}\#define DCSC\_\-REQUIRED\_\-DRIVER\_\-VERSION\_\-MINOR~6}}
+\label{dcscMsgBufferInterface_8c_bfb122dc93ebc51560b36ce3e3a72587}
+
+
+
+
+Definition at line 59 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by print\-Driver\-Info().\hypertarget{dcscMsgBufferInterface_8c_4d1f864d075f2c5485bdac2fbd2d6fdc}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!DIRECT_BUS_ACTIVATE@{DIRECT\_\-BUS\_\-ACTIVATE}}
+\index{DIRECT_BUS_ACTIVATE@{DIRECT\_\-BUS\_\-ACTIVATE}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[DIRECT\_\-BUS\_\-ACTIVATE]{\setlength{\rightskip}{0pt plus 5cm}\#define DIRECT\_\-BUS\_\-ACTIVATE~0x08}}
+\label{dcscMsgBufferInterface_8c_4d1f864d075f2c5485bdac2fbd2d6fdc}
+
+
+
+
+Definition at line 73 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by check\-State(), and rcu\-Bus\-Control\-Cmd\-Ext().\hypertarget{dcscMsgBufferInterface_8c_b6c9d26af633ec5b8831ff7566490a4a}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!FIRMWARE_RESET@{FIRMWARE\_\-RESET}}
+\index{FIRMWARE_RESET@{FIRMWARE\_\-RESET}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[FIRMWARE\_\-RESET]{\setlength{\rightskip}{0pt plus 5cm}\#define FIRMWARE\_\-RESET~0x02}}
+\label{dcscMsgBufferInterface_8c_b6c9d26af633ec5b8831ff7566490a4a}
+
+
+
+
+Definition at line 75 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Bus\-Control\-Cmd\-Ext().\hypertarget{dcscMsgBufferInterface_8c_79e963ab962fb4877a033f8e336cfa75}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!FLASH_DCS_ACCESS_REQUIRED_FW_VERSION@{FLASH\_\-DCS\_\-ACCESS\_\-REQUIRED\_\-FW\_\-VERSION}}
+\index{FLASH_DCS_ACCESS_REQUIRED_FW_VERSION@{FLASH\_\-DCS\_\-ACCESS\_\-REQUIRED\_\-FW\_\-VERSION}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[FLASH\_\-DCS\_\-ACCESS\_\-REQUIRED\_\-FW\_\-VERSION]{\setlength{\rightskip}{0pt plus 5cm}\#define FLASH\_\-DCS\_\-ACCESS\_\-REQUIRED\_\-FW\_\-VERSION~0x00020002}}
+\label{dcscMsgBufferInterface_8c_79e963ab962fb4877a033f8e336cfa75}
+
+
+
+
+Definition at line 202 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by open\-Device(), and rcu\-Bus\-Control\-Cmd\-Ext().\hypertarget{dcscMsgBufferInterface_8c_5e5a4ee8bc8d4a47d5639877453a5902}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!GENERAL_CTRL_REG_ADDR@{GENERAL\_\-CTRL\_\-REG\_\-ADDR}}
+\index{GENERAL_CTRL_REG_ADDR@{GENERAL\_\-CTRL\_\-REG\_\-ADDR}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[GENERAL\_\-CTRL\_\-REG\_\-ADDR]{\setlength{\rightskip}{0pt plus 5cm}\#define GENERAL\_\-CTRL\_\-REG\_\-ADDR~0x00}}
+\label{dcscMsgBufferInterface_8c_5e5a4ee8bc8d4a47d5639877453a5902}
+
+
+
+
+Definition at line 63 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by check\-Msgin\-Buffer(), check\-State(), msg\-Buf\-Read\-Register(), msg\-Buf\-Write\-Register(), open\-Device(), rcu\-Bus\-Control\-Cmd\-Ext(), read\-Dcsc\-Register(), send\-Rcu\-Command(), and write\-Dcsc\-Register().\hypertarget{dcscMsgBufferInterface_8c_5e48c2311cfed1989bded60dc5db6465}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!MAJOR_VERSION_NO_REG_ADDR@{MAJOR\_\-VERSION\_\-NO\_\-REG\_\-ADDR}}
+\index{MAJOR_VERSION_NO_REG_ADDR@{MAJOR\_\-VERSION\_\-NO\_\-REG\_\-ADDR}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[MAJOR\_\-VERSION\_\-NO\_\-REG\_\-ADDR]{\setlength{\rightskip}{0pt plus 5cm}\#define MAJOR\_\-VERSION\_\-NO\_\-REG\_\-ADDR~0x04}}
+\label{dcscMsgBufferInterface_8c_5e48c2311cfed1989bded60dc5db6465}
+
+
+
+
+Definition at line 64 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by open\-Device().\hypertarget{dcscMsgBufferInterface_8c_6e51c6ce734d0318a349af8c96562a65}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!MINOR_VERSION_NO_REG_ADDR@{MINOR\_\-VERSION\_\-NO\_\-REG\_\-ADDR}}
+\index{MINOR_VERSION_NO_REG_ADDR@{MINOR\_\-VERSION\_\-NO\_\-REG\_\-ADDR}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[MINOR\_\-VERSION\_\-NO\_\-REG\_\-ADDR]{\setlength{\rightskip}{0pt plus 5cm}\#define MINOR\_\-VERSION\_\-NO\_\-REG\_\-ADDR~0x08}}
+\label{dcscMsgBufferInterface_8c_6e51c6ce734d0318a349af8c96562a65}
+
+
+
+
+Definition at line 65 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by open\-Device().\hypertarget{dcscMsgBufferInterface_8c_dd15047fa00625fe09f7373fa9b96956}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!MSGBUF_MODE_FLASH@{MSGBUF\_\-MODE\_\-FLASH}}
+\index{MSGBUF_MODE_FLASH@{MSGBUF\_\-MODE\_\-FLASH}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[MSGBUF\_\-MODE\_\-FLASH]{\setlength{\rightskip}{0pt plus 5cm}\#define MSGBUF\_\-MODE\_\-FLASH~0x1}}
+\label{dcscMsgBufferInterface_8c_dd15047fa00625fe09f7373fa9b96956}
+
+
+
+
+Definition at line 206 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Read(), rcu\-Flash\-Reset(), rcu\-Flash\-Write(), and send\-Rcu\-Command().\hypertarget{dcscMsgBufferInterface_8c_43d1a33daf4c8a3e3e3a8be0d26c8280}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!MSGBUF_MODE_MEMMAPPED@{MSGBUF\_\-MODE\_\-MEMMAPPED}}
+\index{MSGBUF_MODE_MEMMAPPED@{MSGBUF\_\-MODE\_\-MEMMAPPED}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[MSGBUF\_\-MODE\_\-MEMMAPPED]{\setlength{\rightskip}{0pt plus 5cm}\#define MSGBUF\_\-MODE\_\-MEMMAPPED~0x0}}
+\label{dcscMsgBufferInterface_8c_43d1a33daf4c8a3e3e3a8be0d26c8280}
+
+
+
+
+Definition at line 205 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Multiple\-Read(), rcu\-Multiple\-Write(), rcu\-Single\-Read(), and rcu\-Single\-Write().\hypertarget{dcscMsgBufferInterface_8c_a55bbb692b1c5e89d3a5c3bee1ce8399}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!POLY@{POLY}}
+\index{POLY@{POLY}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[POLY]{\setlength{\rightskip}{0pt plus 5cm}\#define POLY~0x8408}}
+\label{dcscMsgBufferInterface_8c_a55bbb692b1c5e89d3a5c3bee1ce8399}
+
+
+
+
+Definition at line 263 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by crc16().\hypertarget{dcscMsgBufferInterface_8c_49531fceea54dcf50eabdfe556c96209}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FIRMWARE_VERSION_ADDRESS@{RCU\_\-FIRMWARE\_\-VERSION\_\-ADDRESS}}
+\index{RCU_FIRMWARE_VERSION_ADDRESS@{RCU\_\-FIRMWARE\_\-VERSION\_\-ADDRESS}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FIRMWARE\_\-VERSION\_\-ADDRESS]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FIRMWARE\_\-VERSION\_\-ADDRESS~0x1001}}
+\label{dcscMsgBufferInterface_8c_49531fceea54dcf50eabdfe556c96209}
+
+
+
+
+Definition at line 52 of file dcsc\-Msg\-Buffer\-Interface.c.\hypertarget{dcscMsgBufferInterface_8c_a574330236c8393e2a57844c9c624d4b}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_ADDRH@{RCU\_\-FLASH\_\-ADDRH}}
+\index{RCU_FLASH_ADDRH@{RCU\_\-FLASH\_\-ADDRH}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-ADDRH]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-ADDRH~0xb101}}
+\label{dcscMsgBufferInterface_8c_a574330236c8393e2a57844c9c624d4b}
+
+
+
+
+Definition at line 2101 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Read(), and rcu\-Flash\-Write().\hypertarget{dcscMsgBufferInterface_8c_1f3db1449ecbab3e6c966fe249c050f2}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_ADDRL@{RCU\_\-FLASH\_\-ADDRL}}
+\index{RCU_FLASH_ADDRL@{RCU\_\-FLASH\_\-ADDRL}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-ADDRL]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-ADDRL~0xb102}}
+\label{dcscMsgBufferInterface_8c_1f3db1449ecbab3e6c966fe249c050f2}
+
+
+
+
+Definition at line 2104 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Read(), and rcu\-Flash\-Write().\hypertarget{dcscMsgBufferInterface_8c_d37046ce6a9ba94c6cc510ae2e5b474f}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_AHBSHFT@{RCU\_\-FLASH\_\-AHBSHFT}}
+\index{RCU_FLASH_AHBSHFT@{RCU\_\-FLASH\_\-AHBSHFT}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-AHBSHFT]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-AHBSHFT~16}}
+\label{dcscMsgBufferInterface_8c_d37046ce6a9ba94c6cc510ae2e5b474f}
+
+
+
+
+Definition at line 2103 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Read(), and rcu\-Flash\-Write().\hypertarget{dcscMsgBufferInterface_8c_59f0a8361f2384977c2075fd804fcb37}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_AHMASK@{RCU\_\-FLASH\_\-AHMASK}}
+\index{RCU_FLASH_AHMASK@{RCU\_\-FLASH\_\-AHMASK}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-AHMASK]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-AHMASK~0x0ff0000}}
+\label{dcscMsgBufferInterface_8c_59f0a8361f2384977c2075fd804fcb37}
+
+
+
+
+Definition at line 2102 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Read(), and rcu\-Flash\-Write().\hypertarget{dcscMsgBufferInterface_8c_7e4b1d5f8e6bc2649741a13165f75887}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_ALMASK@{RCU\_\-FLASH\_\-ALMASK}}
+\index{RCU_FLASH_ALMASK@{RCU\_\-FLASH\_\-ALMASK}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-ALMASK]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-ALMASK~0x000ffff}}
+\label{dcscMsgBufferInterface_8c_7e4b1d5f8e6bc2649741a13165f75887}
+
+
+
+
+Definition at line 2105 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Read(), and rcu\-Flash\-Write().\hypertarget{dcscMsgBufferInterface_8c_0e2ea81bd16845c499679a5eb0954786}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_CMD@{RCU\_\-FLASH\_\-CMD}}
+\index{RCU_FLASH_CMD@{RCU\_\-FLASH\_\-CMD}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-CMD]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-CMD~0xb000}}
+\label{dcscMsgBufferInterface_8c_0e2ea81bd16845c499679a5eb0954786}
+
+
+
+
+Definition at line 2099 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Read(), rcu\-Flash\-Reset(), and rcu\-Flash\-Write().\hypertarget{dcscMsgBufferInterface_8c_e089e7d822c06f48119e8b2ab64b63ce}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_DATA@{RCU\_\-FLASH\_\-DATA}}
+\index{RCU_FLASH_DATA@{RCU\_\-FLASH\_\-DATA}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-DATA]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-DATA~0xb103}}
+\label{dcscMsgBufferInterface_8c_e089e7d822c06f48119e8b2ab64b63ce}
+
+
+
+
+Definition at line 2106 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Write().\hypertarget{dcscMsgBufferInterface_8c_e2d29784b208a711578def62cdac7973}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_DEFAULT_WAITCYCLE@{RCU\_\-FLASH\_\-DEFAULT\_\-WAITCYCLE}}
+\index{RCU_FLASH_DEFAULT_WAITCYCLE@{RCU\_\-FLASH\_\-DEFAULT\_\-WAITCYCLE}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-DEFAULT\_\-WAITCYCLE]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-DEFAULT\_\-WAITCYCLE~5}}
+\label{dcscMsgBufferInterface_8c_e2d29784b208a711578def62cdac7973}
+
+
+
+
+Definition at line 2126 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-ID(), rcu\-Flash\-Read(), rcu\-Flash\-Reset(), and rcu\-Flash\-Write().\hypertarget{dcscMsgBufferInterface_8c_a0c0c1c383a12804bcf210feb8664d52}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_ERASE_WAITCYCLE@{RCU\_\-FLASH\_\-ERASE\_\-WAITCYCLE}}
+\index{RCU_FLASH_ERASE_WAITCYCLE@{RCU\_\-FLASH\_\-ERASE\_\-WAITCYCLE}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-ERASE\_\-WAITCYCLE]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-ERASE\_\-WAITCYCLE~1000000}}
+\label{dcscMsgBufferInterface_8c_a0c0c1c383a12804bcf210feb8664d52}
+
+
+
+
+Definition at line 2127 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Erase().\hypertarget{dcscMsgBufferInterface_8c_673b122bf8515a7092b182531d32d9f7}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_ERASEALL@{RCU\_\-FLASH\_\-ERASEALL}}
+\index{RCU_FLASH_ERASEALL@{RCU\_\-FLASH\_\-ERASEALL}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-ERASEALL]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-ERASEALL~0x02}}
+\label{dcscMsgBufferInterface_8c_673b122bf8515a7092b182531d32d9f7}
+
+
+
+
+Definition at line 2109 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Erase().\hypertarget{dcscMsgBufferInterface_8c_9202c87268203e6a08727b379fac4153}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_ERASESEC@{RCU\_\-FLASH\_\-ERASESEC}}
+\index{RCU_FLASH_ERASESEC@{RCU\_\-FLASH\_\-ERASESEC}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-ERASESEC]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-ERASESEC~0x20}}
+\label{dcscMsgBufferInterface_8c_9202c87268203e6a08727b379fac4153}
+
+
+
+
+Definition at line 2112 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Erase().\hypertarget{dcscMsgBufferInterface_8c_2b38074d9bb2f373ffc5379832827f22}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_ID_HADDR@{RCU\_\-FLASH\_\-ID\_\-HADDR}}
+\index{RCU_FLASH_ID_HADDR@{RCU\_\-FLASH\_\-ID\_\-HADDR}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-ID\_\-HADDR]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-ID\_\-HADDR~0x0}}
+\label{dcscMsgBufferInterface_8c_2b38074d9bb2f373ffc5379832827f22}
+
+
+
+
+Definition at line 2117 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-ID().\hypertarget{dcscMsgBufferInterface_8c_f8a2ca3091a13ab6480ba0299ca29d67}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_ID_LADDR@{RCU\_\-FLASH\_\-ID\_\-LADDR}}
+\index{RCU_FLASH_ID_LADDR@{RCU\_\-FLASH\_\-ID\_\-LADDR}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-ID\_\-LADDR]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-ID\_\-LADDR~0x1}}
+\label{dcscMsgBufferInterface_8c_f8a2ca3091a13ab6480ba0299ca29d67}
+
+
+
+
+Definition at line 2118 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-ID().\hypertarget{dcscMsgBufferInterface_8c_446e3f66581bcc6c976dd9073fd0a30f}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_IDCMD@{RCU\_\-FLASH\_\-IDCMD}}
+\index{RCU_FLASH_IDCMD@{RCU\_\-FLASH\_\-IDCMD}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-IDCMD]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-IDCMD~0x01}}
+\label{dcscMsgBufferInterface_8c_446e3f66581bcc6c976dd9073fd0a30f}
+
+
+
+
+Definition at line 2115 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-ID().\hypertarget{dcscMsgBufferInterface_8c_e04589b86387e507db0bfc456e443a94}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_MAX_WAITSTATES@{RCU\_\-FLASH\_\-MAX\_\-WAITSTATES}}
+\index{RCU_FLASH_MAX_WAITSTATES@{RCU\_\-FLASH\_\-MAX\_\-WAITSTATES}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-MAX\_\-WAITSTATES]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-MAX\_\-WAITSTATES~60}}
+\label{dcscMsgBufferInterface_8c_e04589b86387e507db0bfc456e443a94}
+
+
+
+
+Definition at line 2128 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Read(), rcu\-Flash\-Reset(), and rcu\-Flash\-Write().\hypertarget{dcscMsgBufferInterface_8c_32e26443cd88b0858ebfaa8808e2ecb4}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_NOF_SECTORS@{RCU\_\-FLASH\_\-NOF\_\-SECTORS}}
+\index{RCU_FLASH_NOF_SECTORS@{RCU\_\-FLASH\_\-NOF\_\-SECTORS}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-NOF\_\-SECTORS]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-NOF\_\-SECTORS~1024}}
+\label{dcscMsgBufferInterface_8c_32e26443cd88b0858ebfaa8808e2ecb4}
+
+
+
+
+Definition at line 2120 of file dcsc\-Msg\-Buffer\-Interface.c.\hypertarget{dcscMsgBufferInterface_8c_4d833f7a552ea655eb00a3c1e0a4625b}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_READCMD@{RCU\_\-FLASH\_\-READCMD}}
+\index{RCU_FLASH_READCMD@{RCU\_\-FLASH\_\-READCMD}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-READCMD]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-READCMD~0x08}}
+\label{dcscMsgBufferInterface_8c_4d833f7a552ea655eb00a3c1e0a4625b}
+
+
+
+
+Definition at line 2111 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-ID(), and rcu\-Flash\-Read().\hypertarget{dcscMsgBufferInterface_8c_4265fbc6d30be38e3c224c19f040dc24}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_READRES@{RCU\_\-FLASH\_\-READRES}}
+\index{RCU_FLASH_READRES@{RCU\_\-FLASH\_\-READRES}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-READRES]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-READRES~0xb105}}
+\label{dcscMsgBufferInterface_8c_4265fbc6d30be38e3c224c19f040dc24}
+
+
+
+
+Definition at line 2107 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-ID(), and rcu\-Flash\-Read().\hypertarget{dcscMsgBufferInterface_8c_cb9417e9987868ff16753aeefc7c1ed7}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_RESETCMD@{RCU\_\-FLASH\_\-RESETCMD}}
+\index{RCU_FLASH_RESETCMD@{RCU\_\-FLASH\_\-RESETCMD}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-RESETCMD]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-RESETCMD~0x10}}
+\label{dcscMsgBufferInterface_8c_cb9417e9987868ff16753aeefc7c1ed7}
+
+
+
+
+Definition at line 2114 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Reset().\hypertarget{dcscMsgBufferInterface_8c_b4ba6557e760a93da421bad9662f475f}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_SIZE@{RCU\_\-FLASH\_\-SIZE}}
+\index{RCU_FLASH_SIZE@{RCU\_\-FLASH\_\-SIZE}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-SIZE]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-SIZE~0x1000000}}
+\label{dcscMsgBufferInterface_8c_b4ba6557e760a93da421bad9662f475f}
+
+
+
+
+Definition at line 2098 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Read(), and rcu\-Flash\-Write().\hypertarget{dcscMsgBufferInterface_8c_8e7a28e78b6a1aae377f797434b578aa}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_STATE_BUSY@{RCU\_\-FLASH\_\-STATE\_\-BUSY}}
+\index{RCU_FLASH_STATE_BUSY@{RCU\_\-FLASH\_\-STATE\_\-BUSY}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-STATE\_\-BUSY]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-STATE\_\-BUSY~0x4000}}
+\label{dcscMsgBufferInterface_8c_8e7a28e78b6a1aae377f797434b578aa}
+
+
+
+
+Definition at line 2123 of file dcsc\-Msg\-Buffer\-Interface.c.\hypertarget{dcscMsgBufferInterface_8c_56ed0b868991c0beee3f4e4f867b71bf}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_STATE_IDLE@{RCU\_\-FLASH\_\-STATE\_\-IDLE}}
+\index{RCU_FLASH_STATE_IDLE@{RCU\_\-FLASH\_\-STATE\_\-IDLE}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-STATE\_\-IDLE]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-STATE\_\-IDLE~0x0}}
+\label{dcscMsgBufferInterface_8c_56ed0b868991c0beee3f4e4f867b71bf}
+
+
+
+
+Definition at line 2122 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Read(), rcu\-Flash\-Reset(), and rcu\-Flash\-Write().\hypertarget{dcscMsgBufferInterface_8c_160c65461ec6cf1bcc91afbd9d8ddecd}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_STATE_MASK@{RCU\_\-FLASH\_\-STATE\_\-MASK}}
+\index{RCU_FLASH_STATE_MASK@{RCU\_\-FLASH\_\-STATE\_\-MASK}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-STATE\_\-MASK]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-STATE\_\-MASK~0xffff}}
+\label{dcscMsgBufferInterface_8c_160c65461ec6cf1bcc91afbd9d8ddecd}
+
+
+
+
+Definition at line 2124 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Read(), rcu\-Flash\-Reset(), and rcu\-Flash\-Write().\hypertarget{dcscMsgBufferInterface_8c_a1930cbdd5dc47368f763d10b8b33e76}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_STATUS@{RCU\_\-FLASH\_\-STATUS}}
+\index{RCU_FLASH_STATUS@{RCU\_\-FLASH\_\-STATUS}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-STATUS]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-STATUS~0xb100}}
+\label{dcscMsgBufferInterface_8c_a1930cbdd5dc47368f763d10b8b33e76}
+
+
+
+
+Definition at line 2100 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Read(), rcu\-Flash\-Reset(), and rcu\-Flash\-Write().\hypertarget{dcscMsgBufferInterface_8c_6f7e2e5f89f23373f3086f1c8e8cd772}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCU_FLASH_WRITECMD@{RCU\_\-FLASH\_\-WRITECMD}}
+\index{RCU_FLASH_WRITECMD@{RCU\_\-FLASH\_\-WRITECMD}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCU\_\-FLASH\_\-WRITECMD]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-FLASH\_\-WRITECMD~0x04}}
+\label{dcscMsgBufferInterface_8c_6f7e2e5f89f23373f3086f1c8e8cd772}
+
+
+
+
+Definition at line 2110 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by rcu\-Flash\-Write().\hypertarget{dcscMsgBufferInterface_8c_b1aac628137507cee08f784b077dc7a3}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCUBUS_DRIVER_VERSION_MAJOR_BITSHIFT@{RCUBUS\_\-DRIVER\_\-VERSION\_\-MAJOR\_\-BITSHIFT}}
+\index{RCUBUS_DRIVER_VERSION_MAJOR_BITSHIFT@{RCUBUS\_\-DRIVER\_\-VERSION\_\-MAJOR\_\-BITSHIFT}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCUBUS\_\-DRIVER\_\-VERSION\_\-MAJOR\_\-BITSHIFT]{\setlength{\rightskip}{0pt plus 5cm}\#define RCUBUS\_\-DRIVER\_\-VERSION\_\-MAJOR\_\-BITSHIFT~16}}
+\label{dcscMsgBufferInterface_8c_b1aac628137507cee08f784b077dc7a3}
+
+
+
+
+Definition at line 54 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by print\-Driver\-Info().\hypertarget{dcscMsgBufferInterface_8c_d8ee646d2645be3776385a511ada8857}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCUBUS_DRIVER_VERSION_MAJOR_SIZE@{RCUBUS\_\-DRIVER\_\-VERSION\_\-MAJOR\_\-SIZE}}
+\index{RCUBUS_DRIVER_VERSION_MAJOR_SIZE@{RCUBUS\_\-DRIVER\_\-VERSION\_\-MAJOR\_\-SIZE}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCUBUS\_\-DRIVER\_\-VERSION\_\-MAJOR\_\-SIZE]{\setlength{\rightskip}{0pt plus 5cm}\#define RCUBUS\_\-DRIVER\_\-VERSION\_\-MAJOR\_\-SIZE~16}}
+\label{dcscMsgBufferInterface_8c_d8ee646d2645be3776385a511ada8857}
+
+
+
+
+Definition at line 55 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by print\-Driver\-Info().\hypertarget{dcscMsgBufferInterface_8c_df7585e2ae0887eafd6d5f8e5a067456}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCUBUS_DRIVER_VERSION_MINOR_BITSHIFT@{RCUBUS\_\-DRIVER\_\-VERSION\_\-MINOR\_\-BITSHIFT}}
+\index{RCUBUS_DRIVER_VERSION_MINOR_BITSHIFT@{RCUBUS\_\-DRIVER\_\-VERSION\_\-MINOR\_\-BITSHIFT}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCUBUS\_\-DRIVER\_\-VERSION\_\-MINOR\_\-BITSHIFT]{\setlength{\rightskip}{0pt plus 5cm}\#define RCUBUS\_\-DRIVER\_\-VERSION\_\-MINOR\_\-BITSHIFT~0}}
+\label{dcscMsgBufferInterface_8c_df7585e2ae0887eafd6d5f8e5a067456}
+
+
+
+
+Definition at line 56 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by print\-Driver\-Info().\hypertarget{dcscMsgBufferInterface_8c_6c870bb288c3c18682b030fc5a6ba8b6}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!RCUBUS_DRIVER_VERSION_MINOR_SIZE@{RCUBUS\_\-DRIVER\_\-VERSION\_\-MINOR\_\-SIZE}}
+\index{RCUBUS_DRIVER_VERSION_MINOR_SIZE@{RCUBUS\_\-DRIVER\_\-VERSION\_\-MINOR\_\-SIZE}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[RCUBUS\_\-DRIVER\_\-VERSION\_\-MINOR\_\-SIZE]{\setlength{\rightskip}{0pt plus 5cm}\#define RCUBUS\_\-DRIVER\_\-VERSION\_\-MINOR\_\-SIZE~16}}
+\label{dcscMsgBufferInterface_8c_6c870bb288c3c18682b030fc5a6ba8b6}
+
+
+
+
+Definition at line 57 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by print\-Driver\-Info().\hypertarget{dcscMsgBufferInterface_8c_5bba619a22aacc925c7a8c1810a1b765}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!REGISTER_3_ADDR@{REGISTER\_\-3\_\-ADDR}}
+\index{REGISTER_3_ADDR@{REGISTER\_\-3\_\-ADDR}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[REGISTER\_\-3\_\-ADDR]{\setlength{\rightskip}{0pt plus 5cm}\#define REGISTER\_\-3\_\-ADDR~0x0c}}
+\label{dcscMsgBufferInterface_8c_5bba619a22aacc925c7a8c1810a1b765}
+
+
+
+
+Definition at line 66 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by open\-Device().\hypertarget{dcscMsgBufferInterface_8c_9d6e5e94f720e2db30b0cbf27a8d8348}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!SELECTMAP_ACTIVATE@{SELECTMAP\_\-ACTIVATE}}
+\index{SELECTMAP_ACTIVATE@{SELECTMAP\_\-ACTIVATE}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[SELECTMAP\_\-ACTIVATE]{\setlength{\rightskip}{0pt plus 5cm}\#define SELECTMAP\_\-ACTIVATE~0x04}}
+\label{dcscMsgBufferInterface_8c_9d6e5e94f720e2db30b0cbf27a8d8348}
+
+
+
+
+Definition at line 74 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by check\-State(), and rcu\-Bus\-Control\-Cmd\-Ext().\hypertarget{dcscMsgBufferInterface_8c_71390dabb2b6067dc3341f17e7468fa3}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!SIGNAL_CONFIGURATION@{SIGNAL\_\-CONFIGURATION}}
+\index{SIGNAL_CONFIGURATION@{SIGNAL\_\-CONFIGURATION}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[SIGNAL\_\-CONFIGURATION]{\setlength{\rightskip}{0pt plus 5cm}\#define SIGNAL\_\-CONFIGURATION~0x20}}
+\label{dcscMsgBufferInterface_8c_71390dabb2b6067dc3341f17e7468fa3}
+
+
+
+
+Definition at line 72 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by read\-Dcsc\-Register(), and write\-Dcsc\-Register().
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{dcscMsgBufferInterface_8c_61dadd085c1777f559549e05962b2c9e}{
+\subsubsection["@5]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}
+\label{dcscMsgBufferInterface_8c_61dadd085c1777f559549e05962b2c9e}
+
+
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{eFlashAccessActel@{eFlashAccessActel}!dcscMsgBufferInterface.c@{dcscMsgBufferInterface.c}}\index{dcscMsgBufferInterface.c@{dcscMsgBufferInterface.c}!eFlashAccessActel@{eFlashAccessActel}}\item[{\em 
+\hypertarget{dcscMsgBufferInterface_8c_61dadd085c1777f559549e05962b2c9e4e6055c7ab7b1a0a31466a8319097c8c}{
+e\-Flash\-Access\-Actel}
+\label{dcscMsgBufferInterface_8c_61dadd085c1777f559549e05962b2c9e4e6055c7ab7b1a0a31466a8319097c8c}
+}]\index{eFlashAccessDcsc@{eFlashAccessDcsc}!dcscMsgBufferInterface.c@{dcscMsgBufferInterface.c}}\index{dcscMsgBufferInterface.c@{dcscMsgBufferInterface.c}!eFlashAccessDcsc@{eFlashAccessDcsc}}\item[{\em 
+\hypertarget{dcscMsgBufferInterface_8c_61dadd085c1777f559549e05962b2c9e6cf7cfe71b6e370264b635cb802de05c}{
+e\-Flash\-Access\-Dcsc}
+\label{dcscMsgBufferInterface_8c_61dadd085c1777f559549e05962b2c9e6cf7cfe71b6e370264b635cb802de05c}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 197 of file dcsc\-Msg\-Buffer\-Interface.c.\hypertarget{dcscMsgBufferInterface_8c_726ca809ffd3d67ab4b8476646f26635}{
+\subsubsection["@6]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}
+\label{dcscMsgBufferInterface_8c_726ca809ffd3d67ab4b8476646f26635}
+
+
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{eUnknownState@{eUnknownState}!dcscMsgBufferInterface.c@{dcscMsgBufferInterface.c}}\index{dcscMsgBufferInterface.c@{dcscMsgBufferInterface.c}!eUnknownState@{eUnknownState}}\item[{\em 
+\hypertarget{dcscMsgBufferInterface_8c_726ca809ffd3d67ab4b8476646f266354ae6b4c2833dc22c6e2c5452e058fe71}{
+e\-Unknown\-State}
+\label{dcscMsgBufferInterface_8c_726ca809ffd3d67ab4b8476646f266354ae6b4c2833dc22c6e2c5452e058fe71}
+}]\index{eMsgBuffer@{eMsgBuffer}!dcscMsgBufferInterface.c@{dcscMsgBufferInterface.c}}\index{dcscMsgBufferInterface.c@{dcscMsgBufferInterface.c}!eMsgBuffer@{eMsgBuffer}}\item[{\em 
+\hypertarget{dcscMsgBufferInterface_8c_726ca809ffd3d67ab4b8476646f266352ff61919acdf82129a2264a7ec8c7f03}{
+e\-Msg\-Buffer}
+\label{dcscMsgBufferInterface_8c_726ca809ffd3d67ab4b8476646f266352ff61919acdf82129a2264a7ec8c7f03}
+}]\index{eSelectMap@{eSelectMap}!dcscMsgBufferInterface.c@{dcscMsgBufferInterface.c}}\index{dcscMsgBufferInterface.c@{dcscMsgBufferInterface.c}!eSelectMap@{eSelectMap}}\item[{\em 
+\hypertarget{dcscMsgBufferInterface_8c_726ca809ffd3d67ab4b8476646f26635c27294feb964f9572a7f0902b0a028d7}{
+e\-Select\-Map}
+\label{dcscMsgBufferInterface_8c_726ca809ffd3d67ab4b8476646f26635c27294feb964f9572a7f0902b0a028d7}
+}]\index{eFlash@{eFlash}!dcscMsgBufferInterface.c@{dcscMsgBufferInterface.c}}\index{dcscMsgBufferInterface.c@{dcscMsgBufferInterface.c}!eFlash@{eFlash}}\item[{\em 
+\hypertarget{dcscMsgBufferInterface_8c_726ca809ffd3d67ab4b8476646f266350b710956d4430ea58c0d405848ba76b9}{
+e\-Flash}
+\label{dcscMsgBufferInterface_8c_726ca809ffd3d67ab4b8476646f266350b710956d4430ea58c0d405848ba76b9}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 909 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+\subsection{Function Documentation}
+\hypertarget{dcscMsgBufferInterface_8c_eb7406782eb0709ab5a33d8b9e04822b}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!activate_device_lock@{activate\_\-device\_\-lock}}
+\index{activate_device_lock@{activate\_\-device\_\-lock}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[activate\_\-device\_\-lock]{\setlength{\rightskip}{0pt plus 5cm}int activate\_\-device\_\-lock ()}}
+\label{dcscMsgBufferInterface_8c_eb7406782eb0709ab5a33d8b9e04822b}
+
+
+
+
+Definition at line 747 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References g\_\-file, and IOCTL\_\-ACTIVATE\_\-LOCK.
+
+Referenced by dcsc\-Lock\-Ctrl().\hypertarget{dcscMsgBufferInterface_8c_432b9d01a4f125364bafa3a318d37cd7}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!checkMsginBuffer@{checkMsginBuffer}}
+\index{checkMsginBuffer@{checkMsginBuffer}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[checkMsginBuffer]{\setlength{\rightskip}{0pt plus 5cm}int check\-Msgin\-Buffer (char $\ast$ {\em p\-Cmd\-Buffer}, int {\em i\-Cmd\-Buffer\-Size}, int {\em i\-Silent})}}
+\label{dcscMsgBufferInterface_8c_432b9d01a4f125364bafa3a318d37cd7}
+
+
+
+
+Definition at line 1086 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References BUFFER\_\-REREAD, clear\-Dcsc\-Register\-Bit(), GENERAL\_\-CTRL\_\-REG\_\-ADDR, print\-Buffer\-Hex(), read\_\-dcsc(), seek\_\-dcsc(), and set\-Dcsc\-Register\-Bit().
+
+Referenced by send\-Rcu\-Command().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=271pt]{dcscMsgBufferInterface_8c_432b9d01a4f125364bafa3a318d37cd7_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_4f26d1498c21f8833b1966666d451a78}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!checkState@{checkState}}
+\index{checkState@{checkState}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[checkState]{\setlength{\rightskip}{0pt plus 5cm}int check\-State (int {\em state}, int {\em b\-Alert})}}
+\label{dcscMsgBufferInterface_8c_4f26d1498c21f8833b1966666d451a78}
+
+
+
+
+Definition at line 924 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References DCSC\_\-INIT\_\-ENCODE, DIRECT\_\-BUS\_\-ACTIVATE, e\-Flash, e\-Msg\-Buffer, e\-Select\-Map, g\_\-dcsc\-Flags, g\_\-verbosity, GENERAL\_\-CTRL\_\-REG\_\-ADDR, read\-Dcsc\-Register(), and SELECTMAP\_\-ACTIVATE.
+
+Referenced by rcu\-Bus\-Control\-Cmd\-Ext(), rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Read(), rcu\-Flash\-Reset(), rcu\-Flash\-Write(), and send\-Rcu\-Command().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{dcscMsgBufferInterface_8c_4f26d1498c21f8833b1966666d451a78_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_572f7dd4ac2e9b66ae933e217ff8ca1e}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!clearDcscRegisterBit@{clearDcscRegisterBit}}
+\index{clearDcscRegisterBit@{clearDcscRegisterBit}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[clearDcscRegisterBit]{\setlength{\rightskip}{0pt plus 5cm}int clear\-Dcsc\-Register\-Bit (int {\em reg\-No}, unsigned char {\em pattern})}}
+\label{dcscMsgBufferInterface_8c_572f7dd4ac2e9b66ae933e217ff8ca1e}
+
+
+
+
+Definition at line 898 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References read\-Dcsc\-Register(), and write\-Dcsc\-Register().
+
+Referenced by check\-Msgin\-Buffer().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{dcscMsgBufferInterface_8c_572f7dd4ac2e9b66ae933e217ff8ca1e_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_c96d3bfc6ae5b24fd200339b9073a655}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!closeDevice@{closeDevice}}
+\index{closeDevice@{closeDevice}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[closeDevice]{\setlength{\rightskip}{0pt plus 5cm}int close\-Device ()}}
+\label{dcscMsgBufferInterface_8c_c96d3bfc6ae5b24fd200339b9073a655}
+
+
+
+
+Definition at line 531 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References buffer\-Size, g\_\-file, mib\-Size, mrb\-Size, p\-Buffer, p\-Mib, p\-Mrb, p\-Reg, and reg\-Size.
+
+Referenced by open\-Device(), and release\-Rcu\-Access().\hypertarget{dcscMsgBufferInterface_8c_f9a8ab4280d02bb80c6c14b250affb20}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!crc16@{crc16}}
+\index{crc16@{crc16}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[crc16]{\setlength{\rightskip}{0pt plus 5cm}unsigned short crc16 (char $\ast$ {\em data\_\-p}, int {\em length})}}
+\label{dcscMsgBufferInterface_8c_f9a8ab4280d02bb80c6c14b250affb20}
+
+
+
+
+Definition at line 275 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References POLY.\hypertarget{dcscMsgBufferInterface_8c_03db977c9332bc0aede381dd76dc56b6}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!getBufferSize@{getBufferSize}}
+\index{getBufferSize@{getBufferSize}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[getBufferSize]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 get\-Buffer\-Size ()}}
+\label{dcscMsgBufferInterface_8c_03db977c9332bc0aede381dd76dc56b6}
+
+
+
+
+Definition at line 1653 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References buffer\-Size.\hypertarget{dcscMsgBufferInterface_8c_a8a3978204732cf3454e864ac9b3d56b}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!getCmdResult@{getCmdResult}}
+\index{getCmdResult@{getCmdResult}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[getCmdResult]{\setlength{\rightskip}{0pt plus 5cm}int get\-Cmd\-Result (\_\-\_\-u32 {\em u32Cmd\-Word}, char $\ast$ {\em p\-Message})}}
+\label{dcscMsgBufferInterface_8c_a8a3978204732cf3454e864ac9b3d56b}
+
+
+
+
+Definition at line 1037 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References DCSC\_\-INIT\_\-ENCODE, g\_\-dcsc\-Flags, g\_\-options, get\-Error\-From\-Status(), message\_\-out\_\-buffer\_\-size, PRINT\_\-RESULT\_\-BUFFER, print\-Buffer\-Hex(), and read\-Result\-Buffer().
+
+Referenced by rcu\-Flash\-ID(), rcu\-Multiple\-Read\-Ext(), rcu\-Multiple\-Write\-Ext(), rcu\-Single\-Read\-Ext(), and rcu\-Single\-Write\-Ext().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=188pt]{dcscMsgBufferInterface_8c_a8a3978204732cf3454e864ac9b3d56b_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_c897f02e50f4b5ec2ff1ebb321079dff}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!getDCSCFirmwareVersionNo@{getDCSCFirmwareVersionNo}}
+\index{getDCSCFirmwareVersionNo@{getDCSCFirmwareVersionNo}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[getDCSCFirmwareVersionNo]{\setlength{\rightskip}{0pt plus 5cm}int get\-DCSCFirmware\-Version\-No (int {\em i\-Verbosity})}}
+\label{dcscMsgBufferInterface_8c_c897f02e50f4b5ec2ff1ebb321079dff}
+
+
+
+
+Definition at line 1815 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References DCSC\_\-FIRMWARE\_\-VERSION\_\-ADDRESS, DCSC\_\-FIRMWARE\_\-VERSION\_\-DAY\_\-BITSHIFT, DCSC\_\-FIRMWARE\_\-VERSION\_\-DAY\_\-SIZE, DCSC\_\-FIRMWARE\_\-VERSION\_\-MAJOR\_\-BITSHIFT, DCSC\_\-FIRMWARE\_\-VERSION\_\-MAJOR\_\-SIZE, DCSC\_\-FIRMWARE\_\-VERSION\_\-MINOR\_\-BITSHIFT, DCSC\_\-FIRMWARE\_\-VERSION\_\-MINOR\_\-SIZE, DCSC\_\-FIRMWARE\_\-VERSION\_\-MONTH\_\-BITSHIFT, DCSC\_\-FIRMWARE\_\-VERSION\_\-MONTH\_\-SIZE, DCSC\_\-FIRMWARE\_\-VERSION\_\-YEAR\_\-BITSHIFT, DCSC\_\-FIRMWARE\_\-VERSION\_\-YEAR\_\-SIZE, and rcu\-Single\-Read().
+
+Referenced by print\-Driver\-Info().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=366pt]{dcscMsgBufferInterface_8c_c897f02e50f4b5ec2ff1ebb321079dff_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_757e8e5ef9e969c08f35f9babb8e9499}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!getErrorFromStatus@{getErrorFromStatus}}
+\index{getErrorFromStatus@{getErrorFromStatus}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[getErrorFromStatus]{\setlength{\rightskip}{0pt plus 5cm}int get\-Error\-From\-Status (\_\-\_\-u32 {\em u32Status})}}
+\label{dcscMsgBufferInterface_8c_757e8e5ef9e969c08f35f9babb8e9499}
+
+
+
+
+Definition at line 1005 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References EMISS\_\-ENDMARKER, EMISS\_\-MARKER, ENOBUSGRANT, ENOTARGET, g\_\-options, MSGBUF\_\-STATUS\_\-NOBUSGRT, MSGBUF\_\-STATUS\_\-NOENDMRK, MSGBUF\_\-STATUS\_\-NOMARKER, MSGBUF\_\-STATUS\_\-NOTGTASW, MSGBUF\_\-STATUS\_\-OLDFORMAT, and PRINT\_\-RESULT\_\-HUMAN\_\-READABLE.
+
+Referenced by get\-Cmd\-Result().\hypertarget{dcscMsgBufferInterface_8c_a15c12c0ed48fbec3386af023e09f686}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!getMibSize@{getMibSize}}
+\index{getMibSize@{getMibSize}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[getMibSize]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 get\-Mib\-Size ()}}
+\label{dcscMsgBufferInterface_8c_a15c12c0ed48fbec3386af023e09f686}
+
+
+
+
+Definition at line 1657 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References mib\-Size.\hypertarget{dcscMsgBufferInterface_8c_68ca288e00b26b52c47ff1c451a7a740}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!getMrbSize@{getMrbSize}}
+\index{getMrbSize@{getMrbSize}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[getMrbSize]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 get\-Mrb\-Size ()}}
+\label{dcscMsgBufferInterface_8c_68ca288e00b26b52c47ff1c451a7a740}
+
+
+
+
+Definition at line 1661 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References mrb\-Size.\hypertarget{dcscMsgBufferInterface_8c_efcfc36007c3593b5a8a4470f491b00d}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!getPBuffer@{getPBuffer}}
+\index{getPBuffer@{getPBuffer}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[getPBuffer]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32$\ast$ get\-PBuffer ()}}
+\label{dcscMsgBufferInterface_8c_efcfc36007c3593b5a8a4470f491b00d}
+
+
+
+
+Definition at line 1637 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References p\-Buffer.\hypertarget{dcscMsgBufferInterface_8c_0afcbf1cadaf37bebe31d943d1e17f73}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!getPMib@{getPMib}}
+\index{getPMib@{getPMib}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[getPMib]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32$\ast$ get\-PMib ()}}
+\label{dcscMsgBufferInterface_8c_0afcbf1cadaf37bebe31d943d1e17f73}
+
+
+
+
+Definition at line 1641 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References p\-Mib.\hypertarget{dcscMsgBufferInterface_8c_7ec2d678574ac089fb5b477f63e401b8}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!getPMrb@{getPMrb}}
+\index{getPMrb@{getPMrb}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[getPMrb]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32$\ast$ get\-PMrb ()}}
+\label{dcscMsgBufferInterface_8c_7ec2d678574ac089fb5b477f63e401b8}
+
+
+
+
+Definition at line 1645 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References p\-Mrb.\hypertarget{dcscMsgBufferInterface_8c_db504547e5a72663611294bb926bd78e}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!getPReg@{getPReg}}
+\index{getPReg@{getPReg}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[getPReg]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32$\ast$ get\-PReg ()}}
+\label{dcscMsgBufferInterface_8c_db504547e5a72663611294bb926bd78e}
+
+
+
+
+Definition at line 1649 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References p\-Reg.\hypertarget{dcscMsgBufferInterface_8c_28be1bd34867ac94d07247e9a2a0f608}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!getRegSize@{getRegSize}}
+\index{getRegSize@{getRegSize}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[getRegSize]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 get\-Reg\-Size ()}}
+\label{dcscMsgBufferInterface_8c_28be1bd34867ac94d07247e9a2a0f608}
+
+
+
+
+Definition at line 1665 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References reg\-Size.\hypertarget{dcscMsgBufferInterface_8c_11b476874e781d3f1438fc135db4cc3f}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!lock_device@{lock\_\-device}}
+\index{lock_device@{lock\_\-device}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[lock\_\-device]{\setlength{\rightskip}{0pt plus 5cm}int lock\_\-device ()}}
+\label{dcscMsgBufferInterface_8c_11b476874e781d3f1438fc135db4cc3f}
+
+
+
+
+Definition at line 681 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References g\_\-App\-ID, g\_\-file, and IOCTL\_\-LOCK\_\-DRIVER.
+
+Referenced by dcsc\-Lock\-Ctrl(), rcu\-Bus\-Control\-Cmd\-Ext(), rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Read(), rcu\-Flash\-Reset(), rcu\-Flash\-Write(), rcu\-Multiple\-Read\-Ext(), rcu\-Multiple\-Write\-Ext(), rcu\-Single\-Read\-Ext(), and rcu\-Single\-Write\-Ext().\hypertarget{dcscMsgBufferInterface_8c_d96053a774a452dc4f507212d8e8481e}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!mkEndMarker@{mkEndMarker}}
+\index{mkEndMarker@{mkEndMarker}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[mkEndMarker]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 mk\-End\-Marker ()}}
+\label{dcscMsgBufferInterface_8c_d96053a774a452dc4f507212d8e8481e}
+
+
+
+
+Definition at line 331 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References msgbuf\_\-header\_\-t::ENDMARKER\_\-BITSHIFT, msgbuf\_\-header\_\-t::ENDMARKER\_\-PATTERN, and g\_\-p\-Msg\-Buf\_\-header.
+
+Referenced by rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Reset(), rcu\-Multiple\-Read\-Ext(), rcu\-Multiple\-Write\-Ext(), rcu\-Single\-Read\-Ext(), and rcu\-Single\-Write\-Ext().\hypertarget{dcscMsgBufferInterface_8c_e9340e51dad01e5752d7ca8446094db6}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!mkFrstWrd@{mkFrstWrd}}
+\index{mkFrstWrd@{mkFrstWrd}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[mkFrstWrd]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 mk\-Frst\-Wrd (unsigned short {\em num\-Words}, unsigned short {\em block\-Num}, unsigned short {\em format}, unsigned short {\em mode}, unsigned short {\em cmd\-Id})}}
+\label{dcscMsgBufferInterface_8c_e9340e51dad01e5752d7ca8446094db6}
+
+
+
+
+Definition at line 303 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References msgbuf\_\-header\_\-t::FRSTWORD\_\-ADD\_\-NUMWORDS, msgbuf\_\-header\_\-t::FRSTWORD\_\-BITSHIFT\_\-BLKNUM, msgbuf\_\-header\_\-t::FRSTWORD\_\-BITSHIFT\_\-CMDID, msgbuf\_\-header\_\-t::FRSTWORD\_\-BITSHIFT\_\-DATAFMT, msgbuf\_\-header\_\-t::FRSTWORD\_\-BITSHIFT\_\-EXTENSION, msgbuf\_\-header\_\-t::FRSTWORD\_\-BITSHIFT\_\-MODE, msgbuf\_\-header\_\-t::FRSTWORD\_\-BITSHIFT\_\-NUMWORDS, msgbuf\_\-header\_\-t::FRSTWORD\_\-WIDTH\_\-BLKNUM, msgbuf\_\-header\_\-t::FRSTWORD\_\-WIDTH\_\-CMDID, msgbuf\_\-header\_\-t::FRSTWORD\_\-WIDTH\_\-DATAFMT, msgbuf\_\-header\_\-t::FRSTWORD\_\-WIDTH\_\-EXTENSION, msgbuf\_\-header\_\-t::FRSTWORD\_\-WIDTH\_\-MODE, msgbuf\_\-header\_\-t::FRSTWORD\_\-WIDTH\_\-NUMWORDS, g\_\-p\-Msg\-Buf\_\-header, msgbuf\_\-header\_\-t::HEADER\_\-VERSION\_\-BITS, and msgbuf\_\-header\_\-t::HEADER\_\-VERSION\_\-BITSHIFT.
+
+Referenced by rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Reset(), rcu\-Multiple\-Read\-Ext(), rcu\-Multiple\-Write\-Ext(), rcu\-Single\-Read\-Ext(), and rcu\-Single\-Write\-Ext().\hypertarget{dcscMsgBufferInterface_8c_6aca27ba48e1bcae7e35a72fc2ac0b3b}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!mkLstWrd@{mkLstWrd}}
+\index{mkLstWrd@{mkLstWrd}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[mkLstWrd]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 mk\-Lst\-Wrd (unsigned short {\em checksum})}}
+\label{dcscMsgBufferInterface_8c_6aca27ba48e1bcae7e35a72fc2ac0b3b}
+
+
+
+
+Definition at line 321 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References g\_\-p\-Msg\-Buf\_\-header, msgbuf\_\-header\_\-t::MARKER\_\-BITSHIFT, and msgbuf\_\-header\_\-t::MARKER\_\-PATTERN.
+
+Referenced by rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Reset(), rcu\-Multiple\-Read\-Ext(), rcu\-Multiple\-Write\-Ext(), rcu\-Single\-Read\-Ext(), and rcu\-Single\-Write\-Ext().\hypertarget{dcscMsgBufferInterface_8c_7a5b0d57fbd0a68206468a01b0a63520}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!msgBufReadRegister@{msgBufReadRegister}}
+\index{msgBufReadRegister@{msgBufReadRegister}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[msgBufReadRegister]{\setlength{\rightskip}{0pt plus 5cm}int msg\-Buf\-Read\-Register (int {\em reg})}}
+\label{dcscMsgBufferInterface_8c_7a5b0d57fbd0a68206468a01b0a63520}
+
+
+Read the value of a register from the register buffer. 
+
+Originally, registers were 8 bit wide, but in the implementation of the message buffer interface in the DCS board firmware the addressing was 32 bit wide. Thats why register numbers correspond to register addresses = 4$\ast$reg\-No. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em reg}]\# of register \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]8 bit value of the register \end{Desc}
+
+
+Definition at line 2078 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References GENERAL\_\-CTRL\_\-REG\_\-ADDR, and read\-Dcsc\-Register().
+
+Referenced by exec\-Reg\-Read\-Cmd().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=201pt]{dcscMsgBufferInterface_8c_7a5b0d57fbd0a68206468a01b0a63520_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_82e19c9d34c7ecebcba115d2a6393b6c}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!msgBufWriteRegister@{msgBufWriteRegister}}
+\index{msgBufWriteRegister@{msgBufWriteRegister}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[msgBufWriteRegister]{\setlength{\rightskip}{0pt plus 5cm}int msg\-Buf\-Write\-Register (int {\em reg}, unsigned char {\em value})}}
+\label{dcscMsgBufferInterface_8c_82e19c9d34c7ecebcba115d2a6393b6c}
+
+
+Write an 8 bit value to a register of the register buffer. 
+
+The same as in \hyperlink{group__dcsc__msg__buffer__access_g7a5b0d57fbd0a68206468a01b0a63520}{msg\-Buf\-Read\-Register} applies for the register addressing. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em reg}]\# of register \item[{\em value}]8 bit value to write \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]8 bit value of the register after write \end{Desc}
+
+
+Definition at line 2086 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References GENERAL\_\-CTRL\_\-REG\_\-ADDR, and write\-Dcsc\-Register().
+
+Referenced by exec\-Reg\-Write\-Cmd().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=203pt]{dcscMsgBufferInterface_8c_82e19c9d34c7ecebcba115d2a6393b6c_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_402b4025c3b8f16128235e68210ea9bd}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!openDevice@{openDevice}}
+\index{openDevice@{openDevice}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[openDevice]{\setlength{\rightskip}{0pt plus 5cm}int open\-Device (const char $\ast$ {\em p\-Device\-Name})}}
+\label{dcscMsgBufferInterface_8c_402b4025c3b8f16128235e68210ea9bd}
+
+
+
+
+Definition at line 406 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References buffer\-Size, close\-Device(), COMPRESSED\_\-DATA\_\-REQUIRED\_\-FW\_\-VERSION, DCSC\_\-INIT\_\-APPEND, DCSC\_\-INIT\_\-ENCODE, DCSC\_\-SKIP\_\-DRV\_\-ADPT, e\-Flash\-Access\-Actel, e\-Flash\-Access\-Dcsc, FLASH\_\-DCS\_\-ACCESS\_\-REQUIRED\_\-FW\_\-VERSION, g\_\-b\-Compression, g\_\-dcsc\-Flags, g\_\-file, g\_\-i\-Firmware\-Version, g\_\-i\-Flash\-Access\-Mode, g\_\-msgbuf\_\-header\_\-v1, g\_\-msgbuf\_\-header\_\-v2, g\_\-msgbuf\_\-header\_\-v2\_\-2, g\_\-p\-Device\-Name, g\_\-p\-Msg\-Buf\_\-header, g\_\-verbosity, GENERAL\_\-CTRL\_\-REG\_\-ADDR, IOCTL\_\-GET\_\-MSGBUF\_\-IN\_\-SIZE, IOCTL\_\-GET\_\-MSGBUF\_\-OUT\_\-SIZE, IOCTL\_\-GET\_\-REGFILE\_\-SIZE, IOCTL\_\-READ\_\-REG, MAJOR\_\-VERSION\_\-NO\_\-REG\_\-ADDR, message\_\-in\_\-buffer\_\-size, message\_\-out\_\-buffer\_\-offset, message\_\-out\_\-buffer\_\-size, message\_\-regfile\_\-size, mib\-Size, MINOR\_\-VERSION\_\-NO\_\-REG\_\-ADDR, mrb\-Size, p\-Buffer, p\-Mib, p\-Mrb, p\-Reg, print\-Driver\-Info(), read\-Dcsc\-Register(), regfile\_\-offset, REGISTER\_\-3\_\-ADDR, reg\-Size, msgbuf\_\-header\_\-t::VALID\_\-FROM\_\-VERSION, and write\-Dcsc\-Register().
+
+Referenced by init\-Rcu\-Access\-Ext().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=352pt]{dcscMsgBufferInterface_8c_402b4025c3b8f16128235e68210ea9bd_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_581fec98c7a23cf22118f4814d460d7f}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!rcuBusControlCmdExt@{rcuBusControlCmdExt}}
+\index{rcuBusControlCmdExt@{rcuBusControlCmdExt}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[rcuBusControlCmdExt]{\setlength{\rightskip}{0pt plus 5cm}int rcu\-Bus\-Control\-Cmd\-Ext (int {\em i\-Cmd}, int {\em i\-Verbosity})}}
+\label{dcscMsgBufferInterface_8c_581fec98c7a23cf22118f4814d460d7f}
+
+
+
+
+Definition at line 1933 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References check\-State(), DIRECT\_\-BUS\_\-ACTIVATE, e\-Check\-Flash, e\-Check\-Msg\-Buf, e\-Check\-Selectmap, e\-Disable\-Compression, e\-Disable\-Flash, e\-Disable\-Selectmap, e\-Enable\-Compression, e\-Enable\-Flash, e\-Enable\-Msg\-Buf, e\-Enable\-Selectmap, e\-Flash, e\-Flash\-Access\-Actel, e\-Flash\-Access\-Dcsc, e\-Flash\-Ctrl\-Actel, e\-Flash\-Ctrl\-DCS, e\-Flash\-ID, e\-Msg\-Buffer, e\-Read\-Ctrl\-Reg, e\-Reset\-Firmware, e\-Reset\-Flash, e\-Select\-Map, FIRMWARE\_\-RESET, FLASH\_\-DCS\_\-ACCESS\_\-REQUIRED\_\-FW\_\-VERSION, g\_\-b\-Compression, g\_\-i\-Firmware\-Version, g\_\-i\-Flash\-Access\-Mode, g\_\-verbosity, GENERAL\_\-CTRL\_\-REG\_\-ADDR, lock\_\-device(), rcu\-Flash\-ID(), rcu\-Flash\-Reset(), read\-Dcsc\-Register(), SELECTMAP\_\-ACTIVATE, unlock\_\-device(), and write\-Dcsc\-Register().
+
+Referenced by rcu\-Bus\-Control\-Cmd(), rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Read(), rcu\-Flash\-Reset(), and rcu\-Flash\-Write().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=343pt]{dcscMsgBufferInterface_8c_581fec98c7a23cf22118f4814d460d7f_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_521f7b9ab00e8e4142ef1c9be648a5ae}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!rcuFlashID@{rcuFlashID}}
+\index{rcuFlashID@{rcuFlashID}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[rcuFlashID]{\setlength{\rightskip}{0pt plus 5cm}int rcu\-Flash\-ID ()}}
+\label{dcscMsgBufferInterface_8c_521f7b9ab00e8e4142ef1c9be648a5ae}
+
+
+
+
+Definition at line 2429 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References check\-State(), e\-Disable\-Flash, e\-Enable\-Flash, e\-Flash, e\-Flash\-Access\-Dcsc, FLASH\_\-READID, g\_\-i\-Flash\-Access\-Mode, g\_\-options, g\_\-verbosity, get\-Cmd\-Result(), lock\_\-device(), mib\-Size, mk\-End\-Marker(), mk\-Frst\-Wrd(), mk\-Lst\-Wrd(), MSGBUF\_\-MODE\_\-FLASH, p\-Mib, PRINT\_\-RESULT\_\-BUFFER, print\-Buffer\-Hex(), RCU\_\-FLASH\_\-ADDRH, RCU\_\-FLASH\_\-ADDRL, RCU\_\-FLASH\_\-CMD, RCU\_\-FLASH\_\-DEFAULT\_\-WAITCYCLE, RCU\_\-FLASH\_\-ID\_\-HADDR, RCU\_\-FLASH\_\-ID\_\-LADDR, RCU\_\-FLASH\_\-IDCMD, RCU\_\-FLASH\_\-MAX\_\-WAITSTATES, RCU\_\-FLASH\_\-READCMD, RCU\_\-FLASH\_\-READRES, RCU\_\-FLASH\_\-STATE\_\-IDLE, RCU\_\-FLASH\_\-STATE\_\-MASK, RCU\_\-FLASH\_\-STATUS, rcu\-Bus\-Control\-Cmd\-Ext(), rcu\-Flash\-Reset(), rcu\-Single\-Read(), rcu\-Single\-Write(), read\-Result\-Buffer(), send\-Rcu\-Command(), and unlock\_\-device().
+
+Referenced by rcu\-Bus\-Control\-Cmd\-Ext().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{dcscMsgBufferInterface_8c_521f7b9ab00e8e4142ef1c9be648a5ae_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_43a296326759e30ac7737015915ac8d4}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!rcuFlashReset@{rcuFlashReset}}
+\index{rcuFlashReset@{rcuFlashReset}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[rcuFlashReset]{\setlength{\rightskip}{0pt plus 5cm}int rcu\-Flash\-Reset ()}}
+\label{dcscMsgBufferInterface_8c_43a296326759e30ac7737015915ac8d4}
+
+
+
+
+Definition at line 2531 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References check\-State(), e\-Disable\-Flash, e\-Enable\-Flash, e\-Flash, e\-Flash\-Access\-Dcsc, FLASH\_\-RESET, g\_\-i\-Flash\-Access\-Mode, g\_\-verbosity, lock\_\-device(), mib\-Size, mk\-End\-Marker(), mk\-Frst\-Wrd(), mk\-Lst\-Wrd(), MSGBUF\_\-MODE\_\-FLASH, p\-Mib, RCU\_\-FLASH\_\-CMD, RCU\_\-FLASH\_\-DEFAULT\_\-WAITCYCLE, RCU\_\-FLASH\_\-MAX\_\-WAITSTATES, RCU\_\-FLASH\_\-RESETCMD, RCU\_\-FLASH\_\-STATE\_\-IDLE, RCU\_\-FLASH\_\-STATE\_\-MASK, RCU\_\-FLASH\_\-STATUS, rcu\-Bus\-Control\-Cmd\-Ext(), rcu\-Single\-Read(), rcu\-Single\-Write(), send\-Rcu\-Command(), and unlock\_\-device().
+
+Referenced by rcu\-Bus\-Control\-Cmd\-Ext(), and rcu\-Flash\-ID().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{dcscMsgBufferInterface_8c_43a296326759e30ac7737015915ac8d4_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_a9d00574024c4f782faa8c581cf0c59c}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!rcuMultipleReadExt@{rcuMultipleReadExt}}
+\index{rcuMultipleReadExt@{rcuMultipleReadExt}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[rcuMultipleReadExt]{\setlength{\rightskip}{0pt plus 5cm}int rcu\-Multiple\-Read\-Ext (\_\-\_\-u32 {\em address}, int {\em i\-Size}, \_\-\_\-u32 $\ast$ {\em p\-Data}, unsigned short {\em mode})}}
+\label{dcscMsgBufferInterface_8c_a9d00574024c4f782faa8c581cf0c59c}
+
+
+
+
+Definition at line 1465 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References g\_\-options, get\-Cmd\-Result(), lock\_\-device(), message\_\-out\_\-buffer\_\-size, mib\-Size, mk\-End\-Marker(), mk\-Frst\-Wrd(), mk\-Lst\-Wrd(), MULTI\_\-READ, p\-Mib, PRINT\_\-RESULT\_\-BUFFER, PRINT\_\-SPLIT\_\-DEBUG, print\-Buffer\-Hex(), read\-Result\-Buffer(), send\-Rcu\-Command(), and unlock\_\-device().
+
+Referenced by rcu\-Flash\-Read(), and rcu\-Multiple\-Read().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{dcscMsgBufferInterface_8c_a9d00574024c4f782faa8c581cf0c59c_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_f552b5065e28cc51b49e235b7c7fcb5f}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!rcuMultipleWriteExt@{rcuMultipleWriteExt}}
+\index{rcuMultipleWriteExt@{rcuMultipleWriteExt}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[rcuMultipleWriteExt]{\setlength{\rightskip}{0pt plus 5cm}int rcu\-Multiple\-Write\-Ext (\_\-\_\-u32 {\em address}, \_\-\_\-u32 $\ast$ {\em p\-Data}, int {\em i\-Size}, int {\em i\-Data\-Mode}, unsigned short {\em mode})}}
+\label{dcscMsgBufferInterface_8c_f552b5065e28cc51b49e235b7c7fcb5f}
+
+
+
+
+Definition at line 1261 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References g\_\-b\-Compression, g\_\-options, get\-Cmd\-Result(), lock\_\-device(), message\_\-in\_\-buffer\_\-size, mib\-Size, mk\-End\-Marker(), mk\-Frst\-Wrd(), mk\-Lst\-Wrd(), MULTI\_\-WRITE, p\-Mib, PRINT\_\-SPLIT\_\-DEBUG, send\-Rcu\-Command(), and unlock\_\-device().
+
+Referenced by rcu\-Flash\-Write(), and rcu\-Multiple\-Write().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{dcscMsgBufferInterface_8c_f552b5065e28cc51b49e235b7c7fcb5f_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_93a9e9ce5c1fb26b3f59b36dec388cea}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!rcuSingleReadExt@{rcuSingleReadExt}}
+\index{rcuSingleReadExt@{rcuSingleReadExt}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[rcuSingleReadExt]{\setlength{\rightskip}{0pt plus 5cm}int rcu\-Single\-Read\-Ext (\_\-\_\-u32 {\em address}, \_\-\_\-u32 $\ast$ {\em p\-Data}, unsigned short {\em mode})}}
+\label{dcscMsgBufferInterface_8c_93a9e9ce5c1fb26b3f59b36dec388cea}
+
+
+
+
+Definition at line 1424 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References g\_\-options, get\-Cmd\-Result(), lock\_\-device(), mib\-Size, mk\-End\-Marker(), mk\-Frst\-Wrd(), mk\-Lst\-Wrd(), p\-Mib, PRINT\_\-RESULT\_\-BUFFER, print\-Buffer\-Hex(), read\-Result\-Buffer(), send\-Rcu\-Command(), SINGLE\_\-READ, and unlock\_\-device().
+
+Referenced by rcu\-Single\-Read().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{dcscMsgBufferInterface_8c_93a9e9ce5c1fb26b3f59b36dec388cea_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_7bf2a74aa584171dfbf57cbf5b622daf}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!rcuSingleWriteExt@{rcuSingleWriteExt}}
+\index{rcuSingleWriteExt@{rcuSingleWriteExt}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[rcuSingleWriteExt]{\setlength{\rightskip}{0pt plus 5cm}int rcu\-Single\-Write\-Ext (\_\-\_\-u32 {\em address}, \_\-\_\-u32 {\em data}, unsigned short {\em mode})}}
+\label{dcscMsgBufferInterface_8c_7bf2a74aa584171dfbf57cbf5b622daf}
+
+
+
+
+Definition at line 1232 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References get\-Cmd\-Result(), lock\_\-device(), mib\-Size, mk\-End\-Marker(), mk\-Frst\-Wrd(), mk\-Lst\-Wrd(), p\-Mib, send\-Rcu\-Command(), SINGLE\_\-WRITE, and unlock\_\-device().
+
+Referenced by rcu\-Single\-Write().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{dcscMsgBufferInterface_8c_7bf2a74aa584171dfbf57cbf5b622daf_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_c06280f758e4c96f4b20f6d111ffd10a}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!read_dcsc@{read\_\-dcsc}}
+\index{read_dcsc@{read\_\-dcsc}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[read\_\-dcsc]{\setlength{\rightskip}{0pt plus 5cm}int read\_\-dcsc (void $\ast$ {\em ptr}, size\_\-t {\em size}, size\_\-t {\em nmemb})}}
+\label{dcscMsgBufferInterface_8c_c06280f758e4c96f4b20f6d111ffd10a}
+
+
+
+
+Definition at line 665 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References g\_\-file.
+
+Referenced by check\-Msgin\-Buffer(), read\-Dcsc\-Register(), and read\-Result\-Buffer().\hypertarget{dcscMsgBufferInterface_8c_e334ce2ad22afd577c920519891de60f}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!readDcscRegister@{readDcscRegister}}
+\index{readDcscRegister@{readDcscRegister}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[readDcscRegister]{\setlength{\rightskip}{0pt plus 5cm}int read\-Dcsc\-Register (int {\em reg\-No}, int {\em b\-Alert})}}
+\label{dcscMsgBufferInterface_8c_e334ce2ad22afd577c920519891de60f}
+
+
+
+
+Definition at line 856 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References g\_\-options, GENERAL\_\-CTRL\_\-REG\_\-ADDR, PRINT\_\-REGISTER\_\-ACCESS, read\_\-dcsc(), regfile\_\-offset, seek\_\-dcsc(), and SIGNAL\_\-CONFIGURATION.
+
+Referenced by check\-State(), clear\-Dcsc\-Register\-Bit(), msg\-Buf\-Read\-Register(), open\-Device(), rcu\-Bus\-Control\-Cmd\-Ext(), and set\-Dcsc\-Register\-Bit().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=125pt]{dcscMsgBufferInterface_8c_e334ce2ad22afd577c920519891de60f_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_cd2c29af31d5576c2bc4aee2e4ba5f9b}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!readResultBuffer@{readResultBuffer}}
+\index{readResultBuffer@{readResultBuffer}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[readResultBuffer]{\setlength{\rightskip}{0pt plus 5cm}int read\-Result\-Buffer (unsigned char $\ast$ {\em p\-Target\-Buffer}, int {\em i\-Target\-Buffer\-Size}, int {\em i\-Start\-Offset})}}
+\label{dcscMsgBufferInterface_8c_cd2c29af31d5576c2bc4aee2e4ba5f9b}
+
+
+
+
+Definition at line 976 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References DCSC\_\-INIT\_\-ENCODE, g\_\-dcsc\-Flags, message\_\-out\_\-buffer\_\-offset, message\_\-out\_\-buffer\_\-size, read\_\-dcsc(), and seek\_\-dcsc().
+
+Referenced by get\-Cmd\-Result(), rcu\-Flash\-ID(), rcu\-Multiple\-Read\-Ext(), and rcu\-Single\-Read\-Ext().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=122pt]{dcscMsgBufferInterface_8c_cd2c29af31d5576c2bc4aee2e4ba5f9b_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_2c04c83c90647100be3b49de078754af}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!release_device@{release\_\-device}}
+\index{release_device@{release\_\-device}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[release\_\-device]{\setlength{\rightskip}{0pt plus 5cm}int release\_\-device ()}}
+\label{dcscMsgBufferInterface_8c_2c04c83c90647100be3b49de078754af}
+
+
+
+
+Definition at line 723 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References g\_\-App\-ID, g\_\-file, and IOCTL\_\-RELEASE\_\-DRIVER.
+
+Referenced by dcsc\-Lock\-Ctrl().\hypertarget{dcscMsgBufferInterface_8c_4891e4062ba169cebaaf6fbe90dcc538}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!reset_device_lock@{reset\_\-device\_\-lock}}
+\index{reset_device_lock@{reset\_\-device\_\-lock}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[reset\_\-device\_\-lock]{\setlength{\rightskip}{0pt plus 5cm}int reset\_\-device\_\-lock ()}}
+\label{dcscMsgBufferInterface_8c_4891e4062ba169cebaaf6fbe90dcc538}
+
+
+
+
+Definition at line 735 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References g\_\-file, and IOCTL\_\-RESET\_\-LOCK.
+
+Referenced by dcsc\-Lock\-Ctrl().\hypertarget{dcscMsgBufferInterface_8c_b54d216419ff2c191363373bef5f9cfa}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!resetSimulation@{resetSimulation}}
+\index{resetSimulation@{resetSimulation}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[resetSimulation]{\setlength{\rightskip}{0pt plus 5cm}void reset\-Simulation ()}}
+\label{dcscMsgBufferInterface_8c_b54d216419ff2c191363373bef5f9cfa}
+
+
+Reset the simulation. 
+
+Reset all the internal variables of the register simulation and seek to beginning of the register files. 
+
+Definition at line 1761 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by main(), and start\-Simulation().\hypertarget{dcscMsgBufferInterface_8c_78f494573a3ca4dc3b267928af8a6e0f}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!seek_dcsc@{seek\_\-dcsc}}
+\index{seek_dcsc@{seek\_\-dcsc}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[seek\_\-dcsc]{\setlength{\rightskip}{0pt plus 5cm}int seek\_\-dcsc (long {\em offset}, int {\em start})}}
+\label{dcscMsgBufferInterface_8c_78f494573a3ca4dc3b267928af8a6e0f}
+
+
+
+
+Definition at line 615 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References g\_\-file.
+
+Referenced by check\-Msgin\-Buffer(), read\-Dcsc\-Register(), read\-Result\-Buffer(), write\-Dcsc\-Register(), and write\-To\-Msg\-In\-Buffer().\hypertarget{dcscMsgBufferInterface_8c_32412da8a5f2e200fc616dbf07eaf718}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!seize_device@{seize\_\-device}}
+\index{seize_device@{seize\_\-device}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[seize\_\-device]{\setlength{\rightskip}{0pt plus 5cm}int seize\_\-device ()}}
+\label{dcscMsgBufferInterface_8c_32412da8a5f2e200fc616dbf07eaf718}
+
+
+
+
+Definition at line 705 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References g\_\-App\-ID, g\_\-file, and IOCTL\_\-SEIZE\_\-DRIVER.
+
+Referenced by dcsc\-Lock\-Ctrl().\hypertarget{dcscMsgBufferInterface_8c_3d92f75f3bcdae5dd0b6f8f470e74eb1}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!sendRcuCommand@{sendRcuCommand}}
+\index{sendRcuCommand@{sendRcuCommand}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[sendRcuCommand]{\setlength{\rightskip}{0pt plus 5cm}int send\-Rcu\-Command (char $\ast$ {\em p\-Cmd\-Buffer}, int {\em i\-Cmd\-Buffer\-Size}, int {\em i\-Timeout})}}
+\label{dcscMsgBufferInterface_8c_3d92f75f3bcdae5dd0b6f8f470e74eb1}
+
+
+
+
+Definition at line 1159 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References CHECK\_\-COMMAND\_\-BUFFER, check\-Msgin\-Buffer(), check\-State(), COMMAND\_\-EXECUTE, DCSC\_\-INIT\_\-ENCODE, e\-Flash, e\-Msg\-Buffer, msgbuf\_\-header\_\-t::FRSTWORD\_\-BITSHIFT\_\-MODE, msgbuf\_\-header\_\-t::FRSTWORD\_\-WIDTH\_\-MODE, g\_\-dcsc\-Flags, g\_\-options, g\_\-p\-Msg\-Buf\_\-header, GENERAL\_\-CTRL\_\-REG\_\-ADDR, IGNORE\_\-BUFFER\_\-CHECK, MSGBUF\_\-MODE\_\-FLASH, PRINT\_\-COMMAND\_\-BUFFER, print\-Buffer\-Hex(), set\-Dcsc\-Register\-Bit(), and write\-To\-Msg\-In\-Buffer().
+
+Referenced by rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Reset(), rcu\-Multiple\-Read\-Ext(), rcu\-Multiple\-Write\-Ext(), rcu\-Single\-Read\-Ext(), and rcu\-Single\-Write\-Ext().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{dcscMsgBufferInterface_8c_3d92f75f3bcdae5dd0b6f8f470e74eb1_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_28c62d594d77e45fe7fe8408b8a0eae2}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!setDcscRegisterBit@{setDcscRegisterBit}}
+\index{setDcscRegisterBit@{setDcscRegisterBit}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[setDcscRegisterBit]{\setlength{\rightskip}{0pt plus 5cm}int set\-Dcsc\-Register\-Bit (int {\em reg\-No}, unsigned char {\em pattern})}}
+\label{dcscMsgBufferInterface_8c_28c62d594d77e45fe7fe8408b8a0eae2}
+
+
+
+
+Definition at line 889 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References read\-Dcsc\-Register(), and write\-Dcsc\-Register().
+
+Referenced by check\-Msgin\-Buffer(), and send\-Rcu\-Command().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{dcscMsgBufferInterface_8c_28c62d594d77e45fe7fe8408b8a0eae2_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_3abfe9e8eb9b2c1e49704fbc46d251d3}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!unlock_device@{unlock\_\-device}}
+\index{unlock_device@{unlock\_\-device}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[unlock\_\-device]{\setlength{\rightskip}{0pt plus 5cm}int unlock\_\-device ()}}
+\label{dcscMsgBufferInterface_8c_3abfe9e8eb9b2c1e49704fbc46d251d3}
+
+
+
+
+Definition at line 693 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References g\_\-App\-ID, g\_\-file, and IOCTL\_\-UNLOCK\_\-DRIVER.
+
+Referenced by dcsc\-Lock\-Ctrl(), rcu\-Bus\-Control\-Cmd\-Ext(), rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Read(), rcu\-Flash\-Reset(), rcu\-Flash\-Write(), rcu\-Multiple\-Read\-Ext(), rcu\-Multiple\-Write\-Ext(), rcu\-Single\-Read\-Ext(), and rcu\-Single\-Write\-Ext().\hypertarget{dcscMsgBufferInterface_8c_fca4aa5bb97ba862da2535e82c629bfd}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!write_dcsc@{write\_\-dcsc}}
+\index{write_dcsc@{write\_\-dcsc}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[write\_\-dcsc]{\setlength{\rightskip}{0pt plus 5cm}int write\_\-dcsc (const void $\ast$ {\em ptr}, size\_\-t {\em size}, size\_\-t {\em nmemb})}}
+\label{dcscMsgBufferInterface_8c_fca4aa5bb97ba862da2535e82c629bfd}
+
+
+
+
+Definition at line 641 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References g\_\-file.
+
+Referenced by write\-Dcsc\-Register(), and write\-To\-Msg\-In\-Buffer().\hypertarget{dcscMsgBufferInterface_8c_a337ceffc9fe25945c09d63f808d089d}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!writeDcscRegister@{writeDcscRegister}}
+\index{writeDcscRegister@{writeDcscRegister}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[writeDcscRegister]{\setlength{\rightskip}{0pt plus 5cm}int write\-Dcsc\-Register (int {\em reg\-No}, unsigned char {\em data})}}
+\label{dcscMsgBufferInterface_8c_a337ceffc9fe25945c09d63f808d089d}
+
+
+
+
+Definition at line 812 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References g\_\-options, GENERAL\_\-CTRL\_\-REG\_\-ADDR, PRINT\_\-REGISTER\_\-ACCESS, regfile\_\-offset, seek\_\-dcsc(), SIGNAL\_\-CONFIGURATION, and write\_\-dcsc().
+
+Referenced by clear\-Dcsc\-Register\-Bit(), msg\-Buf\-Write\-Register(), open\-Device(), rcu\-Bus\-Control\-Cmd\-Ext(), and set\-Dcsc\-Register\-Bit().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=126pt]{dcscMsgBufferInterface_8c_a337ceffc9fe25945c09d63f808d089d_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{dcscMsgBufferInterface_8c_ced1234f78dd88d74fcc3f7da17cf9da}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!writeToMsgInBuffer@{writeToMsgInBuffer}}
+\index{writeToMsgInBuffer@{writeToMsgInBuffer}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[writeToMsgInBuffer]{\setlength{\rightskip}{0pt plus 5cm}int write\-To\-Msg\-In\-Buffer (char $\ast$ {\em p\-Buffer}, int {\em i\-Buffer\-Size})}}
+\label{dcscMsgBufferInterface_8c_ced1234f78dd88d74fcc3f7da17cf9da}
+
+
+
+
+Definition at line 1127 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+References seek\_\-dcsc(), and write\_\-dcsc().
+
+Referenced by send\-Rcu\-Command().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=128pt]{dcscMsgBufferInterface_8c_ced1234f78dd88d74fcc3f7da17cf9da_cgraph}
+\end{center}
+\end{figure}
+
+
+\subsection{Variable Documentation}
+\hypertarget{dcscMsgBufferInterface_8c_d061ecd64244a4f594e1bf7cd5c50852}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!bufferSize@{bufferSize}}
+\index{bufferSize@{bufferSize}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[bufferSize]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_d061ecd64244a4f594e1bf7cd5c50852}{buffer\-Size} = 0}}
+\label{dcscMsgBufferInterface_8c_d061ecd64244a4f594e1bf7cd5c50852}
+
+
+
+
+Definition at line 270 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by close\-Device(), get\-Buffer\-Size(), and open\-Device().\hypertarget{dcscMsgBufferInterface_8c_4ccde0dfa241efb5707d62b55d56fd67}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!g_AppID@{g\_\-AppID}}
+\index{g_AppID@{g\_\-AppID}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[g\_\-AppID]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{dcscMsgBufferInterface_8c_4ccde0dfa241efb5707d62b55d56fd67}{g\_\-App\-ID} = 0}}
+\label{dcscMsgBufferInterface_8c_4ccde0dfa241efb5707d62b55d56fd67}
+
+
+
+
+Definition at line 680 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by lock\_\-device(), release\_\-device(), seize\_\-device(), and unlock\_\-device().\hypertarget{dcscMsgBufferInterface_8c_806dbee9d4e0afc5d9537b76dfe7191d}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!g_bCompression@{g\_\-bCompression}}
+\index{g_bCompression@{g\_\-bCompression}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[g\_\-bCompression]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{dcscMsgBufferInterface_8c_806dbee9d4e0afc5d9537b76dfe7191d}{g\_\-b\-Compression} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{dcscMsgBufferInterface_8c_806dbee9d4e0afc5d9537b76dfe7191d}
+
+
+
+
+Definition at line 237 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by open\-Device(), rcu\-Bus\-Control\-Cmd\-Ext(), and rcu\-Multiple\-Write\-Ext().\hypertarget{dcscMsgBufferInterface_8c_5c92db463feaa40473ec2d61f9e14710}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!g_dcscFlags@{g\_\-dcscFlags}}
+\index{g_dcscFlags@{g\_\-dcscFlags}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[g\_\-dcscFlags]{\setlength{\rightskip}{0pt plus 5cm}unsigned int \hyperlink{dcscMsgBufferInterface_8c_5c92db463feaa40473ec2d61f9e14710}{g\_\-dcsc\-Flags} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{dcscMsgBufferInterface_8c_5c92db463feaa40473ec2d61f9e14710}
+
+
+
+
+Definition at line 232 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by check\-State(), get\-Cmd\-Result(), init\-Rcu\-Access\-Ext(), open\-Device(), read\-Result\-Buffer(), and send\-Rcu\-Command().\hypertarget{dcscMsgBufferInterface_8c_d02a84219948a94ccccd8d1d74d58428}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!g_file@{g\_\-file}}
+\index{g_file@{g\_\-file}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[g\_\-file]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{dcscMsgBufferInterface_8c_d02a84219948a94ccccd8d1d74d58428}{g\_\-file} = -1\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{dcscMsgBufferInterface_8c_d02a84219948a94ccccd8d1d74d58428}
+
+
+
+
+Definition at line 231 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by activate\_\-device\_\-lock(), close\-Device(), dcsc\-Driver\-Debug(), lock\_\-device(), open\-Device(), print\-Driver\-Info(), read\_\-dcsc(), release\_\-device(), reset\_\-device\_\-lock(), seek\_\-dcsc(), seize\_\-device(), unlock\_\-device(), and write\_\-dcsc().\hypertarget{dcscMsgBufferInterface_8c_f9e6a315db13d3a3ede8cc5d5863d05c}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!g_iDriverVersion@{g\_\-iDriverVersion}}
+\index{g_iDriverVersion@{g\_\-iDriverVersion}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[g\_\-iDriverVersion]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{dcscMsgBufferInterface_8c_f9e6a315db13d3a3ede8cc5d5863d05c}{g\_\-i\-Driver\-Version} = -1\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{dcscMsgBufferInterface_8c_f9e6a315db13d3a3ede8cc5d5863d05c}
+
+
+
+
+Definition at line 234 of file dcsc\-Msg\-Buffer\-Interface.c.\hypertarget{dcscMsgBufferInterface_8c_8f4368c0708871a7fbcc022cbd1feb4d}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!g_iFirmwareVersion@{g\_\-iFirmwareVersion}}
+\index{g_iFirmwareVersion@{g\_\-iFirmwareVersion}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[g\_\-iFirmwareVersion]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{dcscMsgBufferInterface_8c_8f4368c0708871a7fbcc022cbd1feb4d}{g\_\-i\-Firmware\-Version} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{dcscMsgBufferInterface_8c_8f4368c0708871a7fbcc022cbd1feb4d}
+
+
+
+
+Definition at line 236 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by open\-Device(), and rcu\-Bus\-Control\-Cmd\-Ext().\hypertarget{dcscMsgBufferInterface_8c_1bca35a28e993adee616d0120495093d}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!g_iFlashAccessMode@{g\_\-iFlashAccessMode}}
+\index{g_iFlashAccessMode@{g\_\-iFlashAccessMode}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[g\_\-iFlashAccessMode]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{dcscMsgBufferInterface_8c_1bca35a28e993adee616d0120495093d}{g\_\-i\-Flash\-Access\-Mode} = e\-Flash\-Access\-Actel\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{dcscMsgBufferInterface_8c_1bca35a28e993adee616d0120495093d}
+
+
+
+
+Definition at line 235 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by open\-Device(), rcu\-Bus\-Control\-Cmd\-Ext(), rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Read(), rcu\-Flash\-Reset(), and rcu\-Flash\-Write().\hypertarget{dcscMsgBufferInterface_8c_b8683822d01358638b0e48ad37ba710d}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!g_msgbuf_header_v1@{g\_\-msgbuf\_\-header\_\-v1}}
+\index{g_msgbuf_header_v1@{g\_\-msgbuf\_\-header\_\-v1}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[g\_\-msgbuf\_\-header\_\-v1]{\setlength{\rightskip}{0pt plus 5cm}struct \hyperlink{structmsgbuf__header__t}{msgbuf\_\-header\_\-t} \hyperlink{dcscMsgBufferInterface_8c_b8683822d01358638b0e48ad37ba710d}{g\_\-msgbuf\_\-header\_\-v1}}}
+\label{dcscMsgBufferInterface_8c_b8683822d01358638b0e48ad37ba710d}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim} {
+  0, 
+  0x0,
+  28,
+  2,
+  28,
+  4,
+  27,
+  0, 
+  26,
+  0, 
+  0,
+  16,
+  16,
+  8,
+  24,
+  2,
+  0, 
+  0,
+  0xaa55,
+  16,
+  16,
+  0xdd33,
+  16,
+  16,
+}
+\end{verbatim}\end{Code}
+
+
+Definition at line 111 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by open\-Device().\hypertarget{dcscMsgBufferInterface_8c_a6f08fab2276e872d8ed942e2f26533f}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!g_msgbuf_header_v2@{g\_\-msgbuf\_\-header\_\-v2}}
+\index{g_msgbuf_header_v2@{g\_\-msgbuf\_\-header\_\-v2}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[g\_\-msgbuf\_\-header\_\-v2]{\setlength{\rightskip}{0pt plus 5cm}struct \hyperlink{structmsgbuf__header__t}{msgbuf\_\-header\_\-t} \hyperlink{dcscMsgBufferInterface_8c_a6f08fab2276e872d8ed942e2f26533f}{g\_\-msgbuf\_\-header\_\-v2}}}
+\label{dcscMsgBufferInterface_8c_a6f08fab2276e872d8ed942e2f26533f}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim} {
+  0x00020000, 
+  MSGBUF_VERSION_2,
+  0, 
+  0,
+  0,
+  6,
+  0,
+  0,
+  0,
+  0,
+  6,
+  10,
+  16,
+  8,
+  0,
+  0,
+  0,
+  0,
+  0xaa55,
+  16,
+  16,
+  0xdd33,
+  16,
+  16,
+}
+\end{verbatim}\end{Code}
+
+
+Definition at line 138 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by dcsc\-Check\-Msg\-Block(), and open\-Device().\hypertarget{dcscMsgBufferInterface_8c_62670e9e3b9166a6f358a1f7b70e15ff}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!g_msgbuf_header_v2_2@{g\_\-msgbuf\_\-header\_\-v2\_\-2}}
+\index{g_msgbuf_header_v2_2@{g\_\-msgbuf\_\-header\_\-v2\_\-2}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[g\_\-msgbuf\_\-header\_\-v2\_\-2]{\setlength{\rightskip}{0pt plus 5cm}struct \hyperlink{structmsgbuf__header__t}{msgbuf\_\-header\_\-t} \hyperlink{dcscMsgBufferInterface_8c_62670e9e3b9166a6f358a1f7b70e15ff}{g\_\-msgbuf\_\-header\_\-v2\_\-2}}}
+\label{dcscMsgBufferInterface_8c_62670e9e3b9166a6f358a1f7b70e15ff}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim} {
+  0x00020002, 
+  MSGBUF_VERSION_2_2,
+  0, 
+  0,
+  0,
+  6,
+  0,
+  0,
+  24,
+  2,
+  6,
+  10,
+  16,
+  8,
+  0,
+  0,
+  26,
+  1,
+  0xaa55,
+  16,
+  16,
+  0xdd33,
+  16,
+  16,
+}
+\end{verbatim}\end{Code}
+
+
+Definition at line 165 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by open\-Device().\hypertarget{dcscMsgBufferInterface_8c_b7be6eafc12b29f2ad199a268c57e1e9}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!g_options@{g\_\-options}}
+\index{g_options@{g\_\-options}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[g\_\-options]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{dcscMsgBufferInterface_8c_b7be6eafc12b29f2ad199a268c57e1e9}{g\_\-options} = DBG\_\-DEFAULT}}
+\label{dcscMsgBufferInterface_8c_b7be6eafc12b29f2ad199a268c57e1e9}
+
+
+
+
+Definition at line 219 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by clear\-Debug\-Option\-Flag(), get\-Cmd\-Result(), get\-Error\-From\-Status(), rcu\-Flash\-ID(), rcu\-Multiple\-Read\-Ext(), rcu\-Multiple\-Write\-Ext(), rcu\-Single\-Read\-Ext(), read\-Dcsc\-Register(), send\-Rcu\-Command(), set\-Debug\-Option\-Flag(), set\-Debug\-Options(), and write\-Dcsc\-Register().\hypertarget{dcscMsgBufferInterface_8c_3373d4f373b46bb9db571b5c565fbd54}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!g_pDeviceName@{g\_\-pDeviceName}}
+\index{g_pDeviceName@{g\_\-pDeviceName}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[g\_\-pDeviceName]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \hyperlink{dcscMsgBufferInterface_8c_3373d4f373b46bb9db571b5c565fbd54}{g\_\-p\-Device\-Name} = \char`\"{}/dev/rcu/msgbuf\char`\"{}}}
+\label{dcscMsgBufferInterface_8c_3373d4f373b46bb9db571b5c565fbd54}
+
+
+
+
+Definition at line 223 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by open\-Device().\hypertarget{dcscMsgBufferInterface_8c_4f8d8401958df13cce96167ee736cf5b}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!g_pMsgBuf_header@{g\_\-pMsgBuf\_\-header}}
+\index{g_pMsgBuf_header@{g\_\-pMsgBuf\_\-header}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[g\_\-pMsgBuf\_\-header]{\setlength{\rightskip}{0pt plus 5cm}struct \hyperlink{structmsgbuf__header__t}{msgbuf\_\-header\_\-t}$\ast$ \hyperlink{dcscMsgBufferInterface_8c_4f8d8401958df13cce96167ee736cf5b}{g\_\-p\-Msg\-Buf\_\-header} = \&\hyperlink{dcscMsgBufferInterface_8c_62670e9e3b9166a6f358a1f7b70e15ff}{g\_\-msgbuf\_\-header\_\-v2\_\-2}}}
+\label{dcscMsgBufferInterface_8c_4f8d8401958df13cce96167ee736cf5b}
+
+
+
+
+Definition at line 191 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by mk\-End\-Marker(), mk\-Frst\-Wrd(), mk\-Lst\-Wrd(), open\-Device(), and send\-Rcu\-Command().\hypertarget{dcscMsgBufferInterface_8c_d27180528fd90aa1325601260a115eac}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!g_verbosity@{g\_\-verbosity}}
+\index{g_verbosity@{g\_\-verbosity}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[g\_\-verbosity]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{dcscMsgBufferInterface_8c_d27180528fd90aa1325601260a115eac}{g\_\-verbosity} = 1\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{dcscMsgBufferInterface_8c_d27180528fd90aa1325601260a115eac}
+
+
+
+
+Definition at line 233 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by check\-State(), init\-Rcu\-Access\-Ext(), open\-Device(), rcu\-Bus\-Control\-Cmd\-Ext(), rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Read(), rcu\-Flash\-Reset(), and rcu\-Flash\-Write().\hypertarget{dcscMsgBufferInterface_8c_495a8c86b1bb2d42522014597eabf37f}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!message_in_buffer_size@{message\_\-in\_\-buffer\_\-size}}
+\index{message_in_buffer_size@{message\_\-in\_\-buffer\_\-size}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[message\_\-in\_\-buffer\_\-size]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_495a8c86b1bb2d42522014597eabf37f}{message\_\-in\_\-buffer\_\-size} = 0x40\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{dcscMsgBufferInterface_8c_495a8c86b1bb2d42522014597eabf37f}
+
+
+
+
+Definition at line 242 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by init\-Rcu\-Access\-Ext(), open\-Device(), print\-Driver\-Info(), and rcu\-Multiple\-Write\-Ext().\hypertarget{dcscMsgBufferInterface_8c_b14fa248541db9ac858fb157c1a8d129}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!message_out_buffer_offset@{message\_\-out\_\-buffer\_\-offset}}
+\index{message_out_buffer_offset@{message\_\-out\_\-buffer\_\-offset}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[message\_\-out\_\-buffer\_\-offset]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_b14fa248541db9ac858fb157c1a8d129}{message\_\-out\_\-buffer\_\-offset} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{dcscMsgBufferInterface_8c_b14fa248541db9ac858fb157c1a8d129}
+
+
+
+
+Definition at line 245 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by open\-Device(), and read\-Result\-Buffer().\hypertarget{dcscMsgBufferInterface_8c_79d3f044d219391a2189c05580e7dcf4}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!message_out_buffer_size@{message\_\-out\_\-buffer\_\-size}}
+\index{message_out_buffer_size@{message\_\-out\_\-buffer\_\-size}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[message\_\-out\_\-buffer\_\-size]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_79d3f044d219391a2189c05580e7dcf4}{message\_\-out\_\-buffer\_\-size} = 0x40\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{dcscMsgBufferInterface_8c_79d3f044d219391a2189c05580e7dcf4}
+
+
+
+
+Definition at line 243 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by get\-Cmd\-Result(), open\-Device(), print\-Driver\-Info(), rcu\-Multiple\-Read\-Ext(), and read\-Result\-Buffer().\hypertarget{dcscMsgBufferInterface_8c_dcf4008e0ba96c4e90ee8c3d2e00e543}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!message_regfile_size@{message\_\-regfile\_\-size}}
+\index{message_regfile_size@{message\_\-regfile\_\-size}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[message\_\-regfile\_\-size]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_dcf4008e0ba96c4e90ee8c3d2e00e543}{message\_\-regfile\_\-size} = 0x10\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{dcscMsgBufferInterface_8c_dcf4008e0ba96c4e90ee8c3d2e00e543}
+
+
+
+
+Definition at line 244 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by open\-Device(), and print\-Driver\-Info().\hypertarget{dcscMsgBufferInterface_8c_787b1a085825360592bd33bd70bcbac6}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!mibSize@{mibSize}}
+\index{mibSize@{mibSize}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[mibSize]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_787b1a085825360592bd33bd70bcbac6}{mib\-Size} = 0}}
+\label{dcscMsgBufferInterface_8c_787b1a085825360592bd33bd70bcbac6}
+
+
+
+
+Definition at line 271 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by close\-Device(), get\-Mib\-Size(), open\-Device(), rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Reset(), rcu\-Multiple\-Read\-Ext(), rcu\-Multiple\-Write\-Ext(), rcu\-Single\-Read\-Ext(), and rcu\-Single\-Write\-Ext().\hypertarget{dcscMsgBufferInterface_8c_19b06c755c94d17a31795cf0c20f5b73}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!mrbSize@{mrbSize}}
+\index{mrbSize@{mrbSize}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[mrbSize]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_19b06c755c94d17a31795cf0c20f5b73}{mrb\-Size} = 0}}
+\label{dcscMsgBufferInterface_8c_19b06c755c94d17a31795cf0c20f5b73}
+
+
+
+
+Definition at line 272 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by close\-Device(), get\-Mrb\-Size(), and open\-Device().\hypertarget{dcscMsgBufferInterface_8c_7fe69f55846ac3a138c130665f1f1e49}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!pBuffer@{pBuffer}}
+\index{pBuffer@{pBuffer}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[pBuffer]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32$\ast$ \hyperlink{dcscMsgBufferInterface_8c_7fe69f55846ac3a138c130665f1f1e49}{p\-Buffer} = NULL}}
+\label{dcscMsgBufferInterface_8c_7fe69f55846ac3a138c130665f1f1e49}
+
+
+
+
+Definition at line 266 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by close\-Device(), get\-PBuffer(), and open\-Device().\hypertarget{dcscMsgBufferInterface_8c_9fbfbf38ff332fc7ff0cdd3b1e778f8a}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!pMib@{pMib}}
+\index{pMib@{pMib}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[pMib]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32$\ast$ \hyperlink{dcscMsgBufferInterface_8c_9fbfbf38ff332fc7ff0cdd3b1e778f8a}{p\-Mib} = NULL}}
+\label{dcscMsgBufferInterface_8c_9fbfbf38ff332fc7ff0cdd3b1e778f8a}
+
+
+
+
+Definition at line 267 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by close\-Device(), get\-PMib(), open\-Device(), rcu\-Flash\-Erase(), rcu\-Flash\-ID(), rcu\-Flash\-Reset(), rcu\-Multiple\-Read\-Ext(), rcu\-Multiple\-Write\-Ext(), rcu\-Single\-Read\-Ext(), and rcu\-Single\-Write\-Ext().\hypertarget{dcscMsgBufferInterface_8c_384f64ee5c06a53f375875d6781d3562}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!pMrb@{pMrb}}
+\index{pMrb@{pMrb}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[pMrb]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32$\ast$ \hyperlink{dcscMsgBufferInterface_8c_384f64ee5c06a53f375875d6781d3562}{p\-Mrb} = NULL}}
+\label{dcscMsgBufferInterface_8c_384f64ee5c06a53f375875d6781d3562}
+
+
+
+
+Definition at line 268 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by close\-Device(), get\-PMrb(), and open\-Device().\hypertarget{dcscMsgBufferInterface_8c_12729092e84e294358d87cc007a62a19}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!pReg@{pReg}}
+\index{pReg@{pReg}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[pReg]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32$\ast$ \hyperlink{dcscMsgBufferInterface_8c_12729092e84e294358d87cc007a62a19}{p\-Reg} = NULL}}
+\label{dcscMsgBufferInterface_8c_12729092e84e294358d87cc007a62a19}
+
+
+
+
+Definition at line 269 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by close\-Device(), get\-PReg(), and open\-Device().\hypertarget{dcscMsgBufferInterface_8c_b66ee11d194ff7b952fc0a592839a85b}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!regfile_offset@{regfile\_\-offset}}
+\index{regfile_offset@{regfile\_\-offset}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[regfile\_\-offset]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_b66ee11d194ff7b952fc0a592839a85b}{regfile\_\-offset} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{dcscMsgBufferInterface_8c_b66ee11d194ff7b952fc0a592839a85b}
+
+
+
+
+Definition at line 246 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by open\-Device(), read\-Dcsc\-Register(), and write\-Dcsc\-Register().\hypertarget{dcscMsgBufferInterface_8c_b0de2854a7876bceaa3732b406c60950}{
+\index{dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}!regSize@{regSize}}
+\index{regSize@{regSize}!dcscMsgBufferInterface.c@{dcsc\-Msg\-Buffer\-Interface.c}}
+\subsubsection[regSize]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 \hyperlink{dcscMsgBufferInterface_8c_b0de2854a7876bceaa3732b406c60950}{reg\-Size} = 0}}
+\label{dcscMsgBufferInterface_8c_b0de2854a7876bceaa3732b406c60950}
+
+
+
+
+Definition at line 273 of file dcsc\-Msg\-Buffer\-Interface.c.
+
+Referenced by close\-Device(), get\-Reg\-Size(), and open\-Device().

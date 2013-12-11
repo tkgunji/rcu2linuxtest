@@ -1,0 +1,101 @@
+$Id: ChangeLog,v 1.8 2008/02/27 08:51:57 richter Exp $
+
+17.03.2007 version 1.5
+ - HIB student project on selectmap driver added to project
+ - no changes in rcu-sh
+ - RCU flash access tools added
+
+15.02.2006 version 1.4.2 minor corrections
+   - time out constant for flash erase (multi-)sector increased
+   - changed the 'echo' command to print out on stdout instead of stderr 
+
+15.02.2006 version 1.4
+ - firmware version 2.2 supported:
+   - compressed data formats for multi write
+   - flash access via dcs firmware
+   - memory guard
+   - bugfix in msg buffer interface (buffer allocation)
+
+16.11.2005 version 1.3
+ - flash command group added: read, write, verify, erase, reset, id
+ - the flash uses file specifier -b2 by default (16 bit binary) for write and verify
+ - !!! Note: there is currently no protection and handling of concurrent processes for the 
+   flash functionality implemented !!!
+ - all error messages from the dcsc message buffer interface are redirected to stderr
+ - binary format options for read command output
+ - byte swap for write commands and flash verify
+	
+03.11.2005 corrections for version 1.2
+ - dcscMsgBufferInterface: comstat bits corrected
+ - dcscMsgBufferInterface: flash/selectmap disable requires correct state
+	
+01.11.2005 release of version 1.2
+ - new commands: flash, selectmap group to set the bus mode
+ - dcscMsgBufferInterface: modes msgbuffer, flash and selectmap added; state check 
+ - dcscMsgBufferInterface: bus control function added to API
+
+24.05.2005 (pre)release of version 1.1, some minor changes done on 25.05.2005
+ - command line options
+   -v, --verbosity
+   -d, --device=
+   -e, --encode
+   -a, --append
+   --mibsize
+   --debug (added 25.05.)
+ - started using verbosity in dcscRCUaccess 
+ - bugfix for command line mode
+ - bugfix concerning formatting of read output
+ - driver lock implemented and driver control tools added
+
+11.05.2005
+ - command encoding
+ - new command 'checkmsgblock <file> -v <verbosity>
+ - bad hack cmdInterpreter: execWriteCommand used to call the dcscCheckMessageBlock function 
+
+09.05.2005 still version 1.0
+ - msg block check function added to dcscRCUaccess, not yet used
+ 
+02.05.2005 starting version 1.0
+ - merged branch v0-7-patches into main branch
+ - same features as version 0.8, but optimized buffer encoding
+
+===============================================================
+24.04.2004 version 0.1
+ changes in rcu access library
+ - fetches driver buffer sizes and adopts operations to this
+ - preliminary implementation of multiple write/read
+ - change file access to basic file io (open/close/read/write/ioctl)
+ changes in sendAltroCommand
+ - new option to read driver info
+ 
+26.04.2004 version 0.2
+ changes in rcu access library
+ - translation of result buffer and human readable error messages
+ - better performance due to changed read of result buffer, skip additioanal data copy
+ - multiple read/write fully suported now, the operation is splitted into sub operations if
+   the size of the message buffers is smaller than the data block
+ - data blocks of different word sizes can be passed to multiple write
+ changes in sendAltroCommand
+ - new debug option for printing info data block splitting : 0x40 
+ - better performance for multiple write, additional data copying for non 32bit data skipped
+
+version 0.6
+ - shell mode
+ - command line history and editing
+
+22.10.2004: version 0.7
+ - bugfix in cmdInterpreter.c, executeCommandArgs: seg fault for '-' command
+ - a check for accidental use of '-', e.g. '-b' instead of 'b' warns the user
+ - enhanced documentation in the header files 
+
+22.04.2005: version 0.8
+ - extended read command: option switches
+   - output format
+   - output redirection
+ - batch processing
+   - loop count as argument
+   - infinite loops supported, terminated by CTRL-C (SIGINT)
+   - verbosity level as argument
+ - 'c' command introduced substituted with w <address> 0x0
+ - '>' log message
+

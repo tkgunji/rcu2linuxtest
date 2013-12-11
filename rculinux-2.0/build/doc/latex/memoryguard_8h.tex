@@ -1,0 +1,104 @@
+\hypertarget{memoryguard_8h}{
+\section{memoryguard.h File Reference}
+\label{memoryguard_8h}\index{memoryguard.h@{memoryguard.h}}
+}
+{\tt \#include $<$stdlib.h$>$}\par
+
+
+Include dependency graph for memoryguard.h:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=112pt]{memoryguard_8h__incl}
+\end{center}
+\end{figure}
+
+
+This graph shows which files directly or indirectly include this file:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=146pt]{memoryguard_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \hyperlink{memoryguard_8h_8e4335eedca079f56ff1a72b4c7e567b}{mmg\_\-init}
+\begin{CompactList}\small\item\em \_\-\_\-DEBUG \item\end{CompactList}\item 
+\#define \hyperlink{memoryguard_8h_77a0d64038440b4c7abafe332d234893}{mmg\_\-exit}()
+\end{CompactItemize}
+\subsection*{Enumerations}
+\begin{CompactItemize}
+\item 
+enum \{ \par
+\hyperlink{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55b7774823003ff5055e16eca1c49ff9a78}{kmmg\_\-all} =  0, 
+\hyperlink{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55b18bc1f67b3f22e1575e86c194a84999c}{kmmg\_\-debug}, 
+\hyperlink{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55bfdcbc07dcac5efed057c7b1de3fa735b}{kmmg\_\-info}, 
+\hyperlink{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55bb172d396c906945c14a4727e9e28ba9e}{kmmg\_\-warning}, 
+\par
+\hyperlink{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55b9d2980271626aebf61e8867c9fb0ef6a}{kmmg\_\-error}
+ \}
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{memoryguard_8h_77a0d64038440b4c7abafe332d234893}{
+\index{memoryguard.h@{memoryguard.h}!mmg_exit@{mmg\_\-exit}}
+\index{mmg_exit@{mmg\_\-exit}!memoryguard.h@{memoryguard.h}}
+\subsubsection[mmg\_\-exit]{\setlength{\rightskip}{0pt plus 5cm}\#define mmg\_\-exit()}}
+\label{memoryguard_8h_77a0d64038440b4c7abafe332d234893}
+
+
+
+
+Definition at line 75 of file memoryguard.h.
+
+Referenced by main().\hypertarget{memoryguard_8h_8e4335eedca079f56ff1a72b4c7e567b}{
+\index{memoryguard.h@{memoryguard.h}!mmg_init@{mmg\_\-init}}
+\index{mmg_init@{mmg\_\-init}!memoryguard.h@{memoryguard.h}}
+\subsubsection[mmg\_\-init]{\setlength{\rightskip}{0pt plus 5cm}\#define mmg\_\-init}}
+\label{memoryguard_8h_8e4335eedca079f56ff1a72b4c7e567b}
+
+
+\_\-\_\-DEBUG 
+
+
+
+Definition at line 74 of file memoryguard.h.
+
+Referenced by main().
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55b}{
+\subsubsection["@0]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}
+\label{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55b}
+
+
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{kmmg_all@{kmmg\_\-all}!memoryguard.h@{memoryguard.h}}\index{memoryguard.h@{memoryguard.h}!kmmg_all@{kmmg\_\-all}}\item[{\em 
+\hypertarget{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55b7774823003ff5055e16eca1c49ff9a78}{
+kmmg\_\-all}
+\label{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55b7774823003ff5055e16eca1c49ff9a78}
+}]log all messages \index{kmmg_debug@{kmmg\_\-debug}!memoryguard.h@{memoryguard.h}}\index{memoryguard.h@{memoryguard.h}!kmmg_debug@{kmmg\_\-debug}}\item[{\em 
+\hypertarget{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55b18bc1f67b3f22e1575e86c194a84999c}{
+kmmg\_\-debug}
+\label{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55b18bc1f67b3f22e1575e86c194a84999c}
+}]debug message \index{kmmg_info@{kmmg\_\-info}!memoryguard.h@{memoryguard.h}}\index{memoryguard.h@{memoryguard.h}!kmmg_info@{kmmg\_\-info}}\item[{\em 
+\hypertarget{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55bfdcbc07dcac5efed057c7b1de3fa735b}{
+kmmg\_\-info}
+\label{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55bfdcbc07dcac5efed057c7b1de3fa735b}
+}]info message \index{kmmg_warning@{kmmg\_\-warning}!memoryguard.h@{memoryguard.h}}\index{memoryguard.h@{memoryguard.h}!kmmg_warning@{kmmg\_\-warning}}\item[{\em 
+\hypertarget{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55bb172d396c906945c14a4727e9e28ba9e}{
+kmmg\_\-warning}
+\label{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55bb172d396c906945c14a4727e9e28ba9e}
+}]warning message \index{kmmg_error@{kmmg\_\-error}!memoryguard.h@{memoryguard.h}}\index{memoryguard.h@{memoryguard.h}!kmmg_error@{kmmg\_\-error}}\item[{\em 
+\hypertarget{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55b9d2980271626aebf61e8867c9fb0ef6a}{
+kmmg\_\-error}
+\label{memoryguard_8h_06fc87d81c62e9abb8790b6e5713c55b9d2980271626aebf61e8867c9fb0ef6a}
+}]error message \end{description}
+\end{Desc}
+
+
+
+Definition at line 28 of file memoryguard.h.

@@ -1,0 +1,303 @@
+\hypertarget{structTaggedData__t}{
+\section{Tagged\-Data\_\-t Struct Reference}
+\label{structTaggedData__t}\index{TaggedData_t@{TaggedData\_\-t}}
+}
+Named Data elements to be specified as target in an argument definition \hyperlink{structArgDef__t}{Arg\-Def\_\-t}.  
+
+
+{\tt \#include $<$mrshellprim.h$>$}
+
+Collaboration diagram for Tagged\-Data\_\-t:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=143pt]{structTaggedData__t__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+int \hyperlink{structTaggedData__t_d577c1ca9cfb883e8f61383aee2eb9b4}{type}
+\begin{CompactList}\small\item\em type of the data pointer \item\end{CompactList}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>void $\ast$ \hyperlink{structTaggedData__t_5aa3ac9b92e687fc48272ced2ec2f662}{pVoid}\\
+\>\>{\em void pointer element }\\\>int \hyperlink{structTaggedData__t_bd711fd71d65cb2aa3f10d8e6793707d}{Int}\\
+\>\>{\em int element for types \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b36dd647739976fe8f17c25e3fe04d30eeb}{eInteger} and \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b365461a9e2704387e11258e14a0b41ac1a}{eBool} }\\\>int $\ast$ \hyperlink{structTaggedData__t_d3d58b0a67cc759b746654b7b9d09ae5}{pInt}\\
+\>\>{\em int array element for types \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b36f56ebbf9f6232a573f846cffa9f914e9}{eIntegerArray} and \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b36514baa0f6ca7bbfba804b8826c13cffb}{eFlag} }\\\>float \hyperlink{structTaggedData__t_a7851afd8e427802c7fa7a2d7b9651dd}{Float}\\
+\>\>{\em float element for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b364a5cba5eee27b47a9cf3714e4db4206d}{eFloat} }\\\>float $\ast$ \hyperlink{structTaggedData__t_6315613fa330301fc9be1da20c50c352}{pFloat}\\
+\>\>{\em float array element for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b361cf54b260432a1baf68bed16081357c7}{eFloatArray} }\\\>unsigned int \hyperlink{structTaggedData__t_fb6384a765e6dec1e70a7044d44cfbb5}{Hex}\\
+\>\>{\em uint element for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b36a64d04be3dc94180a329fac904a5d239}{eHex} }\\\>unsigned int $\ast$ \hyperlink{structTaggedData__t_7128a4892c178f6ab61b642e46b72720}{pHex}\\
+\>\>{\em uint array element for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b36be303c42da892f2d0101b668e8aa252a}{eHexArray} }\\\>const char $\ast$ \hyperlink{structTaggedData__t_3ec8155fed9da63b73d80c0ef41ab2a4}{pString}\\
+\>\>{\em target for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b369bf242e7bb183d9518928958c83c9a22}{eConstString} }\\\>char $\ast$ \hyperlink{structTaggedData__t_e7f993fc307df08808cd7aff4962f656}{arrayChar}\\
+\>\>{\em target for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b360a10a6c7f681516162b85d6096fc394e}{eCharArray} }\\\>\hyperlink{structArgDef__t}{TArgDef} $\ast$ \hyperlink{structTaggedData__t_efbba58fc516f932be799255c9b5e119}{pSubArgDef}\\
+\>\>{\em processing function for types \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b36b36d09249e94b5aa513d0aa3c7aa08c8}{eFctRemaining} and \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b364c15eefaf9247f7b503ae586294be587}{eFctInclusive} }\\\>\hyperlink{mrshellprim_8h_25a848858601a9d7593db26db1933c8f}{FunctionNoArg} \hyperlink{structTaggedData__t_8d22eeb05b434ae5553b78a0bf668b9d}{pFctNoArg}\\
+\>\>{\em function for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b3693da28770e1bd5abcff3bfab36328f85}{eFctNoArg} }\\\>\hyperlink{mrshellprim_8h_13b0972f6d0c45d484e999ced9aa622c}{FctIndex} \hyperlink{structTaggedData__t_41090a9e6e4595a3b989893310a841dc}{pFctIndex}\\
+\>\>{\em processing function for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b369d37de9621433ecd8d0b29cb7a8b1536}{eFctIndex} }\\\>\hyperlink{mrshellprim_8h_8f5e79dc67d35c6c5990f753f9490708}{FctUserScan} \hyperlink{structTaggedData__t_bb58753067b96e761a11884323f1fca9}{pFctUser}\\
+\>\>{\em processing function for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b36b17c2f574c8a5697b118c8aa4a00bdad}{eFctUserScan} }\\\>\hyperlink{mrshellprim_8h_6dfb2d9a1efb85cb44f59123ebdb1cc4}{FctInteger} \hyperlink{structTaggedData__t_c607179a1f664681add71110b5f025fe}{pFctInteger}\\
+\>\>{\em processing function for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b366feb19b8074a5ad5e422022891e6e2f5}{eFctIntegerArgs} }\\\>\hyperlink{mrshellprim_8h_027c8c25e67dc4b7346ac5713cf673ab}{FctFloat} \hyperlink{structTaggedData__t_ad03fcf6e74b2d534ed2cf5537063d53}{pFctFloat}\\
+\>\>{\em processing function for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b363cf1e6253af3a5870b9c8cc15ce25900}{eFctFloatArgs} }\\\>\hyperlink{mrshellprim_8h_7e40ba8c9e984665cfe0dbd2b4fa888a}{FctHex} \hyperlink{structTaggedData__t_2dd447060885b411cbf8a64170057b55}{pFctHex}\\
+\>\>{\em processing function for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b3654420a8008623d27ad4e6cf8ba76f7b8}{eFctHexArgs} }\\\>\hyperlink{mrshellprim_8h_fdf1e7a245d5ec6ac61d531e07e6a33c}{FctComposite} \hyperlink{structTaggedData__t_1d4925d2fd17d10226af14b97963366c}{pFctComposite}\\
+\>\>{\em processing function for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b3636b7e40fa597a694a95e617ee33e0e6b}{eFctCompositeArgs} }\\\>\hyperlink{mrshellprim_8h_1c9f7567aaf5693ef8473ff91ccb8ff5}{FctArgDef} \hyperlink{structTaggedData__t_6a4dac68cc3f46afeb1c668dd7f0fdd8}{pFctArgDef}\\
+\>\>{\em processing function for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b3607fd24779fbb8e0bc12b8241e0e436cc}{eFctArgDef} }\\\}; \\
+
+\end{tabbing}\begin{CompactList}\small\item\em type dependend data structure \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Named Data elements to be specified as target in an argument definition \hyperlink{structArgDef__t}{Arg\-Def\_\-t}. 
+
+The {\em type\/} variable specifies the name and which of the other members has to be used. 
+
+
+
+Definition at line 237 of file mrshellprim.h.
+
+\subsection{Field Documentation}
+\hypertarget{structTaggedData__t_d4e407effddd9ce8f7a705ab396ac0c6}{
+\subsubsection["@2]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \} }}
+\label{structTaggedData__t_d4e407effddd9ce8f7a705ab396ac0c6}
+
+
+type dependend data structure 
+
+\hypertarget{structTaggedData__t_e7f993fc307df08808cd7aff4962f656}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!arrayChar@{arrayChar}}
+\index{arrayChar@{arrayChar}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[arrayChar]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \hyperlink{structTaggedData__t_e7f993fc307df08808cd7aff4962f656}{Tagged\-Data\_\-t::array\-Char}}}
+\label{structTaggedData__t_e7f993fc307df08808cd7aff4962f656}
+
+
+target for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b360a10a6c7f681516162b85d6096fc394e}{e\-Char\-Array} 
+
+
+
+Definition at line 259 of file mrshellprim.h.\hypertarget{structTaggedData__t_a7851afd8e427802c7fa7a2d7b9651dd}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!Float@{Float}}
+\index{Float@{Float}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[Float]{\setlength{\rightskip}{0pt plus 5cm}float \hyperlink{structTaggedData__t_a7851afd8e427802c7fa7a2d7b9651dd}{Tagged\-Data\_\-t::Float}}}
+\label{structTaggedData__t_a7851afd8e427802c7fa7a2d7b9651dd}
+
+
+float element for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b364a5cba5eee27b47a9cf3714e4db4206d}{e\-Float} 
+
+
+
+Definition at line 249 of file mrshellprim.h.
+
+Referenced by mr\-Shell\-Prim\-Get\-Float(), and Read\-Argument().\hypertarget{structTaggedData__t_fb6384a765e6dec1e70a7044d44cfbb5}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!Hex@{Hex}}
+\index{Hex@{Hex}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[Hex]{\setlength{\rightskip}{0pt plus 5cm}unsigned int \hyperlink{structTaggedData__t_fb6384a765e6dec1e70a7044d44cfbb5}{Tagged\-Data\_\-t::Hex}}}
+\label{structTaggedData__t_fb6384a765e6dec1e70a7044d44cfbb5}
+
+
+uint element for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b36a64d04be3dc94180a329fac904a5d239}{e\-Hex} 
+
+
+
+Definition at line 253 of file mrshellprim.h.
+
+Referenced by mr\-Shell\-Prim\-Get\-Hex(), and Read\-Argument().\hypertarget{structTaggedData__t_bd711fd71d65cb2aa3f10d8e6793707d}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!Int@{Int}}
+\index{Int@{Int}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[Int]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{structTaggedData__t_bd711fd71d65cb2aa3f10d8e6793707d}{Tagged\-Data\_\-t::Int}}}
+\label{structTaggedData__t_bd711fd71d65cb2aa3f10d8e6793707d}
+
+
+int element for types \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b36dd647739976fe8f17c25e3fe04d30eeb}{e\-Integer} and \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b365461a9e2704387e11258e14a0b41ac1a}{e\-Bool} 
+
+
+
+Definition at line 245 of file mrshellprim.h.
+
+Referenced by call\-Command\-Handler(), mr\-Shell\-Prim\-Get\-Int(), and Read\-Argument().\hypertarget{structTaggedData__t_6a4dac68cc3f46afeb1c668dd7f0fdd8}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!pFctArgDef@{pFctArgDef}}
+\index{pFctArgDef@{pFctArgDef}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[pFctArgDef]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{mrshellprim_8h_1c9f7567aaf5693ef8473ff91ccb8ff5}{Fct\-Arg\-Def} \hyperlink{structTaggedData__t_6a4dac68cc3f46afeb1c668dd7f0fdd8}{Tagged\-Data\_\-t::p\-Fct\-Arg\-Def}}}
+\label{structTaggedData__t_6a4dac68cc3f46afeb1c668dd7f0fdd8}
+
+
+processing function for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b3607fd24779fbb8e0bc12b8241e0e436cc}{e\-Fct\-Arg\-Def} 
+
+
+
+Definition at line 277 of file mrshellprim.h.
+
+Referenced by call\-Command\-Handler().\hypertarget{structTaggedData__t_1d4925d2fd17d10226af14b97963366c}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!pFctComposite@{pFctComposite}}
+\index{pFctComposite@{pFctComposite}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[pFctComposite]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{mrshellprim_8h_fdf1e7a245d5ec6ac61d531e07e6a33c}{Fct\-Composite} \hyperlink{structTaggedData__t_1d4925d2fd17d10226af14b97963366c}{Tagged\-Data\_\-t::p\-Fct\-Composite}}}
+\label{structTaggedData__t_1d4925d2fd17d10226af14b97963366c}
+
+
+processing function for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b3636b7e40fa597a694a95e617ee33e0e6b}{e\-Fct\-Composite\-Args} 
+
+
+
+Definition at line 275 of file mrshellprim.h.\hypertarget{structTaggedData__t_ad03fcf6e74b2d534ed2cf5537063d53}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!pFctFloat@{pFctFloat}}
+\index{pFctFloat@{pFctFloat}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[pFctFloat]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{mrshellprim_8h_027c8c25e67dc4b7346ac5713cf673ab}{Fct\-Float} \hyperlink{structTaggedData__t_ad03fcf6e74b2d534ed2cf5537063d53}{Tagged\-Data\_\-t::p\-Fct\-Float}}}
+\label{structTaggedData__t_ad03fcf6e74b2d534ed2cf5537063d53}
+
+
+processing function for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b363cf1e6253af3a5870b9c8cc15ce25900}{e\-Fct\-Float\-Args} 
+
+
+
+Definition at line 271 of file mrshellprim.h.\hypertarget{structTaggedData__t_2dd447060885b411cbf8a64170057b55}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!pFctHex@{pFctHex}}
+\index{pFctHex@{pFctHex}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[pFctHex]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{mrshellprim_8h_7e40ba8c9e984665cfe0dbd2b4fa888a}{Fct\-Hex} \hyperlink{structTaggedData__t_2dd447060885b411cbf8a64170057b55}{Tagged\-Data\_\-t::p\-Fct\-Hex}}}
+\label{structTaggedData__t_2dd447060885b411cbf8a64170057b55}
+
+
+processing function for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b3654420a8008623d27ad4e6cf8ba76f7b8}{e\-Fct\-Hex\-Args} 
+
+
+
+Definition at line 273 of file mrshellprim.h.\hypertarget{structTaggedData__t_41090a9e6e4595a3b989893310a841dc}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!pFctIndex@{pFctIndex}}
+\index{pFctIndex@{pFctIndex}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[pFctIndex]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{mrshellprim_8h_13b0972f6d0c45d484e999ced9aa622c}{Fct\-Index} \hyperlink{structTaggedData__t_41090a9e6e4595a3b989893310a841dc}{Tagged\-Data\_\-t::p\-Fct\-Index}}}
+\label{structTaggedData__t_41090a9e6e4595a3b989893310a841dc}
+
+
+processing function for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b369d37de9621433ecd8d0b29cb7a8b1536}{e\-Fct\-Index} 
+
+
+
+Definition at line 265 of file mrshellprim.h.
+
+Referenced by call\-Command\-Handler().\hypertarget{structTaggedData__t_c607179a1f664681add71110b5f025fe}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!pFctInteger@{pFctInteger}}
+\index{pFctInteger@{pFctInteger}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[pFctInteger]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{mrshellprim_8h_6dfb2d9a1efb85cb44f59123ebdb1cc4}{Fct\-Integer} \hyperlink{structTaggedData__t_c607179a1f664681add71110b5f025fe}{Tagged\-Data\_\-t::p\-Fct\-Integer}}}
+\label{structTaggedData__t_c607179a1f664681add71110b5f025fe}
+
+
+processing function for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b366feb19b8074a5ad5e422022891e6e2f5}{e\-Fct\-Integer\-Args} 
+
+
+
+Definition at line 269 of file mrshellprim.h.\hypertarget{structTaggedData__t_8d22eeb05b434ae5553b78a0bf668b9d}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!pFctNoArg@{pFctNoArg}}
+\index{pFctNoArg@{pFctNoArg}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[pFctNoArg]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{mrshellprim_8h_25a848858601a9d7593db26db1933c8f}{Function\-No\-Arg} \hyperlink{structTaggedData__t_8d22eeb05b434ae5553b78a0bf668b9d}{Tagged\-Data\_\-t::p\-Fct\-No\-Arg}}}
+\label{structTaggedData__t_8d22eeb05b434ae5553b78a0bf668b9d}
+
+
+function for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b3693da28770e1bd5abcff3bfab36328f85}{e\-Fct\-No\-Arg} 
+
+
+
+Definition at line 263 of file mrshellprim.h.
+
+Referenced by call\-Command\-Handler().\hypertarget{structTaggedData__t_bb58753067b96e761a11884323f1fca9}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!pFctUser@{pFctUser}}
+\index{pFctUser@{pFctUser}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[pFctUser]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{mrshellprim_8h_8f5e79dc67d35c6c5990f753f9490708}{Fct\-User\-Scan} \hyperlink{structTaggedData__t_bb58753067b96e761a11884323f1fca9}{Tagged\-Data\_\-t::p\-Fct\-User}}}
+\label{structTaggedData__t_bb58753067b96e761a11884323f1fca9}
+
+
+processing function for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b36b17c2f574c8a5697b118c8aa4a00bdad}{e\-Fct\-User\-Scan} 
+
+
+
+Definition at line 267 of file mrshellprim.h.
+
+Referenced by call\-Command\-Handler().\hypertarget{structTaggedData__t_6315613fa330301fc9be1da20c50c352}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!pFloat@{pFloat}}
+\index{pFloat@{pFloat}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[pFloat]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ \hyperlink{structTaggedData__t_6315613fa330301fc9be1da20c50c352}{Tagged\-Data\_\-t::p\-Float}}}
+\label{structTaggedData__t_6315613fa330301fc9be1da20c50c352}
+
+
+float array element for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b361cf54b260432a1baf68bed16081357c7}{e\-Float\-Array} 
+
+
+
+Definition at line 251 of file mrshellprim.h.\hypertarget{structTaggedData__t_7128a4892c178f6ab61b642e46b72720}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!pHex@{pHex}}
+\index{pHex@{pHex}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[pHex]{\setlength{\rightskip}{0pt plus 5cm}unsigned int$\ast$ \hyperlink{structTaggedData__t_7128a4892c178f6ab61b642e46b72720}{Tagged\-Data\_\-t::p\-Hex}}}
+\label{structTaggedData__t_7128a4892c178f6ab61b642e46b72720}
+
+
+uint array element for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b36be303c42da892f2d0101b668e8aa252a}{e\-Hex\-Array} 
+
+
+
+Definition at line 255 of file mrshellprim.h.
+
+Referenced by Read\-Argument().\hypertarget{structTaggedData__t_d3d58b0a67cc759b746654b7b9d09ae5}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!pInt@{pInt}}
+\index{pInt@{pInt}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[pInt]{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ \hyperlink{structTaggedData__t_d3d58b0a67cc759b746654b7b9d09ae5}{Tagged\-Data\_\-t::p\-Int}}}
+\label{structTaggedData__t_d3d58b0a67cc759b746654b7b9d09ae5}
+
+
+int array element for types \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b36f56ebbf9f6232a573f846cffa9f914e9}{e\-Integer\-Array} and \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b36514baa0f6ca7bbfba804b8826c13cffb}{e\-Flag} 
+
+
+
+Definition at line 247 of file mrshellprim.h.
+
+Referenced by call\-Command\-Handler().\hypertarget{structTaggedData__t_3ec8155fed9da63b73d80c0ef41ab2a4}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!pString@{pString}}
+\index{pString@{pString}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[pString]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \hyperlink{structTaggedData__t_3ec8155fed9da63b73d80c0ef41ab2a4}{Tagged\-Data\_\-t::p\-String}}}
+\label{structTaggedData__t_3ec8155fed9da63b73d80c0ef41ab2a4}
+
+
+target for type \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b369bf242e7bb183d9518928958c83c9a22}{e\-Const\-String} 
+
+
+
+Definition at line 257 of file mrshellprim.h.
+
+Referenced by Print\-Argument\-Definition(), and Read\-Argument().\hypertarget{structTaggedData__t_efbba58fc516f932be799255c9b5e119}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!pSubArgDef@{pSubArgDef}}
+\index{pSubArgDef@{pSubArgDef}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[pSubArgDef]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{structArgDef__t}{TArg\-Def}$\ast$ \hyperlink{structTaggedData__t_efbba58fc516f932be799255c9b5e119}{Tagged\-Data\_\-t::p\-Sub\-Arg\-Def}}}
+\label{structTaggedData__t_efbba58fc516f932be799255c9b5e119}
+
+
+processing function for types \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b36b36d09249e94b5aa513d0aa3c7aa08c8}{e\-Fct\-Remaining} and \hyperlink{mrshellprim_8h_76a810650461f2062938ee9b82666b364c15eefaf9247f7b503ae586294be587}{e\-Fct\-Inclusive} 
+
+
+
+Definition at line 261 of file mrshellprim.h.
+
+Referenced by call\-Command\-Handler().\hypertarget{structTaggedData__t_5aa3ac9b92e687fc48272ced2ec2f662}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!pVoid@{pVoid}}
+\index{pVoid@{pVoid}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[pVoid]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \hyperlink{structTaggedData__t_5aa3ac9b92e687fc48272ced2ec2f662}{Tagged\-Data\_\-t::p\-Void}}}
+\label{structTaggedData__t_5aa3ac9b92e687fc48272ced2ec2f662}
+
+
+void pointer element 
+
+
+
+Definition at line 243 of file mrshellprim.h.
+
+Referenced by mr\-Shell\-Prim\-Get\-Data(), and mr\-Shell\-Prim\-Set\-Data().\hypertarget{structTaggedData__t_d577c1ca9cfb883e8f61383aee2eb9b4}{
+\index{TaggedData_t@{Tagged\-Data\_\-t}!type@{type}}
+\index{type@{type}!TaggedData_t@{Tagged\-Data\_\-t}}
+\subsubsection[type]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{structTaggedData__t_d577c1ca9cfb883e8f61383aee2eb9b4}{Tagged\-Data\_\-t::type}}}
+\label{structTaggedData__t_d577c1ca9cfb883e8f61383aee2eb9b4}
+
+
+type of the data pointer 
+
+
+
+Definition at line 239 of file mrshellprim.h.
+
+Referenced by call\-Command\-Handler(), Get\-Nof\-Required\-Args(), mr\-Shell\-Prim\-Clone\-Def(), mr\-Shell\-Prim\-Get\-Data(), mr\-Shell\-Prim\-Get\-Index(), mr\-Shell\-Prim\-Get\-Int(), mr\-Shell\-Prim\-Reset\-Volatile\-Flags(), mr\-Shell\-Prim\-Set\-Data(), Print\-Argument\-Definition(), Read\-Argument(), and Search\-Def().
+
+The documentation for this struct was generated from the following file:\begin{CompactItemize}
+\item 
+\hyperlink{mrshellprim_8h}{mrshellprim.h}\end{CompactItemize}

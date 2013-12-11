@@ -1,0 +1,14 @@
+\hypertarget{group__framegen}{
+\section{Frame Generator}
+\label{group__framegen}\index{Frame Generator@{Frame Generator}}
+}
+The Framegenerator framegen can be used to read out frames from the Xilinx which will be stored with read and write headers and footers.  
+All the frames that should be read out have to be given in a ascii text file in the first parameter. One Frame per line in this format: \char`\"{}0;5;3;\char`\"{}. Comments are allowed with leading \char`\"{}\#\char`\"{}.
+
+The second parameter to be given is the readheader file, every line contains a value to be written to the Xilinx, the address has to be inserted as variables \char`\"{}\$frame\_\-addr31\_\-16\char`\"{} and \char`\"{}\$frame\_\-addr15\_\-0\char`\"{}. These addresses will be generated from the framesfile.
+
+third parameter is the readfooter, 4th the writeheader and 5th the writefooter.
+
+For every frame, 3 Files will be generated: w\_\-frame\-X.X.X.hex, r\_\-frame.X.X.X.hex and frame\-X.X.X.hex where one contains the readheader with the address instead of the variable, then the data and the read\_\-footer, the other containing the writeheader, 2 times the data and the writefooter and the 3rd one containing just the data.
+
+All generated files will be stored in the working directory. 

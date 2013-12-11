@@ -1,0 +1,188 @@
+\hypertarget{structArgDef__t}{
+\section{Arg\-Def\_\-t Struct Reference}
+\label{structArgDef__t}\index{ArgDef_t@{ArgDef\_\-t}}
+}
+The argument definition.  
+
+
+{\tt \#include $<$mrshellprim.h$>$}
+
+Collaboration diagram for Arg\-Def\_\-t:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=174pt]{structArgDef__t__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+const char $\ast$ \hyperlink{structArgDef__t_4ca9eeaa97d70754a94cb018d13f21cd}{s}
+\begin{CompactList}\small\item\em short version of the argument \item\end{CompactList}\item 
+const char $\ast$ \hyperlink{structArgDef__t_c076508155e43ccd57ed2f6c871a107d}{l}
+\begin{CompactList}\small\item\em long version of the argument \item\end{CompactList}\item 
+\hyperlink{structTaggedData__t}{TTagged\-Data} \hyperlink{structArgDef__t_75389251964258516f1e52fb06df857b}{data}
+\begin{CompactList}\small\item\em type dependend data structure \item\end{CompactList}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>void $\ast$ \hyperlink{structArgDef__t_8705bbfe111541c0184b61a058ddccb1}{pUser}\\
+\>\>{\em pointer to user defined data passed to a sub-function }\\\>\hyperlink{structFctMode__t}{TFctMode} $\ast$ \hyperlink{structArgDef__t_f0e262a888279888219539148e30391b}{pFctMode}\\
+\>\>{\em mode for the next recursion }\\\>\hyperlink{structTaggedData__t}{TTaggedData} $\ast$ \hyperlink{structArgDef__t_a1d8173daa98a2ba54340e7e6a29db2e}{arrayComposite}\\
+\>\hyperlink{structFctArg__t}{TFctArg} $\ast$ \hyperlink{structArgDef__t_0b8bf4785dab58cdbf9124f23cf6346f}{pFctArg}\\
+\>\>\>{\em parameter to the eFctArgDef type }\\\>int \hyperlink{structArgDef__t_6dc5a1f0d48c5a90e40304930d77a0e2}{size}\\
+\>\>{\em size of arrays }\\\>unsigned int \hyperlink{structArgDef__t_fbd0df81e0a7ea0c1a62a3d1e2680d14}{setFlagPattern}\\
+\>\>{\em the flag pattern for the eFlag type }\\\}; \\
+
+\end{tabbing}\begin{CompactList}\small\item\em additional type dependend data \item\end{CompactList}\item 
+unsigned int \hyperlink{structArgDef__t_5b37c4058072b47e0392590c26f7d0ca}{flags}
+\begin{CompactList}\small\item\em scanning flags specific to this argument \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+The argument definition. 
+
+
+
+Definition at line 285 of file mrshellprim.h.
+
+\subsection{Field Documentation}
+\hypertarget{structArgDef__t_b1edabeb6964d6bfde220a6e3f3b5374}{
+\subsubsection["@4]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \} }}
+\label{structArgDef__t_b1edabeb6964d6bfde220a6e3f3b5374}
+
+
+additional type dependend data 
+
+\hypertarget{structArgDef__t_a1d8173daa98a2ba54340e7e6a29db2e}{
+\index{ArgDef_t@{Arg\-Def\_\-t}!arrayComposite@{arrayComposite}}
+\index{arrayComposite@{arrayComposite}!ArgDef_t@{Arg\-Def\_\-t}}
+\subsubsection[arrayComposite]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{structTaggedData__t}{TTagged\-Data}$\ast$ \hyperlink{structArgDef__t_a1d8173daa98a2ba54340e7e6a29db2e}{Arg\-Def\_\-t::array\-Composite}}}
+\label{structArgDef__t_a1d8173daa98a2ba54340e7e6a29db2e}
+
+
+
+
+Definition at line 298 of file mrshellprim.h.
+
+Referenced by Get\-Nof\-Required\-Args().\hypertarget{structArgDef__t_75389251964258516f1e52fb06df857b}{
+\index{ArgDef_t@{Arg\-Def\_\-t}!data@{data}}
+\index{data@{data}!ArgDef_t@{Arg\-Def\_\-t}}
+\subsubsection[data]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{structTaggedData__t}{TTagged\-Data} \hyperlink{structArgDef__t_75389251964258516f1e52fb06df857b}{Arg\-Def\_\-t::data}}}
+\label{structArgDef__t_75389251964258516f1e52fb06df857b}
+
+
+type dependend data structure 
+
+
+
+Definition at line 291 of file mrshellprim.h.
+
+Referenced by call\-Command\-Handler(), Get\-Nof\-Required\-Args(), mr\-Shell\-Prim\-Clone\-Def(), mr\-Shell\-Prim\-Get\-Data(), mr\-Shell\-Prim\-Get\-Float(), mr\-Shell\-Prim\-Get\-Hex(), mr\-Shell\-Prim\-Get\-Index(), mr\-Shell\-Prim\-Get\-Int(), mr\-Shell\-Prim\-Reset\-Volatile\-Flags(), mr\-Shell\-Prim\-Set\-Data(), Print\-Argument\-Definition(), Read\-Argument(), and Search\-Def().\hypertarget{structArgDef__t_5b37c4058072b47e0392590c26f7d0ca}{
+\index{ArgDef_t@{Arg\-Def\_\-t}!flags@{flags}}
+\index{flags@{flags}!ArgDef_t@{Arg\-Def\_\-t}}
+\subsubsection[flags]{\setlength{\rightskip}{0pt plus 5cm}unsigned int \hyperlink{structArgDef__t_5b37c4058072b47e0392590c26f7d0ca}{Arg\-Def\_\-t::flags}}}
+\label{structArgDef__t_5b37c4058072b47e0392590c26f7d0ca}
+
+
+scanning flags specific to this argument 
+
+
+
+Definition at line 307 of file mrshellprim.h.
+
+Referenced by Scan\-Arguments(), and Search\-Def().\hypertarget{structArgDef__t_c076508155e43ccd57ed2f6c871a107d}{
+\index{ArgDef_t@{Arg\-Def\_\-t}!l@{l}}
+\index{l@{l}!ArgDef_t@{Arg\-Def\_\-t}}
+\subsubsection[l]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \hyperlink{structArgDef__t_c076508155e43ccd57ed2f6c871a107d}{Arg\-Def\_\-t::l}}}
+\label{structArgDef__t_c076508155e43ccd57ed2f6c871a107d}
+
+
+long version of the argument 
+
+
+
+Definition at line 289 of file mrshellprim.h.
+
+Referenced by call\-Command\-Handler(), Scan\-Arguments(), and Search\-Def().\hypertarget{structArgDef__t_0b8bf4785dab58cdbf9124f23cf6346f}{
+\index{ArgDef_t@{Arg\-Def\_\-t}!pFctArg@{pFctArg}}
+\index{pFctArg@{pFctArg}!ArgDef_t@{Arg\-Def\_\-t}}
+\subsubsection[pFctArg]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{structFctArg__t}{TFct\-Arg}$\ast$ \hyperlink{structArgDef__t_0b8bf4785dab58cdbf9124f23cf6346f}{Arg\-Def\_\-t::p\-Fct\-Arg}}}
+\label{structArgDef__t_0b8bf4785dab58cdbf9124f23cf6346f}
+
+
+parameter to the e\-Fct\-Arg\-Def type 
+
+
+
+Definition at line 300 of file mrshellprim.h.
+
+Referenced by call\-Command\-Handler(), and Read\-Argument().\hypertarget{structArgDef__t_f0e262a888279888219539148e30391b}{
+\index{ArgDef_t@{Arg\-Def\_\-t}!pFctMode@{pFctMode}}
+\index{pFctMode@{pFctMode}!ArgDef_t@{Arg\-Def\_\-t}}
+\subsubsection[pFctMode]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{structFctMode__t}{TFct\-Mode}$\ast$ \hyperlink{structArgDef__t_f0e262a888279888219539148e30391b}{Arg\-Def\_\-t::p\-Fct\-Mode}}}
+\label{structArgDef__t_f0e262a888279888219539148e30391b}
+
+
+mode for the next recursion 
+
+
+
+Definition at line 297 of file mrshellprim.h.
+
+Referenced by call\-Command\-Handler().\hypertarget{structArgDef__t_8705bbfe111541c0184b61a058ddccb1}{
+\index{ArgDef_t@{Arg\-Def\_\-t}!pUser@{pUser}}
+\index{pUser@{pUser}!ArgDef_t@{Arg\-Def\_\-t}}
+\subsubsection[pUser]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \hyperlink{structArgDef__t_8705bbfe111541c0184b61a058ddccb1}{Arg\-Def\_\-t::p\-User}}}
+\label{structArgDef__t_8705bbfe111541c0184b61a058ddccb1}
+
+
+pointer to user defined data passed to a sub-function 
+
+
+
+Definition at line 295 of file mrshellprim.h.
+
+Referenced by call\-Command\-Handler().\hypertarget{structArgDef__t_4ca9eeaa97d70754a94cb018d13f21cd}{
+\index{ArgDef_t@{Arg\-Def\_\-t}!s@{s}}
+\index{s@{s}!ArgDef_t@{Arg\-Def\_\-t}}
+\subsubsection[s]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \hyperlink{structArgDef__t_4ca9eeaa97d70754a94cb018d13f21cd}{Arg\-Def\_\-t::s}}}
+\label{structArgDef__t_4ca9eeaa97d70754a94cb018d13f21cd}
+
+
+short version of the argument 
+
+
+
+Definition at line 287 of file mrshellprim.h.
+
+Referenced by call\-Command\-Handler(), Scan\-Arguments(), and Search\-Def().\hypertarget{structArgDef__t_fbd0df81e0a7ea0c1a62a3d1e2680d14}{
+\index{ArgDef_t@{Arg\-Def\_\-t}!setFlagPattern@{setFlagPattern}}
+\index{setFlagPattern@{setFlagPattern}!ArgDef_t@{Arg\-Def\_\-t}}
+\subsubsection[setFlagPattern]{\setlength{\rightskip}{0pt plus 5cm}unsigned int \hyperlink{structArgDef__t_fbd0df81e0a7ea0c1a62a3d1e2680d14}{Arg\-Def\_\-t::set\-Flag\-Pattern}}}
+\label{structArgDef__t_fbd0df81e0a7ea0c1a62a3d1e2680d14}
+
+
+the flag pattern for the e\-Flag type 
+
+
+
+Definition at line 304 of file mrshellprim.h.
+
+Referenced by call\-Command\-Handler().\hypertarget{structArgDef__t_6dc5a1f0d48c5a90e40304930d77a0e2}{
+\index{ArgDef_t@{Arg\-Def\_\-t}!size@{size}}
+\index{size@{size}!ArgDef_t@{Arg\-Def\_\-t}}
+\subsubsection[size]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{structArgDef__t_6dc5a1f0d48c5a90e40304930d77a0e2}{Arg\-Def\_\-t::size}}}
+\label{structArgDef__t_6dc5a1f0d48c5a90e40304930d77a0e2}
+
+
+size of arrays 
+
+
+
+Definition at line 302 of file mrshellprim.h.
+
+Referenced by call\-Command\-Handler(), and Get\-Nof\-Required\-Args().
+
+The documentation for this struct was generated from the following file:\begin{CompactItemize}
+\item 
+\hyperlink{mrshellprim_8h}{mrshellprim.h}\end{CompactItemize}

@@ -1,0 +1,249 @@
+\hypertarget{backup_2mrKernLogging_8h}{
+\section{mr\-Kern\-Logging.h File Reference}
+\label{backup_2mrKernLogging_8h}\index{mrKernLogging.h@{mrKernLogging.h}}
+}
+
+
+This graph shows which files directly or indirectly include this file:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{backup_2mrKernLogging_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \hyperlink{backup_2mrKernLogging_8h_5a5952bc151ef78d2276fb96bfc1c535}{LOG\_\-FLAG\_\-ALL}~0xffff
+\item 
+\#define \hyperlink{backup_2mrKernLogging_8h_e40f33c30bb438f6bf4a504ecc84276a}{LOG\_\-FLAG\_\-ALL\_\-LEVELS}~0x000f
+\item 
+\#define \hyperlink{backup_2mrKernLogging_8h_ced66975c154ea0e2a8ec3bc818b4e08}{LOG\_\-ERROR}~0x0001
+\item 
+\#define \hyperlink{backup_2mrKernLogging_8h_df4476a6a4ea6c74231c826e899d7189}{LOG\_\-WARNING}~0x0002
+\item 
+\#define \hyperlink{backup_2mrKernLogging_8h_eb4f36db01bd128c7afeac5889dac311}{LOG\_\-INFO}~0x0004
+\item 
+\#define \hyperlink{backup_2mrKernLogging_8h_82193f01b56c77d97198ad1e55c0858c}{LOG\_\-DBG}~0x0008
+\item 
+\#define \hyperlink{backup_2mrKernLogging_8h_3f910f078c66c669e2dc3a3cbc3bf4e5}{LOG\_\-INTERNAL}~0x0010
+\item 
+\#define \hyperlink{backup_2mrKernLogging_8h_e9c18a7ab7abc59931c829b92824360a}{LOG\_\-LLSEEK}~0x0020
+\item 
+\#define \hyperlink{backup_2mrKernLogging_8h_abcb9e2232d403ec0819db5d4025d79e}{LOG\_\-READ\_\-WRITE}~0x0040
+\item 
+\#define \hyperlink{backup_2mrKernLogging_8h_efba65405d7220f75686e97a50584daf}{LOG\_\-IOCTL}~0x0080
+\item 
+\#define \hyperlink{backup_2mrKernLogging_8h_ec22ca49b968bee091e5c1d206ef70a0}{LOG\_\-MMAP}~0x0100
+\item 
+\#define \hyperlink{backup_2mrKernLogging_8h_ddc11c8134bcb046337dac42c92a3aff}{LOG\_\-OPEN\_\-CLOSE}~0x0200
+\item 
+\#define \hyperlink{backup_2mrKernLogging_8h_bd799905673df28c237256643dcfecfa}{LOG\_\-FPGA\_\-CONF}~0x0400
+\item 
+\#define \hyperlink{backup_2mrKernLogging_8h_2065a6d06d6d316cce14ee8e02466d24}{LOG\_\-DRIVER\_\-LCK}~0x0800
+\item 
+\#define \hyperlink{backup_2mrKernLogging_8h_4ea8178ab0a9178b022c098eadfa65f4}{LOG\_\-SELFTEST}~0x1000
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \hyperlink{backup_2mrKernLogging_8h_6f0ff7e8e3d5f37f0817d5b0e1907187}{mrlogmessage} (u16 logflag, const char $\ast$fmt,...)
+\item 
+int \hyperlink{backup_2mrKernLogging_8h_d5709710860d999e52e15ccad1055eed}{mr\-Log\-Message} (const char $\ast$origin, u16 logflag, const char $\ast$fmt,...)
+\item 
+void \hyperlink{backup_2mrKernLogging_8h_fddb4cb975e1eff369ea95ce7f93f0c0}{mr\-Add\-Log\-Prefix} (const char $\ast$logprefix, const char $\ast$origin)
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{backup_2mrKernLogging_8h_82193f01b56c77d97198ad1e55c0858c}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!LOG_DBG@{LOG\_\-DBG}}
+\index{LOG_DBG@{LOG\_\-DBG}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[LOG\_\-DBG]{\setlength{\rightskip}{0pt plus 5cm}\#define LOG\_\-DBG~0x0008}}
+\label{backup_2mrKernLogging_8h_82193f01b56c77d97198ad1e55c0858c}
+
+
+
+
+Definition at line 32 of file backup/mr\-Kern\-Logging.h.
+
+Referenced by check\-And\-Lock(), dcsc\_\-close(), dcsc\_\-ioctl(), dcsc\_\-llseek(), dcsc\_\-mmap(), dcsc\_\-read(), dcsc\_\-write(), init\-Real\-Buffers(), init\-Simulated\-Buffers(), lock\-Driver(), rcuf\_\-close(), rcuf\_\-ioctl(), rcuf\_\-llseek(), rcuf\_\-open(), rcuf\_\-read(), rcuf\_\-write(), and unlock\-Driver().\hypertarget{backup_2mrKernLogging_8h_2065a6d06d6d316cce14ee8e02466d24}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!LOG_DRIVER_LCK@{LOG\_\-DRIVER\_\-LCK}}
+\index{LOG_DRIVER_LCK@{LOG\_\-DRIVER\_\-LCK}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[LOG\_\-DRIVER\_\-LCK]{\setlength{\rightskip}{0pt plus 5cm}\#define LOG\_\-DRIVER\_\-LCK~0x0800}}
+\label{backup_2mrKernLogging_8h_2065a6d06d6d316cce14ee8e02466d24}
+
+
+
+
+Definition at line 42 of file backup/mr\-Kern\-Logging.h.
+
+Referenced by check\-And\-Lock(), lock\-Driver(), release\-Driver(), seize\-Driver(), and unlock\-Driver().\hypertarget{backup_2mrKernLogging_8h_ced66975c154ea0e2a8ec3bc818b4e08}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!LOG_ERROR@{LOG\_\-ERROR}}
+\index{LOG_ERROR@{LOG\_\-ERROR}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[LOG\_\-ERROR]{\setlength{\rightskip}{0pt plus 5cm}\#define LOG\_\-ERROR~0x0001}}
+\label{backup_2mrKernLogging_8h_ced66975c154ea0e2a8ec3bc818b4e08}
+
+
+
+
+Definition at line 29 of file backup/mr\-Kern\-Logging.h.
+
+Referenced by dcsc\_\-ioctl(), dcsc\_\-llseek(), dcsc\_\-open(), dcsc\_\-read(), dcsc\_\-write(), init\_\-module(), init\-Real\-Buffers(), init\-Simulated\-Buffers(), rcu\_\-flash\_\-read(), rcu\_\-flash\_\-write(), rcuf\_\-ioctl(), rcuf\_\-llseek(), rcuf\_\-open(), rcuf\_\-read(), rcuf\_\-write(), release\-Driver(), seize\-Driver(), and unlock\-Driver().\hypertarget{backup_2mrKernLogging_8h_5a5952bc151ef78d2276fb96bfc1c535}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!LOG_FLAG_ALL@{LOG\_\-FLAG\_\-ALL}}
+\index{LOG_FLAG_ALL@{LOG\_\-FLAG\_\-ALL}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[LOG\_\-FLAG\_\-ALL]{\setlength{\rightskip}{0pt plus 5cm}\#define LOG\_\-FLAG\_\-ALL~0xffff}}
+\label{backup_2mrKernLogging_8h_5a5952bc151ef78d2276fb96bfc1c535}
+
+
+
+
+Definition at line 26 of file backup/mr\-Kern\-Logging.h.
+
+Referenced by find\-Buffer\-For\-Address().\hypertarget{backup_2mrKernLogging_8h_e40f33c30bb438f6bf4a504ecc84276a}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!LOG_FLAG_ALL_LEVELS@{LOG\_\-FLAG\_\-ALL\_\-LEVELS}}
+\index{LOG_FLAG_ALL_LEVELS@{LOG\_\-FLAG\_\-ALL\_\-LEVELS}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[LOG\_\-FLAG\_\-ALL\_\-LEVELS]{\setlength{\rightskip}{0pt plus 5cm}\#define LOG\_\-FLAG\_\-ALL\_\-LEVELS~0x000f}}
+\label{backup_2mrKernLogging_8h_e40f33c30bb438f6bf4a504ecc84276a}
+
+
+
+
+Definition at line 27 of file backup/mr\-Kern\-Logging.h.
+
+Referenced by mrlogmessage().\hypertarget{backup_2mrKernLogging_8h_bd799905673df28c237256643dcfecfa}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!LOG_FPGA_CONF@{LOG\_\-FPGA\_\-CONF}}
+\index{LOG_FPGA_CONF@{LOG\_\-FPGA\_\-CONF}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[LOG\_\-FPGA\_\-CONF]{\setlength{\rightskip}{0pt plus 5cm}\#define LOG\_\-FPGA\_\-CONF~0x0400}}
+\label{backup_2mrKernLogging_8h_bd799905673df28c237256643dcfecfa}
+
+
+
+
+Definition at line 41 of file backup/mr\-Kern\-Logging.h.\hypertarget{backup_2mrKernLogging_8h_eb4f36db01bd128c7afeac5889dac311}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!LOG_INFO@{LOG\_\-INFO}}
+\index{LOG_INFO@{LOG\_\-INFO}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[LOG\_\-INFO]{\setlength{\rightskip}{0pt plus 5cm}\#define LOG\_\-INFO~0x0004}}
+\label{backup_2mrKernLogging_8h_eb4f36db01bd128c7afeac5889dac311}
+
+
+
+
+Definition at line 31 of file backup/mr\-Kern\-Logging.h.
+
+Referenced by cleanup\_\-module(), dcsc\_\-ioctl(), dcsc\_\-open(), dcsc\_\-read(), dcsc\_\-write(), init\_\-module(), init\-Simulated\-Buffers(), rcu\_\-flash\_\-erase(), release\-Driver(), and seize\-Driver().\hypertarget{backup_2mrKernLogging_8h_3f910f078c66c669e2dc3a3cbc3bf4e5}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!LOG_INTERNAL@{LOG\_\-INTERNAL}}
+\index{LOG_INTERNAL@{LOG\_\-INTERNAL}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[LOG\_\-INTERNAL]{\setlength{\rightskip}{0pt plus 5cm}\#define LOG\_\-INTERNAL~0x0010}}
+\label{backup_2mrKernLogging_8h_3f910f078c66c669e2dc3a3cbc3bf4e5}
+
+
+
+
+Definition at line 35 of file backup/mr\-Kern\-Logging.h.
+
+Referenced by init\-Real\-Buffers(), and init\-Simulated\-Buffers().\hypertarget{backup_2mrKernLogging_8h_efba65405d7220f75686e97a50584daf}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!LOG_IOCTL@{LOG\_\-IOCTL}}
+\index{LOG_IOCTL@{LOG\_\-IOCTL}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[LOG\_\-IOCTL]{\setlength{\rightskip}{0pt plus 5cm}\#define LOG\_\-IOCTL~0x0080}}
+\label{backup_2mrKernLogging_8h_efba65405d7220f75686e97a50584daf}
+
+
+
+
+Definition at line 38 of file backup/mr\-Kern\-Logging.h.
+
+Referenced by dcsc\_\-ioctl(), and rcuf\_\-ioctl().\hypertarget{backup_2mrKernLogging_8h_e9c18a7ab7abc59931c829b92824360a}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!LOG_LLSEEK@{LOG\_\-LLSEEK}}
+\index{LOG_LLSEEK@{LOG\_\-LLSEEK}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[LOG\_\-LLSEEK]{\setlength{\rightskip}{0pt plus 5cm}\#define LOG\_\-LLSEEK~0x0020}}
+\label{backup_2mrKernLogging_8h_e9c18a7ab7abc59931c829b92824360a}
+
+
+
+
+Definition at line 36 of file backup/mr\-Kern\-Logging.h.
+
+Referenced by dcsc\_\-llseek(), and rcuf\_\-llseek().\hypertarget{backup_2mrKernLogging_8h_ec22ca49b968bee091e5c1d206ef70a0}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!LOG_MMAP@{LOG\_\-MMAP}}
+\index{LOG_MMAP@{LOG\_\-MMAP}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[LOG\_\-MMAP]{\setlength{\rightskip}{0pt plus 5cm}\#define LOG\_\-MMAP~0x0100}}
+\label{backup_2mrKernLogging_8h_ec22ca49b968bee091e5c1d206ef70a0}
+
+
+
+
+Definition at line 39 of file backup/mr\-Kern\-Logging.h.
+
+Referenced by dcsc\_\-mmap().\hypertarget{backup_2mrKernLogging_8h_ddc11c8134bcb046337dac42c92a3aff}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!LOG_OPEN_CLOSE@{LOG\_\-OPEN\_\-CLOSE}}
+\index{LOG_OPEN_CLOSE@{LOG\_\-OPEN\_\-CLOSE}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[LOG\_\-OPEN\_\-CLOSE]{\setlength{\rightskip}{0pt plus 5cm}\#define LOG\_\-OPEN\_\-CLOSE~0x0200}}
+\label{backup_2mrKernLogging_8h_ddc11c8134bcb046337dac42c92a3aff}
+
+
+
+
+Definition at line 40 of file backup/mr\-Kern\-Logging.h.
+
+Referenced by dcsc\_\-close(), dcsc\_\-open(), rcuf\_\-close(), and rcuf\_\-open().\hypertarget{backup_2mrKernLogging_8h_abcb9e2232d403ec0819db5d4025d79e}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!LOG_READ_WRITE@{LOG\_\-READ\_\-WRITE}}
+\index{LOG_READ_WRITE@{LOG\_\-READ\_\-WRITE}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[LOG\_\-READ\_\-WRITE]{\setlength{\rightskip}{0pt plus 5cm}\#define LOG\_\-READ\_\-WRITE~0x0040}}
+\label{backup_2mrKernLogging_8h_abcb9e2232d403ec0819db5d4025d79e}
+
+
+
+
+Definition at line 37 of file backup/mr\-Kern\-Logging.h.
+
+Referenced by dcsc\_\-read(), dcsc\_\-write(), rcu\_\-flash\_\-read(), rcu\_\-flash\_\-write(), rcuf\_\-read(), and rcuf\_\-write().\hypertarget{backup_2mrKernLogging_8h_4ea8178ab0a9178b022c098eadfa65f4}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!LOG_SELFTEST@{LOG\_\-SELFTEST}}
+\index{LOG_SELFTEST@{LOG\_\-SELFTEST}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[LOG\_\-SELFTEST]{\setlength{\rightskip}{0pt plus 5cm}\#define LOG\_\-SELFTEST~0x1000}}
+\label{backup_2mrKernLogging_8h_4ea8178ab0a9178b022c098eadfa65f4}
+
+
+
+
+Definition at line 43 of file backup/mr\-Kern\-Logging.h.\hypertarget{backup_2mrKernLogging_8h_df4476a6a4ea6c74231c826e899d7189}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!LOG_WARNING@{LOG\_\-WARNING}}
+\index{LOG_WARNING@{LOG\_\-WARNING}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[LOG\_\-WARNING]{\setlength{\rightskip}{0pt plus 5cm}\#define LOG\_\-WARNING~0x0002}}
+\label{backup_2mrKernLogging_8h_df4476a6a4ea6c74231c826e899d7189}
+
+
+
+
+Definition at line 30 of file backup/mr\-Kern\-Logging.h.
+
+Referenced by dcsc\_\-ioctl(), dcsc\_\-read(), dcsc\_\-write(), rcuf\_\-ioctl(), rcuf\_\-read(), rcuf\_\-write(), seize\-Driver(), and unlock\-Driver().
+
+\subsection{Function Documentation}
+\hypertarget{backup_2mrKernLogging_8h_fddb4cb975e1eff369ea95ce7f93f0c0}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!mrAddLogPrefix@{mrAddLogPrefix}}
+\index{mrAddLogPrefix@{mrAddLogPrefix}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[mrAddLogPrefix]{\setlength{\rightskip}{0pt plus 5cm}void mr\-Add\-Log\-Prefix (const char $\ast$ {\em logprefix}, const char $\ast$ {\em origin})}}
+\label{backup_2mrKernLogging_8h_fddb4cb975e1eff369ea95ce7f93f0c0}
+
+
+
+
+Definition at line 88 of file backup/mr\-Kern\-Logging.c.\hypertarget{backup_2mrKernLogging_8h_d5709710860d999e52e15ccad1055eed}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!mrLogMessage@{mrLogMessage}}
+\index{mrLogMessage@{mrLogMessage}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[mrLogMessage]{\setlength{\rightskip}{0pt plus 5cm}int mr\-Log\-Message (const char $\ast$ {\em origin}, u16 {\em logflag}, const char $\ast$ {\em fmt},  {\em ...})}}
+\label{backup_2mrKernLogging_8h_d5709710860d999e52e15ccad1055eed}
+
+
+\hypertarget{backup_2mrKernLogging_8h_6f0ff7e8e3d5f37f0817d5b0e1907187}{
+\index{backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}!mrlogmessage@{mrlogmessage}}
+\index{mrlogmessage@{mrlogmessage}!backup/mrKernLogging.h@{backup/mr\-Kern\-Logging.h}}
+\subsubsection[mrlogmessage]{\setlength{\rightskip}{0pt plus 5cm}int mrlogmessage (u16 {\em logflag}, const char $\ast$ {\em fmt},  {\em ...})}}
+\label{backup_2mrKernLogging_8h_6f0ff7e8e3d5f37f0817d5b0e1907187}
+
+
+
+
+Definition at line 41 of file backup/mr\-Kern\-Logging.c.
+
+References g\_\-logflags, g\_\-mr\-Log\-Prefix, LOG\_\-BUFFER\_\-SIZE, and LOG\_\-FLAG\_\-ALL\_\-LEVELS.

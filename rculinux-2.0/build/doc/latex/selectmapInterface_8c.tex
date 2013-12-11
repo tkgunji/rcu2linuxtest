@@ -1,0 +1,123 @@
+\hypertarget{selectmapInterface_8c}{
+\section{selectmap\-Interface.c File Reference}
+\label{selectmapInterface_8c}\index{selectmapInterface.c@{selectmapInterface.c}}
+}
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$linux/errno.h$>$}\par
+{\tt \#include $<$sys/ioctl.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include \char`\"{}selectmap\-Interface.h\char`\"{}}\par
+{\tt \#include \char`\"{}virtex\_\-io.h\char`\"{}}\par
+
+
+Include dependency graph for selectmap\-Interface.c:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{selectmapInterface_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \hyperlink{selectmapInterface_8c_9aff17cdaa69614ffde2c2b1b1a1a3c5}{SM\_\-REG\_\-WRITE}~0
+\item 
+\#define \hyperlink{selectmapInterface_8c_f1dd602a2cc10a5cbb14e6f43354df16}{SM\_\-REG\_\-READ}~1
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \hyperlink{group__selectmap__access_g3a82967a2ac2933832a98aa2d822fd7b}{init\-Sm\-Access} (const char $\ast$p\-Device\-Name)
+\begin{CompactList}\small\item\em Initialize the interface. \item\end{CompactList}\item 
+int \hyperlink{group__selectmap__access_g75466b7556397eb41108eb84212c5b19}{release\-Sm\-Access} ()
+\begin{CompactList}\small\item\em Close the device and release internal data structures. \item\end{CompactList}\item 
+\_\-\_\-u32 \hyperlink{group__selectmap__access_g88f0784ea00a5707d5fc4db2778e1b2a}{sm\-Make\-T1Header} (\_\-\_\-u8 rdwr, \_\-\_\-u16 address, \_\-\_\-u16 words)
+\begin{CompactList}\small\item\em Generates a Type 1 Header Package to send to the selectmap interface. \item\end{CompactList}\item 
+\_\-\_\-u32 \hyperlink{selectmapInterface_8c_a77310aa2f85bc60625d01400531dea3}{sm\-Make\-T2Header} (\_\-\_\-u8 rdwr, \_\-\_\-u32 words)
+\item 
+\_\-\_\-u32 \hyperlink{selectmapInterface_8c_9c1b004f1fdac10b1404519fbb11a878}{sm\-Make\-Fac\-Header} (\_\-\_\-u8 ba, \_\-\_\-u8 mja, \_\-\_\-u8 mna)
+\item 
+int \hyperlink{group__selectmap__access_ge0d7561e2ddca5878fe0c39c948dfdd2}{sm\-Register\-Write} (\_\-\_\-u32 address, \_\-\_\-u32 p\-Data)
+\begin{CompactList}\small\item\em Write one word to a register of the selectmap interface. \item\end{CompactList}\item 
+int \hyperlink{group__selectmap__access_gf7536588344d4c30f928de00a240baa8}{sm\-Register\-Read} (\_\-\_\-u32 address, \_\-\_\-u32 $\ast$p\-Data)
+\begin{CompactList}\small\item\em Read one word in a register of the selectmap interface. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+static int \hyperlink{selectmapInterface_8c_a1a04ae7a73452c332d62bba32c56e1d}{g\_\-Sm\-File}
+\item 
+const char $\ast$ \hyperlink{selectmapInterface_8c_bc3ae65400d6ad9e513ea2700373d156}{g\_\-p\-Default\-Sm\-Device} = \char`\"{}/dev/virtex\char`\"{}
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{selectmapInterface_8c_f1dd602a2cc10a5cbb14e6f43354df16}{
+\index{selectmapInterface.c@{selectmap\-Interface.c}!SM_REG_READ@{SM\_\-REG\_\-READ}}
+\index{SM_REG_READ@{SM\_\-REG\_\-READ}!selectmapInterface.c@{selectmap\-Interface.c}}
+\subsubsection[SM\_\-REG\_\-READ]{\setlength{\rightskip}{0pt plus 5cm}\#define SM\_\-REG\_\-READ~1}}
+\label{selectmapInterface_8c_f1dd602a2cc10a5cbb14e6f43354df16}
+
+
+
+
+Definition at line 33 of file selectmap\-Interface.c.
+
+Referenced by sm\-Register\-Read().\hypertarget{selectmapInterface_8c_9aff17cdaa69614ffde2c2b1b1a1a3c5}{
+\index{selectmapInterface.c@{selectmap\-Interface.c}!SM_REG_WRITE@{SM\_\-REG\_\-WRITE}}
+\index{SM_REG_WRITE@{SM\_\-REG\_\-WRITE}!selectmapInterface.c@{selectmap\-Interface.c}}
+\subsubsection[SM\_\-REG\_\-WRITE]{\setlength{\rightskip}{0pt plus 5cm}\#define SM\_\-REG\_\-WRITE~0}}
+\label{selectmapInterface_8c_9aff17cdaa69614ffde2c2b1b1a1a3c5}
+
+
+
+
+Definition at line 32 of file selectmap\-Interface.c.
+
+Referenced by sm\-Register\-Write().
+
+\subsection{Function Documentation}
+\hypertarget{selectmapInterface_8c_9c1b004f1fdac10b1404519fbb11a878}{
+\index{selectmapInterface.c@{selectmap\-Interface.c}!smMakeFacHeader@{smMakeFacHeader}}
+\index{smMakeFacHeader@{smMakeFacHeader}!selectmapInterface.c@{selectmap\-Interface.c}}
+\subsubsection[smMakeFacHeader]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 sm\-Make\-Fac\-Header (\_\-\_\-u8 {\em ba}, \_\-\_\-u8 {\em mja}, \_\-\_\-u8 {\em mna})}}
+\label{selectmapInterface_8c_9c1b004f1fdac10b1404519fbb11a878}
+
+
+
+
+Definition at line 119 of file selectmap\-Interface.c.\hypertarget{selectmapInterface_8c_a77310aa2f85bc60625d01400531dea3}{
+\index{selectmapInterface.c@{selectmap\-Interface.c}!smMakeT2Header@{smMakeT2Header}}
+\index{smMakeT2Header@{smMakeT2Header}!selectmapInterface.c@{selectmap\-Interface.c}}
+\subsubsection[smMakeT2Header]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-u32 sm\-Make\-T2Header (\_\-\_\-u8 {\em rdwr}, \_\-\_\-u32 {\em words})}}
+\label{selectmapInterface_8c_a77310aa2f85bc60625d01400531dea3}
+
+
+
+
+Definition at line 102 of file selectmap\-Interface.c.
+
+\subsection{Variable Documentation}
+\hypertarget{selectmapInterface_8c_bc3ae65400d6ad9e513ea2700373d156}{
+\index{selectmapInterface.c@{selectmap\-Interface.c}!g_pDefaultSmDevice@{g\_\-pDefaultSmDevice}}
+\index{g_pDefaultSmDevice@{g\_\-pDefaultSmDevice}!selectmapInterface.c@{selectmap\-Interface.c}}
+\subsubsection[g\_\-pDefaultSmDevice]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \hyperlink{selectmapInterface_8c_bc3ae65400d6ad9e513ea2700373d156}{g\_\-p\-Default\-Sm\-Device} = \char`\"{}/dev/virtex\char`\"{}}}
+\label{selectmapInterface_8c_bc3ae65400d6ad9e513ea2700373d156}
+
+
+
+
+Definition at line 38 of file selectmap\-Interface.c.
+
+Referenced by init\-Sm\-Access().\hypertarget{selectmapInterface_8c_a1a04ae7a73452c332d62bba32c56e1d}{
+\index{selectmapInterface.c@{selectmap\-Interface.c}!g_SmFile@{g\_\-SmFile}}
+\index{g_SmFile@{g\_\-SmFile}!selectmapInterface.c@{selectmap\-Interface.c}}
+\subsubsection[g\_\-SmFile]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{selectmapInterface_8c_a1a04ae7a73452c332d62bba32c56e1d}{g\_\-Sm\-File}\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{selectmapInterface_8c_a1a04ae7a73452c332d62bba32c56e1d}
+
+
+
+
+Definition at line 35 of file selectmap\-Interface.c.
+
+Referenced by init\-Sm\-Access(), release\-Sm\-Access(), sm\-Register\-Read(), and sm\-Register\-Write().

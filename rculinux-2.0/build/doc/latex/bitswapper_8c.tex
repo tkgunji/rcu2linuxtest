@@ -1,0 +1,65 @@
+\hypertarget{bitswapper_8c}{
+\section{bitswapper.c File Reference}
+\label{bitswapper_8c}\index{bitswapper.c@{bitswapper.c}}
+}
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$linux/types.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$linux/errno.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+
+
+Include dependency graph for bitswapper.c:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=118pt]{bitswapper_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \hyperlink{bitswapper_8c_3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\item 
+int \hyperlink{bitswapper_8c_019759de9c99bad88139a7ca43d05315}{get\-File\-Size} (char $\ast$path)
+\begin{CompactList}\small\item\em checks the filesize of a file with the given path \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{bitswapper_8c_019759de9c99bad88139a7ca43d05315}{
+\index{bitswapper.c@{bitswapper.c}!getFileSize@{getFileSize}}
+\index{getFileSize@{getFileSize}!bitswapper.c@{bitswapper.c}}
+\subsubsection[getFileSize]{\setlength{\rightskip}{0pt plus 5cm}int get\-File\-Size (char $\ast$ {\em path})}}
+\label{bitswapper_8c_019759de9c99bad88139a7ca43d05315}
+
+
+checks the filesize of a file with the given path 
+
+\begin{Desc}
+\item[Returns:]the filesize in Bytes \end{Desc}
+
+
+Definition at line 88 of file bitswapper.c.
+
+Referenced by do\-Flash\-Frame(), do\-Init(), do\-Scrubbing(), and main().\hypertarget{bitswapper_8c_3c04138a5bfe5d72780bb7e82a18e627}{
+\index{bitswapper.c@{bitswapper.c}!main@{main}}
+\index{main@{main}!bitswapper.c@{bitswapper.c}}
+\subsubsection[main]{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, char $\ast$$\ast$ {\em argv})}}
+\label{bitswapper_8c_3c04138a5bfe5d72780bb7e82a18e627}
+
+
+
+
+Definition at line 29 of file bitswapper.c.
+
+References EXIT\_\-FAILURE, and get\-File\-Size().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=93pt]{bitswapper_8c_3c04138a5bfe5d72780bb7e82a18e627_cgraph}
+\end{center}
+\end{figure}

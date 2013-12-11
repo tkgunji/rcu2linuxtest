@@ -1,0 +1,787 @@
+\hypertarget{rcu__flash_8c}{
+\section{rcu\_\-flash.c File Reference}
+\label{rcu__flash_8c}\index{rcu_flash.c@{rcu\_\-flash.c}}
+}
+{\tt \#include $<$linux/fs.h$>$}\par
+{\tt \#include $<$linux/types.h$>$}\par
+{\tt \#include $<$linux/errno.h$>$}\par
+{\tt \#include $<$linux/slab.h$>$}\par
+{\tt \#include $<$asm/io.h$>$}\par
+{\tt \#include $<$asm/uaccess.h$>$}\par
+{\tt \#include $<$linux/ioport.h$>$}\par
+{\tt \#include $<$asm/system.h$>$}\par
+{\tt \#include $<$linux/module.h$>$}\par
+{\tt \#include \char`\"{}dcs\_\-driver.h\char`\"{}}\par
+{\tt \#include \char`\"{}rcu\_\-flash.h\char`\"{}}\par
+{\tt \#include \char`\"{}mr\-Kern\-Logging.c\char`\"{}}\par
+
+
+Include dependency graph for rcu\_\-flash.c:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{rcu__flash_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \hyperlink{rcu__flash_8c_2753ab0d7f0215155f941bf57a539228}{RCUF\_\-ADDR\_\-WIDTH}~32
+\item 
+\#define \hyperlink{rcu__flash_8c_15f746aab845fd40136e408931c0873b}{RCUF\_\-DATA\_\-WIDTH}~8
+\item 
+\#define \hyperlink{rcu__flash_8c_7252514b9623e584d978f9bbcf578d97}{RCUF\_\-CTRL\_\-WIDTH}~8
+\item 
+\#define \hyperlink{rcu__flash_8c_a975dee2cc18713f0d396a806a4e7c2d}{RCU\_\-BUS\_\-DIRECT\_\-ACCESS\_\-ACTIVATE}~0x80
+\item 
+\#define \hyperlink{rcu__flash_8c_c91ddcb3d81f132b85a0019148f76739}{RCU\_\-BUS\_\-SELECTMAP\_\-ACTIVATE}~0x40
+\item 
+\#define \hyperlink{rcu__flash_8c_27db5bfba4b9bc9bbfb23ed0a4e92c03}{RCU\_\-BUS\_\-FLASH\_\-RESET}~0x20
+\item 
+\#define \hyperlink{rcu__flash_8c_506aa72ccbefca8d9dd96ec4ab0a9c02}{RCU\_\-BUS\_\-FLASH\_\-OE\_\-INACTIVE}~0x08
+\item 
+\#define \hyperlink{rcu__flash_8c_256925ee6e8addb0d40b4bd19eac556a}{RCU\_\-BUS\_\-FLASH\_\-WE\_\-INACTIVE}~0x02
+\item 
+\#define \hyperlink{rcu__flash_8c_814b9e9ffe6e1b24fc28605472b4d41b}{RCU\_\-BUS\_\-FLASH\_\-CE\_\-INACTIVE}~0x01
+\item 
+\#define \hyperlink{rcu__flash_8c_98845defa5a5e3e151b139455dcb6ec9}{RCU\_\-BUS\_\-FLASH\_\-INACTIVE\_\-LINES}~RCU\_\-BUS\_\-FLASH\_\-OE\_\-INACTIVE $|$ RCU\_\-BUS\_\-FLASH\_\-WE\_\-INACTIVE $|$ RCU\_\-BUS\_\-FLASH\_\-CE\_\-INACTIVE
+\item 
+\#define \hyperlink{rcu__flash_8c_153bc0ce18e8739147c765e387b43966}{RCU\_\-BUS\_\-READ\_\-STROBE}~0xa9
+\item 
+\#define \hyperlink{rcu__flash_8c_7c1e345632a12ac0e3bd6e2f5c3ef3b8}{RCU\_\-BUS\_\-WRITE\_\-STROBE}~0xaa
+\item 
+\#define \hyperlink{rcu__flash_8c_57f3f29078a2bc16599d0e7043d4a1b9}{RCU\_\-BUS\_\-FLASH\_\-ACCESS}~0xaf
+\item 
+\#define \hyperlink{rcu__flash_8c_ded70a9b7147c4fd595c856c7ed382e0}{RCU\_\-BUS\_\-DISABLE\_\-DIRECT\_\-ACCESS}~0x2f
+\item 
+\#define \hyperlink{rcu__flash_8c_59d789a950ca55653b23f52b052c05d4}{RCUF\_\-START\_\-FLASH\_\-ACCESS}()~writel(RCU\_\-BUS\_\-FLASH\_\-ACCESS, \hyperlink{rcu__flash_8c_bd950a12b060b7ce0d4f1e3918c14787}{rcuf\_\-virtctrl})
+\item 
+\#define \hyperlink{rcu__flash_8c_1ca0bf50e2b972470215a0be988c5304}{RCUF\_\-STOP\_\-FLASH\_\-ACCESS}()~writel(RCU\_\-BUS\_\-DISABLE\_\-DIRECT\_\-ACCESS, \hyperlink{rcu__flash_8c_bd950a12b060b7ce0d4f1e3918c14787}{rcuf\_\-virtctrl})
+\item 
+\#define \hyperlink{rcu__flash_8c_2f45154b5974e626dfdee2da6e927a7e}{RCUF\_\-SET\_\-ADDRESS}(addr)~writel(addr,\hyperlink{rcu__flash_8c_9f31c3e09aef64429f7da1b1a1e05a42}{rcuf\_\-virtaddr})
+\item 
+\#define \hyperlink{rcu__flash_8c_edb259c57389dc6796cc1608bc8f42c2}{RCUF\_\-SET\_\-DATA}(data)~writeb(data,\hyperlink{rcu__flash_8c_5a8221ab5b5e252d3948f87d22b76da7}{rcuf\_\-virtdtao})
+\item 
+\#define \hyperlink{rcu__flash_8c_cfbe8e69a77b366e96f4040b91d28f47}{RCUF\_\-GET\_\-DATA}()~readb(\hyperlink{rcu__flash_8c_3e23a2233ec81ac30ef25269ac6ab8ce}{rcuf\_\-virtdtai})
+\item 
+\#define \hyperlink{rcu__flash_8c_1f8e4eb6eeab824eef36c7e579a286c2}{RCUF\_\-READ\_\-STROBE}()~writel(RCU\_\-BUS\_\-READ\_\-STROBE, \hyperlink{rcu__flash_8c_bd950a12b060b7ce0d4f1e3918c14787}{rcuf\_\-virtctrl})
+\item 
+\#define \hyperlink{rcu__flash_8c_19092bdc2c259f1ca144bf77cb9d996a}{RCUF\_\-WRITE\_\-STROBE}()~writel(RCU\_\-BUS\_\-WRITE\_\-STROBE, \hyperlink{rcu__flash_8c_bd950a12b060b7ce0d4f1e3918c14787}{rcuf\_\-virtctrl})
+\item 
+\#define \hyperlink{rcu__flash_8c_f16571a0919db7801b404d4bd639f640}{RCUF\_\-STROBE\_\-END}()~writel(RCU\_\-BUS\_\-FLASH\_\-ACCESS, \hyperlink{rcu__flash_8c_bd950a12b060b7ce0d4f1e3918c14787}{rcuf\_\-virtctrl})
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{rcu__flash_8c_caa9aab9b82babe9ea5ca98ea1db80e9}{MODULE\_\-PARM} (\hyperlink{rcu__flash_8c_e553448141881509fe25ae52a8a688ec}{rcuf\_\-major\-ID},\char`\"{}i\char`\"{})
+\item 
+\hyperlink{rcu__flash_8c_69e89d0963bf3cca0a0321fb7a6f883a}{MODULE\_\-PARM} (\hyperlink{rcu__flash_8c_1792e0e637ca05dc5879d817b21094a9}{rcuf\_\-size},\char`\"{}i\char`\"{})
+\item 
+\hyperlink{rcu__flash_8c_231b872adef21fb5a68a2be6a43eec57}{MODULE\_\-PARM} (\hyperlink{rcu__flash_8c_ed4aaefdbdfc77f32bb64c2e1dace773}{rcuf\_\-addrlines\_\-physaddr},\char`\"{}i\char`\"{})
+\item 
+\hyperlink{rcu__flash_8c_e736dbde87644b8565e00bfa82fdfe30}{MODULE\_\-PARM} (\hyperlink{rcu__flash_8c_028dcfcf93e8b29a425d321669e71949}{rcuf\_\-data\_\-out\_\-physaddr},\char`\"{}i\char`\"{})
+\item 
+\hyperlink{rcu__flash_8c_6fa7dae7ec1140976a30115b25ef5091}{MODULE\_\-PARM} (\hyperlink{rcu__flash_8c_95e4630e17a96b6d82f797e6f60ec7c8}{rcuf\_\-data\_\-in\_\-physaddr},\char`\"{}i\char`\"{})
+\item 
+\hyperlink{rcu__flash_8c_356742e70ad5d46898b700758c8b3f69}{MODULE\_\-PARM} (\hyperlink{rcu__flash_8c_4022d2013d048df710375dd82cf2ec69}{rcuf\_\-bus\_\-ctrl\_\-physaddr},\char`\"{}i\char`\"{})
+\item 
+\hyperlink{rcu__flash_8c_2b0c26a38e6f7bd95db24cdead54c5cf}{MODULE\_\-AUTHOR} (\char`\"{}Matthias Richter, Johan Alme, Ketil Roed\char`\"{})
+\item 
+\hyperlink{rcu__flash_8c_df6354e48e1fe37f6a9c43af01cb8b1f}{MODULE\_\-DESCRIPTION} (\char`\"{}rcu flash memory driver\char`\"{})
+\item 
+\hyperlink{rcu__flash_8c_d94b36675e7eb067ea3ce6ff9e244a44}{MODULE\_\-LICENSE} (\char`\"{}GPL\char`\"{})
+\item 
+static int \hyperlink{rcu__flash_8c_a7afc7c1019b208a479600aea1e158d8}{rcuf\_\-memtest} (u32 begin, u32 size)
+\item 
+static int \hyperlink{rcu__flash_8c_6898e5714ea3e857a537f89c32de782f}{rcuf\_\-writevalue} (u32 begin, u32 size, u32 value)
+\item 
+static int \hyperlink{rcu__flash_8c_600bfcc051a8100c2c447efa34ed004e}{rcu\_\-flash\_\-erase} (u32 begin, u32 size)
+\item 
+static int \hyperlink{rcu__flash_8c_bc4763b5dcf0b1ddeda86000e0d84f4c}{rcu\_\-flash\_\-read} (u32 address, u32 size, u32 $\ast$buff)
+\item 
+static int \hyperlink{rcu__flash_8c_e1a5c2131cb984b82314f2f1211700e9}{rcu\_\-flash\_\-write} (u32 address, u32 size, u32 $\ast$buff)
+\item 
+static loff\_\-t \hyperlink{rcu__flash_8c_c78e1b5a142b552358a8ddd9fd071c64}{rcuf\_\-llseek} (struct file $\ast$filp, loff\_\-t off, int ref)
+\item 
+static int \hyperlink{rcu__flash_8c_6d009b02687a8d2c740d88742f46e3aa}{rcuf\_\-read} (struct file $\ast$filp, char $\ast$buf, size\_\-t count, loff\_\-t $\ast$f\_\-pos)
+\item 
+static int \hyperlink{rcu__flash_8c_67e494fee877810ae5b0ae9b88242e9b}{rcuf\_\-write} (struct file $\ast$filp, const char $\ast$buf, size\_\-t count, loff\_\-t $\ast$f\_\-pos)
+\item 
+static int \hyperlink{rcu__flash_8c_90a4d3e70390c104fd8391a1cad7cab4}{rcuf\_\-open} (struct inode $\ast$inode, struct file $\ast$filp)
+\item 
+static int \hyperlink{rcu__flash_8c_815d36857ae04ffffbb70ed6540ba143}{rcuf\_\-close} (struct inode $\ast$inode, struct file $\ast$filp)
+\item 
+static int \hyperlink{rcu__flash_8c_87c8ed13c9db9444131039ff6b0d0304}{rcuf\_\-ioctl} (struct inode $\ast$inode, struct file $\ast$filp, unsigned int cmd, unsigned long arg)
+\item 
+void \hyperlink{rcu__flash_8c_06a93d1b1348b354639233cdab90e9fe}{cleanup\-Real\-Buffers} ()
+\item 
+int \hyperlink{rcu__flash_8c_b3161c882ef5359bf75cf6705c545cd4}{init\-Real\-Buffers} ()
+\item 
+int \hyperlink{rcu__flash_8c_a21c120a77e5bc5381437d9f4455645c}{rcuf\_\-init\_\-module} (void)
+\item 
+int \hyperlink{rcu__flash_8c_e52690ce6969b799366b2c5feba67b8c}{init\_\-module} (void)
+\item 
+void \hyperlink{rcu__flash_8c_50edfce4b481d600b5de52324ec65449}{rcuf\_\-cleanup\_\-module} (void)
+\item 
+void \hyperlink{rcu__flash_8c_bb8e1606224e802418862b898888063a}{cleanup\_\-module} (void)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+static int \hyperlink{rcu__flash_8c_e553448141881509fe25ae52a8a688ec}{rcuf\_\-major\-ID} = 151
+\item 
+static int \hyperlink{rcu__flash_8c_1792e0e637ca05dc5879d817b21094a9}{rcuf\_\-size} = 0x400
+\item 
+static int \hyperlink{rcu__flash_8c_ed4aaefdbdfc77f32bb64c2e1dace773}{rcuf\_\-addrlines\_\-physaddr} = 0x80000090
+\item 
+static int \hyperlink{rcu__flash_8c_028dcfcf93e8b29a425d321669e71949}{rcuf\_\-data\_\-out\_\-physaddr} = 0x80000030
+\item 
+static int \hyperlink{rcu__flash_8c_95e4630e17a96b6d82f797e6f60ec7c8}{rcuf\_\-data\_\-in\_\-physaddr} = 0x80000080
+\item 
+static int \hyperlink{rcu__flash_8c_4022d2013d048df710375dd82cf2ec69}{rcuf\_\-bus\_\-ctrl\_\-physaddr} = 0x80000070
+\item 
+static u32 $\ast$ \hyperlink{rcu__flash_8c_9f31c3e09aef64429f7da1b1a1e05a42}{rcuf\_\-virtaddr} = ((u32 $\ast$) 0x0)
+\item 
+static u32 $\ast$ \hyperlink{rcu__flash_8c_5a8221ab5b5e252d3948f87d22b76da7}{rcuf\_\-virtdtao} = ((u32 $\ast$) 0x0)
+\item 
+static u32 $\ast$ \hyperlink{rcu__flash_8c_3e23a2233ec81ac30ef25269ac6ab8ce}{rcuf\_\-virtdtai} = ((u32 $\ast$) 0x0)
+\item 
+static u32 $\ast$ \hyperlink{rcu__flash_8c_bd950a12b060b7ce0d4f1e3918c14787}{rcuf\_\-virtctrl} = ((u32 $\ast$) 0x0)
+\item 
+file\_\-operations \hyperlink{rcu__flash_8c_f919570ec3a040d287d67651d2908494}{rcuf\_\-fops}
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{rcu__flash_8c_a975dee2cc18713f0d396a806a4e7c2d}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCU_BUS_DIRECT_ACCESS_ACTIVATE@{RCU\_\-BUS\_\-DIRECT\_\-ACCESS\_\-ACTIVATE}}
+\index{RCU_BUS_DIRECT_ACCESS_ACTIVATE@{RCU\_\-BUS\_\-DIRECT\_\-ACCESS\_\-ACTIVATE}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCU\_\-BUS\_\-DIRECT\_\-ACCESS\_\-ACTIVATE]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-BUS\_\-DIRECT\_\-ACCESS\_\-ACTIVATE~0x80}}
+\label{rcu__flash_8c_a975dee2cc18713f0d396a806a4e7c2d}
+
+
+
+
+Definition at line 75 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_ded70a9b7147c4fd595c856c7ed382e0}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCU_BUS_DISABLE_DIRECT_ACCESS@{RCU\_\-BUS\_\-DISABLE\_\-DIRECT\_\-ACCESS}}
+\index{RCU_BUS_DISABLE_DIRECT_ACCESS@{RCU\_\-BUS\_\-DISABLE\_\-DIRECT\_\-ACCESS}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCU\_\-BUS\_\-DISABLE\_\-DIRECT\_\-ACCESS]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-BUS\_\-DISABLE\_\-DIRECT\_\-ACCESS~0x2f}}
+\label{rcu__flash_8c_ded70a9b7147c4fd595c856c7ed382e0}
+
+
+
+
+Definition at line 86 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_57f3f29078a2bc16599d0e7043d4a1b9}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCU_BUS_FLASH_ACCESS@{RCU\_\-BUS\_\-FLASH\_\-ACCESS}}
+\index{RCU_BUS_FLASH_ACCESS@{RCU\_\-BUS\_\-FLASH\_\-ACCESS}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCU\_\-BUS\_\-FLASH\_\-ACCESS]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-BUS\_\-FLASH\_\-ACCESS~0xaf}}
+\label{rcu__flash_8c_57f3f29078a2bc16599d0e7043d4a1b9}
+
+
+
+
+Definition at line 85 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_814b9e9ffe6e1b24fc28605472b4d41b}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCU_BUS_FLASH_CE_INACTIVE@{RCU\_\-BUS\_\-FLASH\_\-CE\_\-INACTIVE}}
+\index{RCU_BUS_FLASH_CE_INACTIVE@{RCU\_\-BUS\_\-FLASH\_\-CE\_\-INACTIVE}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCU\_\-BUS\_\-FLASH\_\-CE\_\-INACTIVE]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-BUS\_\-FLASH\_\-CE\_\-INACTIVE~0x01}}
+\label{rcu__flash_8c_814b9e9ffe6e1b24fc28605472b4d41b}
+
+
+
+
+Definition at line 80 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_98845defa5a5e3e151b139455dcb6ec9}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCU_BUS_FLASH_INACTIVE_LINES@{RCU\_\-BUS\_\-FLASH\_\-INACTIVE\_\-LINES}}
+\index{RCU_BUS_FLASH_INACTIVE_LINES@{RCU\_\-BUS\_\-FLASH\_\-INACTIVE\_\-LINES}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCU\_\-BUS\_\-FLASH\_\-INACTIVE\_\-LINES]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-BUS\_\-FLASH\_\-INACTIVE\_\-LINES~RCU\_\-BUS\_\-FLASH\_\-OE\_\-INACTIVE $|$ RCU\_\-BUS\_\-FLASH\_\-WE\_\-INACTIVE $|$ RCU\_\-BUS\_\-FLASH\_\-CE\_\-INACTIVE}}
+\label{rcu__flash_8c_98845defa5a5e3e151b139455dcb6ec9}
+
+
+
+
+Definition at line 81 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_506aa72ccbefca8d9dd96ec4ab0a9c02}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCU_BUS_FLASH_OE_INACTIVE@{RCU\_\-BUS\_\-FLASH\_\-OE\_\-INACTIVE}}
+\index{RCU_BUS_FLASH_OE_INACTIVE@{RCU\_\-BUS\_\-FLASH\_\-OE\_\-INACTIVE}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCU\_\-BUS\_\-FLASH\_\-OE\_\-INACTIVE]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-BUS\_\-FLASH\_\-OE\_\-INACTIVE~0x08}}
+\label{rcu__flash_8c_506aa72ccbefca8d9dd96ec4ab0a9c02}
+
+
+
+
+Definition at line 78 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_27db5bfba4b9bc9bbfb23ed0a4e92c03}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCU_BUS_FLASH_RESET@{RCU\_\-BUS\_\-FLASH\_\-RESET}}
+\index{RCU_BUS_FLASH_RESET@{RCU\_\-BUS\_\-FLASH\_\-RESET}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCU\_\-BUS\_\-FLASH\_\-RESET]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-BUS\_\-FLASH\_\-RESET~0x20}}
+\label{rcu__flash_8c_27db5bfba4b9bc9bbfb23ed0a4e92c03}
+
+
+
+
+Definition at line 77 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_256925ee6e8addb0d40b4bd19eac556a}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCU_BUS_FLASH_WE_INACTIVE@{RCU\_\-BUS\_\-FLASH\_\-WE\_\-INACTIVE}}
+\index{RCU_BUS_FLASH_WE_INACTIVE@{RCU\_\-BUS\_\-FLASH\_\-WE\_\-INACTIVE}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCU\_\-BUS\_\-FLASH\_\-WE\_\-INACTIVE]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-BUS\_\-FLASH\_\-WE\_\-INACTIVE~0x02}}
+\label{rcu__flash_8c_256925ee6e8addb0d40b4bd19eac556a}
+
+
+
+
+Definition at line 79 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_153bc0ce18e8739147c765e387b43966}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCU_BUS_READ_STROBE@{RCU\_\-BUS\_\-READ\_\-STROBE}}
+\index{RCU_BUS_READ_STROBE@{RCU\_\-BUS\_\-READ\_\-STROBE}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCU\_\-BUS\_\-READ\_\-STROBE]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-BUS\_\-READ\_\-STROBE~0xa9}}
+\label{rcu__flash_8c_153bc0ce18e8739147c765e387b43966}
+
+
+
+
+Definition at line 83 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_c91ddcb3d81f132b85a0019148f76739}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCU_BUS_SELECTMAP_ACTIVATE@{RCU\_\-BUS\_\-SELECTMAP\_\-ACTIVATE}}
+\index{RCU_BUS_SELECTMAP_ACTIVATE@{RCU\_\-BUS\_\-SELECTMAP\_\-ACTIVATE}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCU\_\-BUS\_\-SELECTMAP\_\-ACTIVATE]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-BUS\_\-SELECTMAP\_\-ACTIVATE~0x40}}
+\label{rcu__flash_8c_c91ddcb3d81f132b85a0019148f76739}
+
+
+
+
+Definition at line 76 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_7c1e345632a12ac0e3bd6e2f5c3ef3b8}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCU_BUS_WRITE_STROBE@{RCU\_\-BUS\_\-WRITE\_\-STROBE}}
+\index{RCU_BUS_WRITE_STROBE@{RCU\_\-BUS\_\-WRITE\_\-STROBE}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCU\_\-BUS\_\-WRITE\_\-STROBE]{\setlength{\rightskip}{0pt plus 5cm}\#define RCU\_\-BUS\_\-WRITE\_\-STROBE~0xaa}}
+\label{rcu__flash_8c_7c1e345632a12ac0e3bd6e2f5c3ef3b8}
+
+
+
+
+Definition at line 84 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_2753ab0d7f0215155f941bf57a539228}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCUF_ADDR_WIDTH@{RCUF\_\-ADDR\_\-WIDTH}}
+\index{RCUF_ADDR_WIDTH@{RCUF\_\-ADDR\_\-WIDTH}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCUF\_\-ADDR\_\-WIDTH]{\setlength{\rightskip}{0pt plus 5cm}\#define RCUF\_\-ADDR\_\-WIDTH~32}}
+\label{rcu__flash_8c_2753ab0d7f0215155f941bf57a539228}
+
+
+
+
+Definition at line 56 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_7252514b9623e584d978f9bbcf578d97}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCUF_CTRL_WIDTH@{RCUF\_\-CTRL\_\-WIDTH}}
+\index{RCUF_CTRL_WIDTH@{RCUF\_\-CTRL\_\-WIDTH}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCUF\_\-CTRL\_\-WIDTH]{\setlength{\rightskip}{0pt plus 5cm}\#define RCUF\_\-CTRL\_\-WIDTH~8}}
+\label{rcu__flash_8c_7252514b9623e584d978f9bbcf578d97}
+
+
+
+
+Definition at line 63 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_15f746aab845fd40136e408931c0873b}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCUF_DATA_WIDTH@{RCUF\_\-DATA\_\-WIDTH}}
+\index{RCUF_DATA_WIDTH@{RCUF\_\-DATA\_\-WIDTH}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCUF\_\-DATA\_\-WIDTH]{\setlength{\rightskip}{0pt plus 5cm}\#define RCUF\_\-DATA\_\-WIDTH~8}}
+\label{rcu__flash_8c_15f746aab845fd40136e408931c0873b}
+
+
+
+
+Definition at line 59 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_cfbe8e69a77b366e96f4040b91d28f47}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCUF_GET_DATA@{RCUF\_\-GET\_\-DATA}}
+\index{RCUF_GET_DATA@{RCUF\_\-GET\_\-DATA}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCUF\_\-GET\_\-DATA]{\setlength{\rightskip}{0pt plus 5cm}\#define RCUF\_\-GET\_\-DATA()~readb(\hyperlink{rcu__flash_8c_3e23a2233ec81ac30ef25269ac6ab8ce}{rcuf\_\-virtdtai})}}
+\label{rcu__flash_8c_cfbe8e69a77b366e96f4040b91d28f47}
+
+
+
+
+Definition at line 92 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_1f8e4eb6eeab824eef36c7e579a286c2}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCUF_READ_STROBE@{RCUF\_\-READ\_\-STROBE}}
+\index{RCUF_READ_STROBE@{RCUF\_\-READ\_\-STROBE}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCUF\_\-READ\_\-STROBE]{\setlength{\rightskip}{0pt plus 5cm}\#define RCUF\_\-READ\_\-STROBE()~writel(RCU\_\-BUS\_\-READ\_\-STROBE, \hyperlink{rcu__flash_8c_bd950a12b060b7ce0d4f1e3918c14787}{rcuf\_\-virtctrl})}}
+\label{rcu__flash_8c_1f8e4eb6eeab824eef36c7e579a286c2}
+
+
+
+
+Definition at line 93 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_2f45154b5974e626dfdee2da6e927a7e}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCUF_SET_ADDRESS@{RCUF\_\-SET\_\-ADDRESS}}
+\index{RCUF_SET_ADDRESS@{RCUF\_\-SET\_\-ADDRESS}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCUF\_\-SET\_\-ADDRESS]{\setlength{\rightskip}{0pt plus 5cm}\#define RCUF\_\-SET\_\-ADDRESS(addr)~writel(addr,\hyperlink{rcu__flash_8c_9f31c3e09aef64429f7da1b1a1e05a42}{rcuf\_\-virtaddr})}}
+\label{rcu__flash_8c_2f45154b5974e626dfdee2da6e927a7e}
+
+
+
+
+Definition at line 90 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_edb259c57389dc6796cc1608bc8f42c2}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCUF_SET_DATA@{RCUF\_\-SET\_\-DATA}}
+\index{RCUF_SET_DATA@{RCUF\_\-SET\_\-DATA}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCUF\_\-SET\_\-DATA]{\setlength{\rightskip}{0pt plus 5cm}\#define RCUF\_\-SET\_\-DATA(data)~writeb(data,\hyperlink{rcu__flash_8c_5a8221ab5b5e252d3948f87d22b76da7}{rcuf\_\-virtdtao})}}
+\label{rcu__flash_8c_edb259c57389dc6796cc1608bc8f42c2}
+
+
+
+
+Definition at line 91 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_59d789a950ca55653b23f52b052c05d4}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCUF_START_FLASH_ACCESS@{RCUF\_\-START\_\-FLASH\_\-ACCESS}}
+\index{RCUF_START_FLASH_ACCESS@{RCUF\_\-START\_\-FLASH\_\-ACCESS}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCUF\_\-START\_\-FLASH\_\-ACCESS]{\setlength{\rightskip}{0pt plus 5cm}\#define RCUF\_\-START\_\-FLASH\_\-ACCESS()~writel(RCU\_\-BUS\_\-FLASH\_\-ACCESS, \hyperlink{rcu__flash_8c_bd950a12b060b7ce0d4f1e3918c14787}{rcuf\_\-virtctrl})}}
+\label{rcu__flash_8c_59d789a950ca55653b23f52b052c05d4}
+
+
+
+
+Definition at line 88 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_1ca0bf50e2b972470215a0be988c5304}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCUF_STOP_FLASH_ACCESS@{RCUF\_\-STOP\_\-FLASH\_\-ACCESS}}
+\index{RCUF_STOP_FLASH_ACCESS@{RCUF\_\-STOP\_\-FLASH\_\-ACCESS}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCUF\_\-STOP\_\-FLASH\_\-ACCESS]{\setlength{\rightskip}{0pt plus 5cm}\#define RCUF\_\-STOP\_\-FLASH\_\-ACCESS()~writel(RCU\_\-BUS\_\-DISABLE\_\-DIRECT\_\-ACCESS, \hyperlink{rcu__flash_8c_bd950a12b060b7ce0d4f1e3918c14787}{rcuf\_\-virtctrl})}}
+\label{rcu__flash_8c_1ca0bf50e2b972470215a0be988c5304}
+
+
+
+
+Definition at line 89 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_f16571a0919db7801b404d4bd639f640}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCUF_STROBE_END@{RCUF\_\-STROBE\_\-END}}
+\index{RCUF_STROBE_END@{RCUF\_\-STROBE\_\-END}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCUF\_\-STROBE\_\-END]{\setlength{\rightskip}{0pt plus 5cm}\#define RCUF\_\-STROBE\_\-END()~writel(RCU\_\-BUS\_\-FLASH\_\-ACCESS, \hyperlink{rcu__flash_8c_bd950a12b060b7ce0d4f1e3918c14787}{rcuf\_\-virtctrl})}}
+\label{rcu__flash_8c_f16571a0919db7801b404d4bd639f640}
+
+
+
+
+Definition at line 95 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_19092bdc2c259f1ca144bf77cb9d996a}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!RCUF_WRITE_STROBE@{RCUF\_\-WRITE\_\-STROBE}}
+\index{RCUF_WRITE_STROBE@{RCUF\_\-WRITE\_\-STROBE}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[RCUF\_\-WRITE\_\-STROBE]{\setlength{\rightskip}{0pt plus 5cm}\#define RCUF\_\-WRITE\_\-STROBE()~writel(RCU\_\-BUS\_\-WRITE\_\-STROBE, \hyperlink{rcu__flash_8c_bd950a12b060b7ce0d4f1e3918c14787}{rcuf\_\-virtctrl})}}
+\label{rcu__flash_8c_19092bdc2c259f1ca144bf77cb9d996a}
+
+
+
+
+Definition at line 94 of file rcu\_\-flash.c.
+
+\subsection{Function Documentation}
+\hypertarget{rcu__flash_8c_bb8e1606224e802418862b898888063a}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!cleanup_module@{cleanup\_\-module}}
+\index{cleanup_module@{cleanup\_\-module}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[cleanup\_\-module]{\setlength{\rightskip}{0pt plus 5cm}void cleanup\_\-module (void)}}
+\label{rcu__flash_8c_bb8e1606224e802418862b898888063a}
+
+
+
+
+Definition at line 567 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_06a93d1b1348b354639233cdab90e9fe}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!cleanupRealBuffers@{cleanupRealBuffers}}
+\index{cleanupRealBuffers@{cleanupRealBuffers}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[cleanupRealBuffers]{\setlength{\rightskip}{0pt plus 5cm}void cleanup\-Real\-Buffers ()}}
+\label{rcu__flash_8c_06a93d1b1348b354639233cdab90e9fe}
+
+
+
+
+Definition at line 425 of file rcu\_\-flash.c.
+
+References rcuf\_\-virtaddr, rcuf\_\-virtctrl, rcuf\_\-virtdtai, and rcuf\_\-virtdtao.\hypertarget{rcu__flash_8c_e52690ce6969b799366b2c5feba67b8c}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!init_module@{init\_\-module}}
+\index{init_module@{init\_\-module}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[init\_\-module]{\setlength{\rightskip}{0pt plus 5cm}int init\_\-module (void)}}
+\label{rcu__flash_8c_e52690ce6969b799366b2c5feba67b8c}
+
+
+
+
+Definition at line 536 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_b3161c882ef5359bf75cf6705c545cd4}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!initRealBuffers@{initRealBuffers}}
+\index{initRealBuffers@{initRealBuffers}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[initRealBuffers]{\setlength{\rightskip}{0pt plus 5cm}int init\-Real\-Buffers ()}}
+\label{rcu__flash_8c_b3161c882ef5359bf75cf6705c545cd4}
+
+
+
+
+Definition at line 437 of file rcu\_\-flash.c.
+
+References LOG\_\-DBG, LOG\_\-ERROR, LOG\_\-INTERNAL, MR\_\-KERN\_\-DEBUG, mrlogmessage(), RCUF\_\-ADDR\_\-WIDTH, rcuf\_\-addrlines\_\-physaddr, rcuf\_\-bus\_\-ctrl\_\-physaddr, RCUF\_\-CTRL\_\-WIDTH, rcuf\_\-data\_\-in\_\-physaddr, rcuf\_\-data\_\-out\_\-physaddr, RCUF\_\-DATA\_\-WIDTH, rcuf\_\-virtaddr, rcuf\_\-virtctrl, rcuf\_\-virtdtai, and rcuf\_\-virtdtao.
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=127pt]{rcu__flash_8c_b3161c882ef5359bf75cf6705c545cd4_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{rcu__flash_8c_2b0c26a38e6f7bd95db24cdead54c5cf}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!MODULE_AUTHOR@{MODULE\_\-AUTHOR}}
+\index{MODULE_AUTHOR@{MODULE\_\-AUTHOR}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[MODULE\_\-AUTHOR]{\setlength{\rightskip}{0pt plus 5cm}MODULE\_\-AUTHOR (\char`\"{}Matthias  {\em Richter}, Johan {\em Alme}, Ketil Roed\char`\"{})}}
+\label{rcu__flash_8c_2b0c26a38e6f7bd95db24cdead54c5cf}
+
+
+\hypertarget{rcu__flash_8c_df6354e48e1fe37f6a9c43af01cb8b1f}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!MODULE_DESCRIPTION@{MODULE\_\-DESCRIPTION}}
+\index{MODULE_DESCRIPTION@{MODULE\_\-DESCRIPTION}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[MODULE\_\-DESCRIPTION]{\setlength{\rightskip}{0pt plus 5cm}MODULE\_\-DESCRIPTION (\char`\"{}rcu flash memory driver\char`\"{})}}
+\label{rcu__flash_8c_df6354e48e1fe37f6a9c43af01cb8b1f}
+
+
+\hypertarget{rcu__flash_8c_d94b36675e7eb067ea3ce6ff9e244a44}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!MODULE_LICENSE@{MODULE\_\-LICENSE}}
+\index{MODULE_LICENSE@{MODULE\_\-LICENSE}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[MODULE\_\-LICENSE]{\setlength{\rightskip}{0pt plus 5cm}MODULE\_\-LICENSE (\char`\"{}GPL\char`\"{})}}
+\label{rcu__flash_8c_d94b36675e7eb067ea3ce6ff9e244a44}
+
+
+\hypertarget{rcu__flash_8c_356742e70ad5d46898b700758c8b3f69}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!MODULE_PARM@{MODULE\_\-PARM}}
+\index{MODULE_PARM@{MODULE\_\-PARM}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[MODULE\_\-PARM]{\setlength{\rightskip}{0pt plus 5cm}MODULE\_\-PARM (\hyperlink{rcu__flash_8c_4022d2013d048df710375dd82cf2ec69}{rcuf\_\-bus\_\-ctrl\_\-physaddr}, \char`\"{}i\char`\"{})}}
+\label{rcu__flash_8c_356742e70ad5d46898b700758c8b3f69}
+
+
+\hypertarget{rcu__flash_8c_6fa7dae7ec1140976a30115b25ef5091}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!MODULE_PARM@{MODULE\_\-PARM}}
+\index{MODULE_PARM@{MODULE\_\-PARM}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[MODULE\_\-PARM]{\setlength{\rightskip}{0pt plus 5cm}MODULE\_\-PARM (\hyperlink{rcu__flash_8c_95e4630e17a96b6d82f797e6f60ec7c8}{rcuf\_\-data\_\-in\_\-physaddr}, \char`\"{}i\char`\"{})}}
+\label{rcu__flash_8c_6fa7dae7ec1140976a30115b25ef5091}
+
+
+\hypertarget{rcu__flash_8c_e736dbde87644b8565e00bfa82fdfe30}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!MODULE_PARM@{MODULE\_\-PARM}}
+\index{MODULE_PARM@{MODULE\_\-PARM}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[MODULE\_\-PARM]{\setlength{\rightskip}{0pt plus 5cm}MODULE\_\-PARM (\hyperlink{rcu__flash_8c_028dcfcf93e8b29a425d321669e71949}{rcuf\_\-data\_\-out\_\-physaddr}, \char`\"{}i\char`\"{})}}
+\label{rcu__flash_8c_e736dbde87644b8565e00bfa82fdfe30}
+
+
+\hypertarget{rcu__flash_8c_231b872adef21fb5a68a2be6a43eec57}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!MODULE_PARM@{MODULE\_\-PARM}}
+\index{MODULE_PARM@{MODULE\_\-PARM}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[MODULE\_\-PARM]{\setlength{\rightskip}{0pt plus 5cm}MODULE\_\-PARM (\hyperlink{rcu__flash_8c_ed4aaefdbdfc77f32bb64c2e1dace773}{rcuf\_\-addrlines\_\-physaddr}, \char`\"{}i\char`\"{})}}
+\label{rcu__flash_8c_231b872adef21fb5a68a2be6a43eec57}
+
+
+\hypertarget{rcu__flash_8c_69e89d0963bf3cca0a0321fb7a6f883a}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!MODULE_PARM@{MODULE\_\-PARM}}
+\index{MODULE_PARM@{MODULE\_\-PARM}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[MODULE\_\-PARM]{\setlength{\rightskip}{0pt plus 5cm}MODULE\_\-PARM (\hyperlink{rcu__flash_8c_1792e0e637ca05dc5879d817b21094a9}{rcuf\_\-size}, \char`\"{}i\char`\"{})}}
+\label{rcu__flash_8c_69e89d0963bf3cca0a0321fb7a6f883a}
+
+
+\hypertarget{rcu__flash_8c_caa9aab9b82babe9ea5ca98ea1db80e9}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!MODULE_PARM@{MODULE\_\-PARM}}
+\index{MODULE_PARM@{MODULE\_\-PARM}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[MODULE\_\-PARM]{\setlength{\rightskip}{0pt plus 5cm}MODULE\_\-PARM (\hyperlink{rcu__flash_8c_e553448141881509fe25ae52a8a688ec}{rcuf\_\-major\-ID}, \char`\"{}i\char`\"{})}}
+\label{rcu__flash_8c_caa9aab9b82babe9ea5ca98ea1db80e9}
+
+
+\hypertarget{rcu__flash_8c_600bfcc051a8100c2c447efa34ed004e}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcu_flash_erase@{rcu\_\-flash\_\-erase}}
+\index{rcu_flash_erase@{rcu\_\-flash\_\-erase}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcu\_\-flash\_\-erase]{\setlength{\rightskip}{0pt plus 5cm}static int rcu\_\-flash\_\-erase (u32 {\em begin}, u32 {\em size})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_600bfcc051a8100c2c447efa34ed004e}
+
+
+
+
+Definition at line 191 of file rcu\_\-flash.c.
+
+References LOG\_\-INFO, and mrlogmessage().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=130pt]{rcu__flash_8c_600bfcc051a8100c2c447efa34ed004e_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{rcu__flash_8c_bc4763b5dcf0b1ddeda86000e0d84f4c}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcu_flash_read@{rcu\_\-flash\_\-read}}
+\index{rcu_flash_read@{rcu\_\-flash\_\-read}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcu\_\-flash\_\-read]{\setlength{\rightskip}{0pt plus 5cm}static int rcu\_\-flash\_\-read (u32 {\em address}, u32 {\em size}, u32 $\ast$ {\em buff})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_bc4763b5dcf0b1ddeda86000e0d84f4c}
+
+
+
+
+Definition at line 299 of file rcu\_\-flash.c.
+
+References DCSC\_\-TEST, LOG\_\-ERROR, LOG\_\-READ\_\-WRITE, mrlogmessage(), RCUF\_\-GET\_\-DATA, RCUF\_\-READ\_\-STROBE, RCUF\_\-SET\_\-ADDRESS, RCUF\_\-STROBE\_\-END, rcuf\_\-virtaddr, rcuf\_\-virtctrl, and rcuf\_\-virtdtai.
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=128pt]{rcu__flash_8c_bc4763b5dcf0b1ddeda86000e0d84f4c_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{rcu__flash_8c_e1a5c2131cb984b82314f2f1211700e9}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcu_flash_write@{rcu\_\-flash\_\-write}}
+\index{rcu_flash_write@{rcu\_\-flash\_\-write}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcu\_\-flash\_\-write]{\setlength{\rightskip}{0pt plus 5cm}static int rcu\_\-flash\_\-write (u32 {\em address}, u32 {\em size}, u32 $\ast$ {\em buff})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_e1a5c2131cb984b82314f2f1211700e9}
+
+
+
+
+Definition at line 343 of file rcu\_\-flash.c.
+
+References DCSC\_\-TEST, LOG\_\-ERROR, LOG\_\-READ\_\-WRITE, mrlogmessage(), RCUF\_\-SET\_\-ADDRESS, RCUF\_\-SET\_\-DATA, RCUF\_\-STROBE\_\-END, rcuf\_\-virtaddr, rcuf\_\-virtctrl, rcuf\_\-virtdtao, and RCUF\_\-WRITE\_\-STROBE.
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=129pt]{rcu__flash_8c_e1a5c2131cb984b82314f2f1211700e9_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{rcu__flash_8c_50edfce4b481d600b5de52324ec65449}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_cleanup_module@{rcuf\_\-cleanup\_\-module}}
+\index{rcuf_cleanup_module@{rcuf\_\-cleanup\_\-module}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-cleanup\_\-module]{\setlength{\rightskip}{0pt plus 5cm}void rcuf\_\-cleanup\_\-module (void)}}
+\label{rcu__flash_8c_50edfce4b481d600b5de52324ec65449}
+
+
+
+
+Definition at line 546 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_815d36857ae04ffffbb70ed6540ba143}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_close@{rcuf\_\-close}}
+\index{rcuf_close@{rcuf\_\-close}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-close]{\setlength{\rightskip}{0pt plus 5cm}static int rcuf\_\-close (struct inode $\ast$ {\em inode}, struct file $\ast$ {\em filp})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_815d36857ae04ffffbb70ed6540ba143}
+
+
+
+
+Definition at line 701 of file rcu\_\-flash.c.
+
+References LOG\_\-DBG, LOG\_\-OPEN\_\-CLOSE, MR\_\-KERN\_\-DEBUG, and mrlogmessage().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=117pt]{rcu__flash_8c_815d36857ae04ffffbb70ed6540ba143_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{rcu__flash_8c_a21c120a77e5bc5381437d9f4455645c}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_init_module@{rcuf\_\-init\_\-module}}
+\index{rcuf_init_module@{rcuf\_\-init\_\-module}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-init\_\-module]{\setlength{\rightskip}{0pt plus 5cm}int rcuf\_\-init\_\-module (void)}}
+\label{rcu__flash_8c_a21c120a77e5bc5381437d9f4455645c}
+
+
+
+
+Definition at line 504 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_87c8ed13c9db9444131039ff6b0d0304}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_ioctl@{rcuf\_\-ioctl}}
+\index{rcuf_ioctl@{rcuf\_\-ioctl}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-ioctl]{\setlength{\rightskip}{0pt plus 5cm}static int rcuf\_\-ioctl (struct inode $\ast$ {\em inode}, struct file $\ast$ {\em filp}, unsigned int {\em cmd}, unsigned long {\em arg})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_87c8ed13c9db9444131039ff6b0d0304}
+
+
+
+
+Definition at line 713 of file rcu\_\-flash.c.
+
+References g\_\-logfilename, IOCTL\_\-GET\_\-VERS\_\-STR\_\-SIZE, IOCTL\_\-GET\_\-VERSION, IOCTL\_\-RCUF\_\-GET\_\-FLASH\_\-SIZE, IOCTL\_\-SET\_\-DEBUG\_\-LEVEL, IOCTL\_\-SET\_\-LOG\_\-FILE, LOG\_\-DBG, LOG\_\-ERROR, LOG\_\-IOCTL, LOG\_\-WARNING, MR\_\-KERN\_\-DEBUG, mrlogmessage(), mr\-Set\-Log\-Filter(), rcu\_\-flash\_\-erase(), rcuf\_\-size, RCUFLASH\_\-MAJOR\_\-VERSION\_\-NUMBER, RCUFLASH\_\-MINOR\_\-VERSION\_\-NUMBER, RELEASETYPE, and VERSION\_\-STRING\_\-SIZE.
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{rcu__flash_8c_87c8ed13c9db9444131039ff6b0d0304_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{rcu__flash_8c_c78e1b5a142b552358a8ddd9fd071c64}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_llseek@{rcuf\_\-llseek}}
+\index{rcuf_llseek@{rcuf\_\-llseek}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-llseek]{\setlength{\rightskip}{0pt plus 5cm}static loff\_\-t rcuf\_\-llseek (struct file $\ast$ {\em filp}, loff\_\-t {\em off}, int {\em ref})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_c78e1b5a142b552358a8ddd9fd071c64}
+
+
+
+
+Definition at line 582 of file rcu\_\-flash.c.
+
+References LOG\_\-DBG, LOG\_\-ERROR, LOG\_\-LLSEEK, MR\_\-KERN\_\-DEBUG, and mrlogmessage().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=118pt]{rcu__flash_8c_c78e1b5a142b552358a8ddd9fd071c64_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{rcu__flash_8c_a7afc7c1019b208a479600aea1e158d8}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_memtest@{rcuf\_\-memtest}}
+\index{rcuf_memtest@{rcuf\_\-memtest}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-memtest]{\setlength{\rightskip}{0pt plus 5cm}static int rcuf\_\-memtest (u32 {\em begin}, u32 {\em size})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_a7afc7c1019b208a479600aea1e158d8}
+
+
+
+
+Definition at line 149 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_90a4d3e70390c104fd8391a1cad7cab4}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_open@{rcuf\_\-open}}
+\index{rcuf_open@{rcuf\_\-open}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-open]{\setlength{\rightskip}{0pt plus 5cm}static int rcuf\_\-open (struct inode $\ast$ {\em inode}, struct file $\ast$ {\em filp})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_90a4d3e70390c104fd8391a1cad7cab4}
+
+
+
+
+Definition at line 678 of file rcu\_\-flash.c.
+
+References LOG\_\-DBG, LOG\_\-ERROR, LOG\_\-OPEN\_\-CLOSE, MR\_\-KERN\_\-DEBUG, and mrlogmessage().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=117pt]{rcu__flash_8c_90a4d3e70390c104fd8391a1cad7cab4_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{rcu__flash_8c_6d009b02687a8d2c740d88742f46e3aa}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_read@{rcuf\_\-read}}
+\index{rcuf_read@{rcuf\_\-read}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-read]{\setlength{\rightskip}{0pt plus 5cm}static int rcuf\_\-read (struct file $\ast$ {\em filp}, char $\ast$ {\em buf}, size\_\-t {\em count}, loff\_\-t $\ast$ {\em f\_\-pos})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_6d009b02687a8d2c740d88742f46e3aa}
+
+
+
+
+Definition at line 602 of file rcu\_\-flash.c.
+
+References LOG\_\-DBG, LOG\_\-ERROR, LOG\_\-READ\_\-WRITE, LOG\_\-WARNING, MR\_\-KERN\_\-DEBUG, mrlogmessage(), rcu\_\-flash\_\-read(), and rcuf\_\-size.
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=177pt]{rcu__flash_8c_6d009b02687a8d2c740d88742f46e3aa_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{rcu__flash_8c_67e494fee877810ae5b0ae9b88242e9b}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_write@{rcuf\_\-write}}
+\index{rcuf_write@{rcuf\_\-write}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-write]{\setlength{\rightskip}{0pt plus 5cm}static int rcuf\_\-write (struct file $\ast$ {\em filp}, const char $\ast$ {\em buf}, size\_\-t {\em count}, loff\_\-t $\ast$ {\em f\_\-pos})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_67e494fee877810ae5b0ae9b88242e9b}
+
+
+
+
+Definition at line 640 of file rcu\_\-flash.c.
+
+References LOG\_\-DBG, LOG\_\-ERROR, LOG\_\-READ\_\-WRITE, LOG\_\-WARNING, MR\_\-KERN\_\-DEBUG, mrlogmessage(), rcu\_\-flash\_\-write(), and rcuf\_\-size.
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=179pt]{rcu__flash_8c_67e494fee877810ae5b0ae9b88242e9b_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{rcu__flash_8c_6898e5714ea3e857a537f89c32de782f}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_writevalue@{rcuf\_\-writevalue}}
+\index{rcuf_writevalue@{rcuf\_\-writevalue}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-writevalue]{\setlength{\rightskip}{0pt plus 5cm}static int rcuf\_\-writevalue (u32 {\em begin}, u32 {\em size}, u32 {\em value})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_6898e5714ea3e857a537f89c32de782f}
+
+
+
+
+Definition at line 171 of file rcu\_\-flash.c.
+
+\subsection{Variable Documentation}
+\hypertarget{rcu__flash_8c_ed4aaefdbdfc77f32bb64c2e1dace773}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_addrlines_physaddr@{rcuf\_\-addrlines\_\-physaddr}}
+\index{rcuf_addrlines_physaddr@{rcuf\_\-addrlines\_\-physaddr}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-addrlines\_\-physaddr]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{rcu__flash_8c_ed4aaefdbdfc77f32bb64c2e1dace773}{rcuf\_\-addrlines\_\-physaddr} = 0x80000090\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_ed4aaefdbdfc77f32bb64c2e1dace773}
+
+
+
+
+Definition at line 57 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_4022d2013d048df710375dd82cf2ec69}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_bus_ctrl_physaddr@{rcuf\_\-bus\_\-ctrl\_\-physaddr}}
+\index{rcuf_bus_ctrl_physaddr@{rcuf\_\-bus\_\-ctrl\_\-physaddr}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-bus\_\-ctrl\_\-physaddr]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{rcu__flash_8c_4022d2013d048df710375dd82cf2ec69}{rcuf\_\-bus\_\-ctrl\_\-physaddr} = 0x80000070\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_4022d2013d048df710375dd82cf2ec69}
+
+
+
+
+Definition at line 64 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_95e4630e17a96b6d82f797e6f60ec7c8}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_data_in_physaddr@{rcuf\_\-data\_\-in\_\-physaddr}}
+\index{rcuf_data_in_physaddr@{rcuf\_\-data\_\-in\_\-physaddr}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-data\_\-in\_\-physaddr]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{rcu__flash_8c_95e4630e17a96b6d82f797e6f60ec7c8}{rcuf\_\-data\_\-in\_\-physaddr} = 0x80000080\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_95e4630e17a96b6d82f797e6f60ec7c8}
+
+
+
+
+Definition at line 61 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_028dcfcf93e8b29a425d321669e71949}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_data_out_physaddr@{rcuf\_\-data\_\-out\_\-physaddr}}
+\index{rcuf_data_out_physaddr@{rcuf\_\-data\_\-out\_\-physaddr}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-data\_\-out\_\-physaddr]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{rcu__flash_8c_028dcfcf93e8b29a425d321669e71949}{rcuf\_\-data\_\-out\_\-physaddr} = 0x80000030\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_028dcfcf93e8b29a425d321669e71949}
+
+
+
+
+Definition at line 60 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_f919570ec3a040d287d67651d2908494}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_fops@{rcuf\_\-fops}}
+\index{rcuf_fops@{rcuf\_\-fops}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-fops]{\setlength{\rightskip}{0pt plus 5cm}struct file\_\-operations \hyperlink{rcu__flash_8c_f919570ec3a040d287d67651d2908494}{rcuf\_\-fops}}}
+\label{rcu__flash_8c_f919570ec3a040d287d67651d2908494}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim} {
+  llseek:  rcuf_llseek,
+  read:    rcuf_read,
+  write:   rcuf_write,
+  ioctl:   rcuf_ioctl,
+  open:    rcuf_open,
+  release: rcuf_close,
+}
+\end{verbatim}\end{Code}
+
+
+Definition at line 406 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_e553448141881509fe25ae52a8a688ec}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_majorID@{rcuf\_\-majorID}}
+\index{rcuf_majorID@{rcuf\_\-majorID}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-majorID]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{rcu__flash_8c_e553448141881509fe25ae52a8a688ec}{rcuf\_\-major\-ID} = 151\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_e553448141881509fe25ae52a8a688ec}
+
+
+
+
+Definition at line 49 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_1792e0e637ca05dc5879d817b21094a9}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_size@{rcuf\_\-size}}
+\index{rcuf_size@{rcuf\_\-size}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-size]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{rcu__flash_8c_1792e0e637ca05dc5879d817b21094a9}{rcuf\_\-size} = 0x400\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_1792e0e637ca05dc5879d817b21094a9}
+
+
+
+
+Definition at line 52 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_9f31c3e09aef64429f7da1b1a1e05a42}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_virtaddr@{rcuf\_\-virtaddr}}
+\index{rcuf_virtaddr@{rcuf\_\-virtaddr}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-virtaddr]{\setlength{\rightskip}{0pt plus 5cm}u32$\ast$ \hyperlink{rcu__flash_8c_9f31c3e09aef64429f7da1b1a1e05a42}{rcuf\_\-virtaddr} = ((u32 $\ast$) 0x0)\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_9f31c3e09aef64429f7da1b1a1e05a42}
+
+
+
+
+Definition at line 98 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_bd950a12b060b7ce0d4f1e3918c14787}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_virtctrl@{rcuf\_\-virtctrl}}
+\index{rcuf_virtctrl@{rcuf\_\-virtctrl}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-virtctrl]{\setlength{\rightskip}{0pt plus 5cm}u32$\ast$ \hyperlink{rcu__flash_8c_bd950a12b060b7ce0d4f1e3918c14787}{rcuf\_\-virtctrl} = ((u32 $\ast$) 0x0)\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_bd950a12b060b7ce0d4f1e3918c14787}
+
+
+
+
+Definition at line 101 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_3e23a2233ec81ac30ef25269ac6ab8ce}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_virtdtai@{rcuf\_\-virtdtai}}
+\index{rcuf_virtdtai@{rcuf\_\-virtdtai}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-virtdtai]{\setlength{\rightskip}{0pt plus 5cm}u32$\ast$ \hyperlink{rcu__flash_8c_3e23a2233ec81ac30ef25269ac6ab8ce}{rcuf\_\-virtdtai} = ((u32 $\ast$) 0x0)\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_3e23a2233ec81ac30ef25269ac6ab8ce}
+
+
+
+
+Definition at line 100 of file rcu\_\-flash.c.\hypertarget{rcu__flash_8c_5a8221ab5b5e252d3948f87d22b76da7}{
+\index{rcu_flash.c@{rcu\_\-flash.c}!rcuf_virtdtao@{rcuf\_\-virtdtao}}
+\index{rcuf_virtdtao@{rcuf\_\-virtdtao}!rcu_flash.c@{rcu\_\-flash.c}}
+\subsubsection[rcuf\_\-virtdtao]{\setlength{\rightskip}{0pt plus 5cm}u32$\ast$ \hyperlink{rcu__flash_8c_5a8221ab5b5e252d3948f87d22b76da7}{rcuf\_\-virtdtao} = ((u32 $\ast$) 0x0)\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{rcu__flash_8c_5a8221ab5b5e252d3948f87d22b76da7}
+
+
+
+
+Definition at line 99 of file rcu\_\-flash.c.

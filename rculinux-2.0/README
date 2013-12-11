@@ -1,0 +1,130 @@
+Package: dcsctools
+
+This package implements the DCS board tools and the 
+rcu-sh. All contributions are under the terms of the 
+GNU General Public License as published by the Free Software 
+Foundation. Also see files AUTHORS and THANKS.
+
+This packages is maintained by Matthias.Richter@ift.uib.no
+Comments, bug reports, suggestions welcome! 
+
+Overview
+========
+The rcu-sh tool provides low level access to the rcu via the dcs board. The
+package also contains tools for frame generation, reading, and writing for
+the Xilinx Virtex FPGA.
+
+Setting up a version retrieved from CVS
+=======================================
+Skip this section if you have started from the tar ball.
+
+A version checked out from CVS requires a few steps to set up the Makefiles.
+Go to the directory and run
+ ./.autotools/acsetup.sh
+
+Then continue with the package configuration described in the next
+section.
+
+Setting up a version retrieved from CVS
+=======================================
+Skip this section if you have started from the tar ball.
+
+A version checked out from CVS requires a few steps to set up the Makefiles
+and to set some links which are related to the CVS structure at the IFT.
+Go to the directory and run
+ ./.autotools/acsetup.sh
+
+Note: This sub-folder/script is not part of the distribution since it is
+not necessary for it. 
+
+Then continue with the package configuration described in the 'Installation'
+section.
+
+Modifying a distributed package
+===============================
+If you are going the modify a distributed package you might need to re-make 
+the GNU build system by running
+ autoreconf -f -i
+
+Please notify the authors about bug fixes/corrections/extensions you made if
+you consider them worth to be merged into the project.
+
+Then continue with the package configuration described in the 'Installation'
+section.
+
+Installation
+============
+Package build relies on the GNU triplet configure, make and make install. In order 
+to separate the development and build environment, it is recommended to
+use a separate build directory, e.g. from the top directory do
+
+  mkdir build
+  cd build
+  ../configure
+  make
+  make install # !!! read the paragraph "Default install directories" first
+The binary will not run on the DCS board!
+
+To build the package for the ARM Linux of the DCS board, the --host option 
+has to be used to specify the host system. You will need a cross compiler 
+(see below)! Add the  path of the cross compiler to the PATH variable.
+In addition, the compiler and a few options have to specified to the 
+configure script:
+ CC=arm-uclibc-gcc 
+ --disable-shared
+
+For convenience there is a script doing that for you, it also sets the prefix
+to /nfs_export/dcscard/$USER if the directory exists. Using a dedicated build
+directory, you can do from the package's top directory: 
+
+  mkdir build-arm
+  cd build-arm
+  ../configure-arm
+  make
+  make install # !!! read the paragraph "Default install directories" first
+
+More info on options:
+./configure --help=short # gives you an overview on specific options
+./configure --help       # gives you the full help
+
+Default install directories:
+If you compile the package for the ARM Linux, it's recommended to mount
+an nfs directory on the DCS board (this is convenient and, more crucial, 
+saves the flash memory on the board. The latter is important, since one has 
+only a limited number of write cycles before the flash weakens!). If you 
+name the directory on the build machine /nfs_export/dcscard, the files will
+be copied automatically to /nfs_export/dcscard/$USER. 
+Note: you need write access to that directory.
+If the directory doesn't exist or if you don't have write access the default
+prefix is set to $HOME. The same applies if you are not cross-compiling.
+
+To override the default prefix use  
+--prefix=<dir>           
+
+usage of rcu-sh
+=======================
+
+commands:
+
+all parameters are hex values preceeded by a '0x' or decimal numbers
+quit                   : q
+info                   : i
+driver info            : d
+repeat previous command: p
+single read rcu bus memory   : r 0x<address> (e.g.: r 0x7000)
+multiple read rcu bus memory : r 0x<address> <dec no> (e.g.: r 0x7000 16)
+single write rcu bus memory  : w 0x<address> 0x<data>  (e.g.: w 0x6800 0x34)
+multiple write with const    : w 0x<address> <dec no> 0x<data> (e.g.: w 0x6800 12 0x0a)
+write file to rcu bus memory : w 0x<address> <fspec> 'filepath' <count> 
+   optional format spec: -b4(default) -b2 -b1 binary 32,16,8 bit, -c ascii
+   optional number after the filepath specifies count for partially write
+   e.g.: w 0x6800 -c 'pedestal.dat' 512,  w 0x7000 'pgm.dat'
+check status of mem location : ? 0x<address> [[c,f] 0x<bitmask> 0x<pattern>] [t n s(ec)/u(sec)]
+batch processing             : b 'filepath'
+wait command                 : wait n s(ec)/u(sec) 
+check rcu bus memory: m 0x<address> 0x<size in byte>
+read from file
+-/+ profile: switch on/off profiling
+- turn off all messages
++ turn on default messages
+hd debug message info

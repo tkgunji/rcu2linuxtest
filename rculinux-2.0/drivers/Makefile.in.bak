@@ -1,0 +1,72 @@
+prefix			= @prefix@
+exec_prefix		= @exec_prefix@
+datadir			= @datadir@
+pkgdatadir 		= $(datadir)/@PACKAGE@
+libdir			= @libdir@
+pkglibdir 		= $(libdir)/@PACKAGE@
+includedir		= @includedir@
+pkgincludedir 		= $(includedir)/@PACKAGE@
+modlibdir		= $(libdir)
+CC			= @CC@
+LD			= @LD@
+
+MODEXT			= @MODEXT@
+KVERS			= @KVERS@
+INSTALL 		= @INSTALL@
+
+top_srcdir		=  @top_srcdir@
+
+CFLAGS			+= -I/$@KSRC@/linux/include -I/$@KSRC@/linux/arch/arm/include -DMODULE -D__KERNEL__
+
+# Comment out to disable debug
+# DEBUG			= y
+
+# ifdef DEBUG
+# DEBFLAGS 		= -O -g -DDEBUG -DVIRTEX_DEBUG -Wall
+# CFLAGS			+= $(DEBFLAGS)
+# endif
+
+#obj-m			+= rcubus_driver.o rcu_flash.o virtex_driver.o virtex_test
+obj-m			+= rcubus_driver.o rcu_flash.o 
+obj-m-virtex		+= virtex_main.o virtex_fns.o virtex_io.o
+
+rcubus_driver_src	= dcs_driver.c dcs_driver.h mrKernLogging.c mrKernLogging.h
+rcu_flash_src		= rcu_flash.c rcu_flash.h  mrKernLogging.c mrKernLogging.h
+virtex_driver_src       = virtex_main.c virtex_io.c virtex_fns.c
+
+all:			modules
+
+modules:		$(obj-m)
+
+virtex_test: $(top_srcdir)/drivers/virtex_test.c
+	$(CC) $^ -o $@
+
+rcubus_driver.o: $(rcubus_driver_src:%=$(top_srcdir)/drivers/%) Makefile
+	$(CC) $(CFLAGS) -c -o $(@:.o=.$(MODEXT)) $<
+
+rcu_flash.o: $(rcu_flash_src:%=$(top_srcdir)/drivers/%) Makefile
+	$(CC) $(CFLAGS) -c -o $(@:.o=.$(MODEXT)) $<
+
+virtex_main.o: $(top_srcdir)/drivers/virtex_main.c
+	$(CC) $(CFLAGS) $(DEBFLAGS) -c -o $(@:.o=.$(MODEXT)) $<
+
+virtex_fns.o:  $(top_srcdir)/drivers/virtex_fns.c
+	$(CC) $(CFLAGS) $(DEBFLAGS) -c -o $(@:.o=.$(MODEXT)) $<
+
+virtex_io.o:  $(top_srcdir)/drivers/virtex_io.c
+	$(CC) $(CFLAGS) $(DEBFLAGS) -c -o $(@:.o=.$(MODEXT)) $<
+
+virtex_driver.o: $(obj-m-virtex)
+	$(LD) -r $^ -o $@
+
+install: $(obj-m:.o=.$(MODEXT))
+	mkdir -p $(DESTDIR)$(modlibdir)
+	$(foreach m, $(obj-m:.o=.$(MODEXT)), \
+		$(INSTALL) $m $(DESTDIR)$(modlibdir);)
+
+uninstall:
+	$(foreach m, $(obj-m:.o=.$(MODEXT)), \
+		rm -f $m $(DESTDIR)$(modlibdir)/$m;)
+
+clean:
+	rm -rf $(obj-m:.o=.$(MODEXT))

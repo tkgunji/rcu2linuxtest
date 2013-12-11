@@ -1,0 +1,3 @@
+kernel//rcu2/rculinux-2.0/drivers/sample.ko
+kernel//rcu2/rculinux-2.0/drivers/sample2.ko
+kernel//rcu2/rculinux-2.0/drivers/rcubus_driver.ko

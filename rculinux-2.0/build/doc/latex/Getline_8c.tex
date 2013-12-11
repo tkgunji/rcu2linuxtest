@@ -1,0 +1,1383 @@
+\hypertarget{Getline_8c}{
+\section{Getline.c File Reference}
+\label{Getline_8c}\index{Getline.c@{Getline.c}}
+}
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$signal.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+
+
+Include dependency graph for Getline.c:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=96pt]{Getline_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \hyperlink{Getline_8c_6821bafc3c88dfb2e433a095df9940c6}{BUF\_\-SIZE}~1024
+\item 
+\#define \hyperlink{Getline_8c_7f5fc8a70667ca4c9fc598a30f7e8602}{HIST\_\-SIZE}~100
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+static int \hyperlink{Getline_8c_4a8ec09a3528876aa0d3f6532e2180cc}{gl\_\-tab} (char $\ast$buf, int offset, int $\ast$loc)
+\item 
+char $\ast$ \hyperlink{Getline_8c_d4f9d54d023bc30cc8f3e721d81ce386}{Getline} (const char $\ast$prompt)
+\item 
+char $\ast$ \hyperlink{Getline_8c_9645d45daf029b25184ebb1632e3bec2}{Getlinem} (int mode, const char $\ast$prompt)
+\item 
+void \hyperlink{Getline_8c_666d05c4f215e909faf86ddb23f80f67}{Gl\_\-config} (const char $\ast$which, int value)
+\item 
+void \hyperlink{Getline_8c_e5f71b17ad9b817aea471a77c807481b}{Gl\_\-setwidth} (int w)
+\item 
+void \hyperlink{Getline_8c_2b3c73f73a6552fbda3e4f0189110502}{Gl\_\-windowchanged} ()
+\item 
+void \hyperlink{Getline_8c_3d83e69b1227d6eb301637ec4977c76b}{Gl\_\-histinit} (char $\ast$file)
+\item 
+void \hyperlink{Getline_8c_5bc9732aae5850cd5a7b8c7886f3384f}{Gl\_\-histadd} (char $\ast$buf)
+\item 
+static void \hyperlink{Getline_8c_0b988a2248f31975c52df57f36cf9a99}{gl\_\-init} ()
+\item 
+static void \hyperlink{Getline_8c_05208e7c512c81f59e60b8aec4e062f3}{gl\_\-cleanup} ()
+\item 
+static void \hyperlink{Getline_8c_a45d56c113f81d0636f653902dfd171c}{gl\_\-char\_\-init} ()
+\item 
+static void \hyperlink{Getline_8c_97bed2798833768f757d6479d30ef58c}{gl\_\-char\_\-cleanup} ()
+\item 
+static void \hyperlink{Getline_8c_5568ec10a1b63f2014af7a7c09e52e0a}{gl\_\-addchar} (int c)
+\item 
+static void \hyperlink{Getline_8c_8891c31c58a74ec80d900d3d2562b418}{gl\_\-del} (int loc)
+\item 
+static void \hyperlink{Getline_8c_4770103b7ab977b0c878790929860a8a}{gl\_\-error} (char $\ast$buf)
+\item 
+static void \hyperlink{Getline_8c_c493203051ec830e14e176222bdea305}{gl\_\-fixup} (const char $\ast$p, int c, int cur)
+\item 
+static int \hyperlink{Getline_8c_d722d07834674dc6b1c9e7fa9e25a354}{gl\_\-getc} ()
+\item 
+static void \hyperlink{Getline_8c_092e74bdcde8cba164a1eff7b1d7e981}{gl\_\-kill} ()
+\item 
+static void \hyperlink{Getline_8c_f61647c1811f8083b89c84dea02464bd}{gl\_\-newline} ()
+\item 
+static void \hyperlink{Getline_8c_ff64b1710cbbb4568c7699490fe0c74e}{gl\_\-putc} (int c)
+\item 
+static void \hyperlink{Getline_8c_92664f0ddff00272b6801917b04b74e4}{gl\_\-puts} (const char $\ast$buf)
+\item 
+static void \hyperlink{Getline_8c_2e04ab80238f627d734ebcdf879321aa}{gl\_\-redraw} ()
+\item 
+static void \hyperlink{Getline_8c_656d83a0fc9e30a199c9cc35bcccbdc6}{gl\_\-transpose} ()
+\item 
+static void \hyperlink{Getline_8c_2b19e812d00fc84dcfa3628fde26f8f8}{gl\_\-yank} ()
+\item 
+static int \hyperlink{Getline_8c_cc7f63289d0484554fd5f4b1debb4450}{is\_\-whitespace} (char c)
+\item 
+static void \hyperlink{Getline_8c_821ee3fc2397e5abec67375f3129fff9}{gl\_\-back\_\-1\_\-word} ()
+\item 
+static void \hyperlink{Getline_8c_56af07ae473ac2bc5281ba45bdf165c1}{gl\_\-kill\_\-1\_\-word} ()
+\item 
+static void \hyperlink{Getline_8c_959275de9f5e497fa3be7c729521dd8f}{gl\_\-kill\_\-back\_\-1\_\-word} ()
+\item 
+static void \hyperlink{Getline_8c_9550cb1b8a1f9bdb21b55052abf39de6}{gl\_\-kill\_\-region} (int i, int j)
+\item 
+static void \hyperlink{Getline_8c_d64a9a053cf1e79f45cfe508476636f8}{gl\_\-fwd\_\-1\_\-word} ()
+\item 
+static void \hyperlink{Getline_8c_e99f301c318e367b7b409b2cbb6c2607}{gl\_\-set\_\-mark} ()
+\item 
+static void \hyperlink{Getline_8c_afe258d2fe04a339bcba29dba4c27653}{gl\_\-exch} ()
+\item 
+static void \hyperlink{Getline_8c_922cd7283fa8eef047b969d96bbef302}{gl\_\-wipe} ()
+\item 
+static void \hyperlink{Getline_8c_7aeb84b1bf3e118eab18a7e523d3a14e}{hist\_\-init} ()
+\item 
+static char $\ast$ \hyperlink{Getline_8c_55da523ba030c0c07019af7d536b48b1}{hist\_\-next} ()
+\item 
+static char $\ast$ \hyperlink{Getline_8c_a0ff91ed11b5c20ac307a4b2c020ce92}{hist\_\-prev} ()
+\item 
+static char $\ast$ \hyperlink{Getline_8c_dd824ad58eca56693b14aa0598113678}{hist\_\-save} (char $\ast$p)
+\item 
+static void \hyperlink{Getline_8c_a1d090c3a4e5647f8ec95f0bdd59b2ee}{search\_\-addchar} (int c)
+\item 
+static void \hyperlink{Getline_8c_423e523cc4e5c6ce59fc0fc35a9697ea}{search\_\-term} ()
+\item 
+static void \hyperlink{Getline_8c_19a8833a6643d6d93b023b33f9344c49}{search\_\-back} (int s)
+\item 
+static void \hyperlink{Getline_8c_2a70d511cb480dcd1aeb46d63396f950}{search\_\-forw} (int s)
+\item 
+int \hyperlink{Getline_8c_15de2dae18f362e6211ac28598b0daf3}{Gl\_\-eof} ()
+\item 
+static void \hyperlink{Getline_8c_cd9aee6e0807f83d5c23b7bc2ff16231}{search\_\-update} (int c)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+int($\ast$) \hyperlink{Getline_8c_f3a7308de9b610f1230c5f54befd2b9a}{Gl\_\-in\_\-hook} (char $\ast$buf)=0
+\item 
+int($\ast$) \hyperlink{Getline_8c_5b29019cf7968853ffb03243c3bea424}{Gl\_\-out\_\-hook} (char $\ast$buf)=0
+\item 
+int($\ast$) \hyperlink{Getline_8c_e85d40db728ac8437000be3c637b98ab}{Gl\_\-tab\_\-hook} (char $\ast$buf, int prompt\_\-width, int $\ast$loc) = gl\_\-tab
+\item 
+static int \hyperlink{Getline_8c_530bc6f98e7807246ab93a1056a22211}{gl\_\-init\_\-done} = -1
+\item 
+static int \hyperlink{Getline_8c_7f7957926207f30e875bb787f2dc7a3d}{gl\_\-notty} = 0
+\item 
+static int \hyperlink{Getline_8c_0f75a96ef89d563b1d6e0d33e6393239}{gl\_\-eof} = 0
+\item 
+static int \hyperlink{Getline_8c_47ad6029530fe4c2b9e47f2dcfbf1690}{gl\_\-termw} = 80
+\item 
+static int \hyperlink{Getline_8c_3425dfcd249ed4b5c439727afff7edb7}{gl\_\-scroll} = 27
+\item 
+static int \hyperlink{Getline_8c_219531cddf67f1009a3d23c599f0138c}{gl\_\-width} = 0
+\item 
+static int \hyperlink{Getline_8c_7ebc25e8509b7b84cc07e10ced5eb694}{gl\_\-extent} = 0
+\item 
+static int \hyperlink{Getline_8c_9024eafac53bfdf2232bf173e993845a}{gl\_\-overwrite} = 0
+\item 
+static int \hyperlink{Getline_8c_9485d52cc09fd6c0880d4e70ca25c797}{gl\_\-no\_\-echo} = 0
+\item 
+static int \hyperlink{Getline_8c_a98e28c464dc7ca1a561c2aac2d1f1c0}{gl\_\-passwd} = 0
+\item 
+static int \hyperlink{Getline_8c_61d4581ca5282abe15cbcc74213a94f9}{gl\_\-erase\_\-line} = 0
+\item 
+static int \hyperlink{Getline_8c_040281afbe3857e88c8928746984aa15}{gl\_\-pos}
+\item 
+static int \hyperlink{Getline_8c_bb203f62e351273f83732d223cf7c31f}{gl\_\-cnt} = 0
+\item 
+static char \hyperlink{Getline_8c_55d3ac30e4850f299a4d79a2683806cb}{gl\_\-buf} \mbox{[}BUF\_\-SIZE\mbox{]}
+\item 
+static char \hyperlink{Getline_8c_c589fb8abd0b14513bd0c4593ab5cadb}{gl\_\-killbuf} \mbox{[}BUF\_\-SIZE\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static const char $\ast$ \hyperlink{Getline_8c_ab670c13ac5378e3c439beebc0fdbe6c}{gl\_\-prompt}
+\item 
+static char \hyperlink{Getline_8c_3316befdd86d49873d6d0d2e84e800dd}{gl\_\-intrc} = 0
+\item 
+static char \hyperlink{Getline_8c_e04b98935d9fe3c71398c4d28d3477bc}{gl\_\-quitc} = 0
+\item 
+static char \hyperlink{Getline_8c_f8145cf01d4e6042f3e0ea077628a62b}{gl\_\-suspc} = 0
+\item 
+static char \hyperlink{Getline_8c_74bfc882d1e203ae8025d2f177dc325f}{gl\_\-dsuspc} = 0
+\item 
+static int \hyperlink{Getline_8c_3063e9d42fe363bf22e21c5e77c4400b}{gl\_\-search\_\-mode} = 0
+\item 
+static int \hyperlink{Getline_8c_17c85c52fc2ba8b95cd30777835f076b}{gl\_\-savehist} = 0
+\item 
+static char \hyperlink{Getline_8c_c7655631f248a9c980d1b7974639d9e6}{gl\_\-histfile} \mbox{[}256\mbox{]}
+\item 
+static int \hyperlink{Getline_8c_9e39f121e80f71b767a8c22e16a0a226}{gl\_\-mark} = -1
+\item 
+static int \hyperlink{Getline_8c_538589ed0904801d52cc530d17f7e11d}{hist\_\-pos} = 0
+\item 
+static int \hyperlink{Getline_8c_d423cb43eed8acd80db4934961572503}{hist\_\-last} = 0
+\item 
+static char $\ast$ \hyperlink{Getline_8c_9c38739947d87672dcff17eea472ff15}{hist\_\-buf} \mbox{[}HIST\_\-SIZE\mbox{]}
+\item 
+static char \hyperlink{Getline_8c_b809b2dfbde0bd1565948dea9ed344ae}{search\_\-prompt} \mbox{[}101\mbox{]}
+\item 
+static char \hyperlink{Getline_8c_0516d576e0d5a1ee409ccb8bc84ef886}{search\_\-string} \mbox{[}100\mbox{]}
+\item 
+static int \hyperlink{Getline_8c_5eae76c34824a5898c448ab1bba1635c}{search\_\-pos} = 0
+\item 
+static int \hyperlink{Getline_8c_7ce7e9ca8c99bcaf60aa84a9a80e8da9}{search\_\-forw\_\-flg} = 0
+\item 
+static int \hyperlink{Getline_8c_1fe5136e5469e4c2203602fe7707a816}{search\_\-last} = 0
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{Getline_8c_6821bafc3c88dfb2e433a095df9940c6}{
+\index{Getline.c@{Getline.c}!BUF_SIZE@{BUF\_\-SIZE}}
+\index{BUF_SIZE@{BUF\_\-SIZE}!Getline.c@{Getline.c}}
+\subsubsection[BUF\_\-SIZE]{\setlength{\rightskip}{0pt plus 5cm}\#define BUF\_\-SIZE~1024}}
+\label{Getline_8c_6821bafc3c88dfb2e433a095df9940c6}
+
+
+
+
+Definition at line 258 of file Getline.c.
+
+Referenced by Getlinem(), gl\_\-addchar(), gl\_\-fixup(), gl\_\-newline(), and gl\_\-yank().\hypertarget{Getline_8c_7f5fc8a70667ca4c9fc598a30f7e8602}{
+\index{Getline.c@{Getline.c}!HIST_SIZE@{HIST\_\-SIZE}}
+\index{HIST_SIZE@{HIST\_\-SIZE}!Getline.c@{Getline.c}}
+\subsubsection[HIST\_\-SIZE]{\setlength{\rightskip}{0pt plus 5cm}\#define HIST\_\-SIZE~100}}
+\label{Getline_8c_7f5fc8a70667ca4c9fc598a30f7e8602}
+
+
+
+
+Definition at line 1307 of file Getline.c.
+
+Referenced by Gl\_\-histadd(), hist\_\-init(), hist\_\-next(), and hist\_\-prev().
+
+\subsection{Function Documentation}
+\hypertarget{Getline_8c_d4f9d54d023bc30cc8f3e721d81ce386}{
+\index{Getline.c@{Getline.c}!Getline@{Getline}}
+\index{Getline@{Getline}!Getline.c@{Getline.c}}
+\subsubsection[Getline]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ Getline (const char $\ast$ {\em prompt})}}
+\label{Getline_8c_d4f9d54d023bc30cc8f3e721d81ce386}
+
+
+
+
+Definition at line 1014 of file Getline.c.
+
+References Getlinem().
+
+Referenced by main().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=95pt]{Getline_8c_d4f9d54d023bc30cc8f3e721d81ce386_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_9645d45daf029b25184ebb1632e3bec2}{
+\index{Getline.c@{Getline.c}!Getlinem@{Getlinem}}
+\index{Getlinem@{Getlinem}!Getline.c@{Getline.c}}
+\subsubsection[Getlinem]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ Getlinem (int {\em mode}, const char $\ast$ {\em prompt})}}
+\label{Getline_8c_9645d45daf029b25184ebb1632e3bec2}
+
+
+
+
+Definition at line 773 of file Getline.c.
+
+References BUF\_\-SIZE, gl\_\-addchar(), gl\_\-back\_\-1\_\-word(), gl\_\-buf, gl\_\-cleanup(), gl\_\-cnt, Gl\_\-config(), gl\_\-del(), gl\_\-dsuspc, gl\_\-eof, gl\_\-exch(), gl\_\-extent, gl\_\-fixup(), gl\_\-fwd\_\-1\_\-word(), gl\_\-getc(), Gl\_\-in\_\-hook, gl\_\-init(), gl\_\-intrc, gl\_\-kill(), gl\_\-kill\_\-1\_\-word(), gl\_\-kill\_\-back\_\-1\_\-word(), gl\_\-newline(), gl\_\-notty, gl\_\-overwrite, gl\_\-pos, gl\_\-prompt, gl\_\-putc(), gl\_\-quitc, gl\_\-redraw(), gl\_\-search\_\-mode, gl\_\-set\_\-mark(), gl\_\-suspc, Gl\_\-tab\_\-hook, gl\_\-transpose(), gl\_\-wipe(), gl\_\-yank(), hist\_\-next(), hist\_\-prev(), search\_\-addchar(), search\_\-back(), search\_\-forw(), and search\_\-term().
+
+Referenced by Getline().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{Getline_8c_9645d45daf029b25184ebb1632e3bec2_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_5568ec10a1b63f2014af7a7c09e52e0a}{
+\index{Getline.c@{Getline.c}!gl_addchar@{gl\_\-addchar}}
+\index{gl_addchar@{gl\_\-addchar}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-addchar]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-addchar (int {\em c})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_5568ec10a1b63f2014af7a7c09e52e0a}
+
+
+
+
+Definition at line 1020 of file Getline.c.
+
+References BUF\_\-SIZE, gl\_\-buf, gl\_\-cnt, gl\_\-error(), gl\_\-extent, gl\_\-fixup(), gl\_\-overwrite, gl\_\-pos, and gl\_\-prompt.
+
+Referenced by Getlinem().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{Getline_8c_5568ec10a1b63f2014af7a7c09e52e0a_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_821ee3fc2397e5abec67375f3129fff9}{
+\index{Getline.c@{Getline.c}!gl_back_1_word@{gl\_\-back\_\-1\_\-word}}
+\index{gl_back_1_word@{gl\_\-back\_\-1\_\-word}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-back\_\-1\_\-word]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-back\_\-1\_\-word ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_821ee3fc2397e5abec67375f3129fff9}
+
+
+
+
+Definition at line 1676 of file Getline.c.
+
+References gl\_\-buf, gl\_\-fixup(), gl\_\-pos, gl\_\-prompt, and is\_\-whitespace().
+
+Referenced by Getlinem().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=173pt]{Getline_8c_821ee3fc2397e5abec67375f3129fff9_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_97bed2798833768f757d6479d30ef58c}{
+\index{Getline.c@{Getline.c}!gl_char_cleanup@{gl\_\-char\_\-cleanup}}
+\index{gl_char_cleanup@{gl\_\-char\_\-cleanup}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-char\_\-cleanup]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-char\_\-cleanup ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_97bed2798833768f757d6479d30ef58c}
+
+
+
+
+Definition at line 485 of file Getline.c.
+
+References gl\_\-notty.
+
+Referenced by gl\_\-cleanup().\hypertarget{Getline_8c_a45d56c113f81d0636f653902dfd171c}{
+\index{Getline.c@{Getline.c}!gl_char_init@{gl\_\-char\_\-init}}
+\index{gl_char_init@{gl\_\-char\_\-init}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-char\_\-init]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-char\_\-init ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_a45d56c113f81d0636f653902dfd171c}
+
+
+
+
+Definition at line 412 of file Getline.c.
+
+References gl\_\-dsuspc, gl\_\-intrc, gl\_\-notty, gl\_\-quitc, and gl\_\-suspc.
+
+Referenced by gl\_\-init().\hypertarget{Getline_8c_05208e7c512c81f59e60b8aec4e062f3}{
+\index{Getline.c@{Getline.c}!gl_cleanup@{gl\_\-cleanup}}
+\index{gl_cleanup@{gl\_\-cleanup}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-cleanup]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-cleanup ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_05208e7c512c81f59e60b8aec4e062f3}
+
+
+
+
+Definition at line 729 of file Getline.c.
+
+References gl\_\-char\_\-cleanup(), and gl\_\-init\_\-done.
+
+Referenced by Getlinem(), and gl\_\-error().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=122pt]{Getline_8c_05208e7c512c81f59e60b8aec4e062f3_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_666d05c4f215e909faf86ddb23f80f67}{
+\index{Getline.c@{Getline.c}!Gl_config@{Gl\_\-config}}
+\index{Gl_config@{Gl\_\-config}!Getline.c@{Getline.c}}
+\subsubsection[Gl\_\-config]{\setlength{\rightskip}{0pt plus 5cm}void Gl\_\-config (const char $\ast$ {\em which}, int {\em value})}}
+\label{Getline_8c_666d05c4f215e909faf86ddb23f80f67}
+
+
+
+
+Definition at line 401 of file Getline.c.
+
+References gl\_\-erase\_\-line, and gl\_\-no\_\-echo.
+
+Referenced by Getlinem().\hypertarget{Getline_8c_8891c31c58a74ec80d900d3d2562b418}{
+\index{Getline.c@{Getline.c}!gl_del@{gl\_\-del}}
+\index{gl_del@{gl\_\-del}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-del]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-del (int {\em loc})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_8891c31c58a74ec80d900d3d2562b418}
+
+
+
+
+Definition at line 1122 of file Getline.c.
+
+References gl\_\-buf, gl\_\-cnt, gl\_\-fixup(), gl\_\-pos, gl\_\-prompt, and gl\_\-putc().
+
+Referenced by Getlinem().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=133pt]{Getline_8c_8891c31c58a74ec80d900d3d2562b418_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_15de2dae18f362e6211ac28598b0daf3}{
+\index{Getline.c@{Getline.c}!Gl_eof@{Gl\_\-eof}}
+\index{Gl_eof@{Gl\_\-eof}!Getline.c@{Getline.c}}
+\subsubsection[Gl\_\-eof]{\setlength{\rightskip}{0pt plus 5cm}int Gl\_\-eof ()}}
+\label{Getline_8c_15de2dae18f362e6211ac28598b0daf3}
+
+
+
+
+Definition at line 1008 of file Getline.c.
+
+References gl\_\-eof.\hypertarget{Getline_8c_4770103b7ab977b0c878790929860a8a}{
+\index{Getline.c@{Getline.c}!gl_error@{gl\_\-error}}
+\index{gl_error@{gl\_\-error}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-error]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-error (char $\ast$ {\em buf})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_4770103b7ab977b0c878790929860a8a}
+
+
+
+
+Definition at line 697 of file Getline.c.
+
+References gl\_\-cleanup().
+
+Referenced by gl\_\-addchar(), gl\_\-newline(), Gl\_\-setwidth(), gl\_\-yank(), and hist\_\-save().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=167pt]{Getline_8c_4770103b7ab977b0c878790929860a8a_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_afe258d2fe04a339bcba29dba4c27653}{
+\index{Getline.c@{Getline.c}!gl_exch@{gl\_\-exch}}
+\index{gl_exch@{gl\_\-exch}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-exch]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-exch ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_afe258d2fe04a339bcba29dba4c27653}
+
+
+
+
+Definition at line 1829 of file Getline.c.
+
+References gl\_\-fixup(), gl\_\-mark, gl\_\-pos, and gl\_\-prompt.
+
+Referenced by Getlinem().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=138pt]{Getline_8c_afe258d2fe04a339bcba29dba4c27653_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_c493203051ec830e14e176222bdea305}{
+\index{Getline.c@{Getline.c}!gl_fixup@{gl\_\-fixup}}
+\index{gl_fixup@{gl\_\-fixup}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-fixup]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-fixup (const char $\ast$ {\em p}, int {\em c}, int {\em cur})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_c493203051ec830e14e176222bdea305}
+
+
+
+
+Definition at line 1162 of file Getline.c.
+
+References BUF\_\-SIZE, gl\_\-buf, gl\_\-cnt, gl\_\-extent, gl\_\-no\_\-echo, gl\_\-passwd, gl\_\-pos, gl\_\-putc(), gl\_\-puts(), gl\_\-scroll, gl\_\-termw, and gl\_\-width.
+
+Referenced by Getlinem(), gl\_\-addchar(), gl\_\-back\_\-1\_\-word(), gl\_\-del(), gl\_\-exch(), gl\_\-fwd\_\-1\_\-word(), gl\_\-kill(), gl\_\-kill\_\-1\_\-word(), gl\_\-newline(), gl\_\-redraw(), gl\_\-transpose(), gl\_\-wipe(), gl\_\-yank(), search\_\-addchar(), search\_\-back(), search\_\-forw(), and search\_\-term().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=93pt]{Getline_8c_c493203051ec830e14e176222bdea305_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_d64a9a053cf1e79f45cfe508476636f8}{
+\index{Getline.c@{Getline.c}!gl_fwd_1_word@{gl\_\-fwd\_\-1\_\-word}}
+\index{gl_fwd_1_word@{gl\_\-fwd\_\-1\_\-word}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-fwd\_\-1\_\-word]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-fwd\_\-1\_\-word ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_d64a9a053cf1e79f45cfe508476636f8}
+
+
+
+
+Definition at line 1773 of file Getline.c.
+
+References gl\_\-buf, gl\_\-cnt, gl\_\-fixup(), gl\_\-pos, gl\_\-prompt, and is\_\-whitespace().
+
+Referenced by Getlinem().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=170pt]{Getline_8c_d64a9a053cf1e79f45cfe508476636f8_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_d722d07834674dc6b1c9e7fa9e25a354}{
+\index{Getline.c@{Getline.c}!gl_getc@{gl\_\-getc}}
+\index{gl_getc@{gl\_\-getc}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-getc]{\setlength{\rightskip}{0pt plus 5cm}static int gl\_\-getc ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_d722d07834674dc6b1c9e7fa9e25a354}
+
+
+
+
+Definition at line 562 of file Getline.c.
+
+Referenced by Getlinem().\hypertarget{Getline_8c_5bc9732aae5850cd5a7b8c7886f3384f}{
+\index{Getline.c@{Getline.c}!Gl_histadd@{Gl\_\-histadd}}
+\index{Gl_histadd@{Gl\_\-histadd}!Getline.c@{Getline.c}}
+\subsubsection[Gl\_\-histadd]{\setlength{\rightskip}{0pt plus 5cm}void Gl\_\-histadd (char $\ast$ {\em buf})}}
+\label{Getline_8c_5bc9732aae5850cd5a7b8c7886f3384f}
+
+
+
+
+Definition at line 1355 of file Getline.c.
+
+References gl\_\-histfile, gl\_\-savehist, hist\_\-last, hist\_\-save(), and HIST\_\-SIZE.
+
+Referenced by Gl\_\-histinit(), and main().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=267pt]{Getline_8c_5bc9732aae5850cd5a7b8c7886f3384f_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_3d83e69b1227d6eb301637ec4977c76b}{
+\index{Getline.c@{Getline.c}!Gl_histinit@{Gl\_\-histinit}}
+\index{Gl_histinit@{Gl\_\-histinit}!Getline.c@{Getline.c}}
+\subsubsection[Gl\_\-histinit]{\setlength{\rightskip}{0pt plus 5cm}void Gl\_\-histinit (char $\ast$ {\em file})}}
+\label{Getline_8c_3d83e69b1227d6eb301637ec4977c76b}
+
+
+
+
+Definition at line 1326 of file Getline.c.
+
+References Gl\_\-histadd(), gl\_\-histfile, gl\_\-savehist, and hist\_\-init().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{Getline_8c_3d83e69b1227d6eb301637ec4977c76b_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_0b988a2248f31975c52df57f36cf9a99}{
+\index{Getline.c@{Getline.c}!gl_init@{gl\_\-init}}
+\index{gl_init@{gl\_\-init}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-init]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-init ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_0b988a2248f31975c52df57f36cf9a99}
+
+
+
+
+Definition at line 716 of file Getline.c.
+
+References gl\_\-char\_\-init(), gl\_\-init\_\-done, gl\_\-notty, and hist\_\-init().
+
+Referenced by Getlinem().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=97pt]{Getline_8c_0b988a2248f31975c52df57f36cf9a99_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_092e74bdcde8cba164a1eff7b1d7e981}{
+\index{Getline.c@{Getline.c}!gl_kill@{gl\_\-kill}}
+\index{gl_kill@{gl\_\-kill}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-kill]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-kill ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_092e74bdcde8cba164a1eff7b1d7e981}
+
+
+
+
+Definition at line 1140 of file Getline.c.
+
+References gl\_\-buf, gl\_\-cnt, gl\_\-fixup(), gl\_\-killbuf, gl\_\-pos, gl\_\-prompt, and gl\_\-putc().
+
+Referenced by Getlinem().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=132pt]{Getline_8c_092e74bdcde8cba164a1eff7b1d7e981_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_56af07ae473ac2bc5281ba45bdf165c1}{
+\index{Getline.c@{Getline.c}!gl_kill_1_word@{gl\_\-kill\_\-1\_\-word}}
+\index{gl_kill_1_word@{gl\_\-kill\_\-1\_\-word}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-kill\_\-1\_\-word]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-kill\_\-1\_\-word ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_56af07ae473ac2bc5281ba45bdf165c1}
+
+
+
+
+Definition at line 1723 of file Getline.c.
+
+References gl\_\-buf, gl\_\-cnt, gl\_\-fixup(), gl\_\-kill\_\-region(), gl\_\-pos, gl\_\-prompt, and is\_\-whitespace().
+
+Referenced by Getlinem().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=167pt]{Getline_8c_56af07ae473ac2bc5281ba45bdf165c1_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_959275de9f5e497fa3be7c729521dd8f}{
+\index{Getline.c@{Getline.c}!gl_kill_back_1_word@{gl\_\-kill\_\-back\_\-1\_\-word}}
+\index{gl_kill_back_1_word@{gl\_\-kill\_\-back\_\-1\_\-word}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-kill\_\-back\_\-1\_\-word]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-kill\_\-back\_\-1\_\-word ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_959275de9f5e497fa3be7c729521dd8f}
+
+
+
+
+Definition at line 1703 of file Getline.c.
+
+References gl\_\-buf, gl\_\-mark, gl\_\-pos, gl\_\-wipe(), and is\_\-whitespace().
+
+Referenced by Getlinem().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{Getline_8c_959275de9f5e497fa3be7c729521dd8f_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_9550cb1b8a1f9bdb21b55052abf39de6}{
+\index{Getline.c@{Getline.c}!gl_kill_region@{gl\_\-kill\_\-region}}
+\index{gl_kill_region@{gl\_\-kill\_\-region}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-kill\_\-region]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-kill\_\-region (int {\em i}, int {\em j})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_9550cb1b8a1f9bdb21b55052abf39de6}
+
+
+
+
+Definition at line 1757 of file Getline.c.
+
+References gl\_\-buf, gl\_\-cnt, and gl\_\-killbuf.
+
+Referenced by gl\_\-kill\_\-1\_\-word(), and gl\_\-wipe().\hypertarget{Getline_8c_f61647c1811f8083b89c84dea02464bd}{
+\index{Getline.c@{Getline.c}!gl_newline@{gl\_\-newline}}
+\index{gl_newline@{gl\_\-newline}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-newline]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-newline ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_f61647c1811f8083b89c84dea02464bd}
+
+
+
+
+Definition at line 1088 of file Getline.c.
+
+References BUF\_\-SIZE, gl\_\-buf, gl\_\-cnt, gl\_\-erase\_\-line, gl\_\-error(), gl\_\-fixup(), gl\_\-mark, Gl\_\-out\_\-hook, gl\_\-prompt, gl\_\-putc(), and gl\_\-width.
+
+Referenced by Getlinem().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{Getline_8c_f61647c1811f8083b89c84dea02464bd_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_ff64b1710cbbb4568c7699490fe0c74e}{
+\index{Getline.c@{Getline.c}!gl_putc@{gl\_\-putc}}
+\index{gl_putc@{gl\_\-putc}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-putc]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-putc (int {\em c})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_ff64b1710cbbb4568c7699490fe0c74e}
+
+
+
+
+Definition at line 652 of file Getline.c.
+
+References gl\_\-notty, and gl\_\-passwd.
+
+Referenced by Getlinem(), gl\_\-del(), gl\_\-fixup(), gl\_\-kill(), gl\_\-newline(), gl\_\-redraw(), gl\_\-transpose(), gl\_\-yank(), hist\_\-next(), hist\_\-prev(), search\_\-back(), search\_\-forw(), and search\_\-update().\hypertarget{Getline_8c_92664f0ddff00272b6801917b04b74e4}{
+\index{Getline.c@{Getline.c}!gl_puts@{gl\_\-puts}}
+\index{gl_puts@{gl\_\-puts}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-puts]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-puts (const char $\ast$ {\em buf})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_92664f0ddff00272b6801917b04b74e4}
+
+
+
+
+Definition at line 679 of file Getline.c.
+
+References gl\_\-notty.
+
+Referenced by gl\_\-fixup().\hypertarget{Getline_8c_2e04ab80238f627d734ebcdf879321aa}{
+\index{Getline.c@{Getline.c}!gl_redraw@{gl\_\-redraw}}
+\index{gl_redraw@{gl\_\-redraw}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-redraw]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-redraw ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_2e04ab80238f627d734ebcdf879321aa}
+
+
+
+
+Definition at line 1152 of file Getline.c.
+
+References gl\_\-fixup(), gl\_\-init\_\-done, gl\_\-pos, gl\_\-prompt, and gl\_\-putc().
+
+Referenced by Getlinem().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=143pt]{Getline_8c_2e04ab80238f627d734ebcdf879321aa_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_e99f301c318e367b7b409b2cbb6c2607}{
+\index{Getline.c@{Getline.c}!gl_set_mark@{gl\_\-set\_\-mark}}
+\index{gl_set_mark@{gl\_\-set\_\-mark}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-set\_\-mark]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-set\_\-mark ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_e99f301c318e367b7b409b2cbb6c2607}
+
+
+
+
+Definition at line 1802 of file Getline.c.
+
+References gl\_\-mark, and gl\_\-pos.
+
+Referenced by Getlinem().\hypertarget{Getline_8c_e5f71b17ad9b817aea471a77c807481b}{
+\index{Getline.c@{Getline.c}!Gl_setwidth@{Gl\_\-setwidth}}
+\index{Gl_setwidth@{Gl\_\-setwidth}!Getline.c@{Getline.c}}
+\subsubsection[Gl\_\-setwidth]{\setlength{\rightskip}{0pt plus 5cm}void Gl\_\-setwidth (int {\em w})}}
+\label{Getline_8c_e5f71b17ad9b817aea471a77c807481b}
+
+
+
+
+Definition at line 738 of file Getline.c.
+
+References gl\_\-error(), gl\_\-scroll, and gl\_\-termw.
+
+Referenced by Gl\_\-windowchanged().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=221pt]{Getline_8c_e5f71b17ad9b817aea471a77c807481b_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_4a8ec09a3528876aa0d3f6532e2180cc}{
+\index{Getline.c@{Getline.c}!gl_tab@{gl\_\-tab}}
+\index{gl_tab@{gl\_\-tab}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-tab]{\setlength{\rightskip}{0pt plus 5cm}static int gl\_\-tab (char $\ast$ {\em buf}, int {\em offset}, int $\ast$ {\em loc})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_4a8ec09a3528876aa0d3f6532e2180cc}
+
+
+
+
+Definition at line 1288 of file Getline.c.\hypertarget{Getline_8c_656d83a0fc9e30a199c9cc35bcccbdc6}{
+\index{Getline.c@{Getline.c}!gl_transpose@{gl\_\-transpose}}
+\index{gl_transpose@{gl\_\-transpose}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-transpose]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-transpose ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_656d83a0fc9e30a199c9cc35bcccbdc6}
+
+
+
+
+Definition at line 1072 of file Getline.c.
+
+References gl\_\-buf, gl\_\-cnt, gl\_\-extent, gl\_\-fixup(), gl\_\-pos, gl\_\-prompt, and gl\_\-putc().
+
+Referenced by Getlinem().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=150pt]{Getline_8c_656d83a0fc9e30a199c9cc35bcccbdc6_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_2b3c73f73a6552fbda3e4f0189110502}{
+\index{Getline.c@{Getline.c}!Gl_windowchanged@{Gl\_\-windowchanged}}
+\index{Gl_windowchanged@{Gl\_\-windowchanged}!Getline.c@{Getline.c}}
+\subsubsection[Gl\_\-windowchanged]{\setlength{\rightskip}{0pt plus 5cm}void Gl\_\-windowchanged ()}}
+\label{Getline_8c_2b3c73f73a6552fbda3e4f0189110502}
+
+
+
+
+Definition at line 749 of file Getline.c.
+
+References Gl\_\-setwidth().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{Getline_8c_2b3c73f73a6552fbda3e4f0189110502_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_922cd7283fa8eef047b969d96bbef302}{
+\index{Getline.c@{Getline.c}!gl_wipe@{gl\_\-wipe}}
+\index{gl_wipe@{gl\_\-wipe}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-wipe]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-wipe ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_922cd7283fa8eef047b969d96bbef302}
+
+
+
+
+Definition at line 1808 of file Getline.c.
+
+References gl\_\-fixup(), gl\_\-kill\_\-region(), gl\_\-mark, gl\_\-pos, and gl\_\-prompt.
+
+Referenced by Getlinem(), and gl\_\-kill\_\-back\_\-1\_\-word().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=149pt]{Getline_8c_922cd7283fa8eef047b969d96bbef302_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_2b19e812d00fc84dcfa3628fde26f8f8}{
+\index{Getline.c@{Getline.c}!gl_yank@{gl\_\-yank}}
+\index{gl_yank@{gl\_\-yank}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-yank]{\setlength{\rightskip}{0pt plus 5cm}static void gl\_\-yank ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_2b19e812d00fc84dcfa3628fde26f8f8}
+
+
+
+
+Definition at line 1040 of file Getline.c.
+
+References BUF\_\-SIZE, gl\_\-buf, gl\_\-cnt, gl\_\-error(), gl\_\-extent, gl\_\-fixup(), gl\_\-killbuf, gl\_\-mark, gl\_\-overwrite, gl\_\-pos, gl\_\-prompt, and gl\_\-putc().
+
+Referenced by Getlinem().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{Getline_8c_2b19e812d00fc84dcfa3628fde26f8f8_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_7aeb84b1bf3e118eab18a7e523d3a14e}{
+\index{Getline.c@{Getline.c}!hist_init@{hist\_\-init}}
+\index{hist_init@{hist\_\-init}!Getline.c@{Getline.c}}
+\subsubsection[hist\_\-init]{\setlength{\rightskip}{0pt plus 5cm}static void hist\_\-init ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_7aeb84b1bf3e118eab18a7e523d3a14e}
+
+
+
+
+Definition at line 1314 of file Getline.c.
+
+References gl\_\-savehist, and HIST\_\-SIZE.
+
+Referenced by Gl\_\-histinit(), and gl\_\-init().\hypertarget{Getline_8c_55da523ba030c0c07019af7d536b48b1}{
+\index{Getline.c@{Getline.c}!hist_next@{hist\_\-next}}
+\index{hist_next@{hist\_\-next}!Getline.c@{Getline.c}}
+\subsubsection[hist\_\-next]{\setlength{\rightskip}{0pt plus 5cm}static char $\ast$ hist\_\-next ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_55da523ba030c0c07019af7d536b48b1}
+
+
+
+
+Definition at line 1446 of file Getline.c.
+
+References gl\_\-putc(), hist\_\-last, and HIST\_\-SIZE.
+
+Referenced by Getlinem(), and search\_\-forw().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=96pt]{Getline_8c_55da523ba030c0c07019af7d536b48b1_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_a0ff91ed11b5c20ac307a4b2c020ce92}{
+\index{Getline.c@{Getline.c}!hist_prev@{hist\_\-prev}}
+\index{hist_prev@{hist\_\-prev}!Getline.c@{Getline.c}}
+\subsubsection[hist\_\-prev]{\setlength{\rightskip}{0pt plus 5cm}static char $\ast$ hist\_\-prev ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_a0ff91ed11b5c20ac307a4b2c020ce92}
+
+
+
+
+Definition at line 1428 of file Getline.c.
+
+References gl\_\-putc(), hist\_\-last, and HIST\_\-SIZE.
+
+Referenced by Getlinem(), and search\_\-back().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=96pt]{Getline_8c_a0ff91ed11b5c20ac307a4b2c020ce92_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_dd824ad58eca56693b14aa0598113678}{
+\index{Getline.c@{Getline.c}!hist_save@{hist\_\-save}}
+\index{hist_save@{hist\_\-save}!Getline.c@{Getline.c}}
+\subsubsection[hist\_\-save]{\setlength{\rightskip}{0pt plus 5cm}static char $\ast$ hist\_\-save (char $\ast$ {\em p})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_dd824ad58eca56693b14aa0598113678}
+
+
+
+
+Definition at line 1463 of file Getline.c.
+
+References gl\_\-error().
+
+Referenced by Gl\_\-histadd().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{Getline_8c_dd824ad58eca56693b14aa0598113678_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_cc7f63289d0484554fd5f4b1debb4450}{
+\index{Getline.c@{Getline.c}!is_whitespace@{is\_\-whitespace}}
+\index{is_whitespace@{is\_\-whitespace}!Getline.c@{Getline.c}}
+\subsubsection[is\_\-whitespace]{\setlength{\rightskip}{0pt plus 5cm}static int is\_\-whitespace (char {\em c})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_cc7f63289d0484554fd5f4b1debb4450}
+
+
+
+
+Definition at line 1792 of file Getline.c.
+
+Referenced by gl\_\-back\_\-1\_\-word(), gl\_\-fwd\_\-1\_\-word(), gl\_\-kill\_\-1\_\-word(), and gl\_\-kill\_\-back\_\-1\_\-word().\hypertarget{Getline_8c_a1d090c3a4e5647f8ec95f0bdd59b2ee}{
+\index{Getline.c@{Getline.c}!search_addchar@{search\_\-addchar}}
+\index{search_addchar@{search\_\-addchar}!Getline.c@{Getline.c}}
+\subsubsection[search\_\-addchar]{\setlength{\rightskip}{0pt plus 5cm}static void search\_\-addchar (int {\em c})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_a1d090c3a4e5647f8ec95f0bdd59b2ee}
+
+
+
+
+Definition at line 1525 of file Getline.c.
+
+References gl\_\-buf, gl\_\-fixup(), hist\_\-last, search\_\-back(), search\_\-forw(), and search\_\-update().
+
+Referenced by Getlinem().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{Getline_8c_a1d090c3a4e5647f8ec95f0bdd59b2ee_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_19a8833a6643d6d93b023b33f9344c49}{
+\index{Getline.c@{Getline.c}!search_back@{search\_\-back}}
+\index{search_back@{search\_\-back}!Getline.c@{Getline.c}}
+\subsubsection[search\_\-back]{\setlength{\rightskip}{0pt plus 5cm}static void search\_\-back (int {\em s})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_19a8833a6643d6d93b023b33f9344c49}
+
+
+
+
+Definition at line 1564 of file Getline.c.
+
+References gl\_\-buf, gl\_\-fixup(), gl\_\-putc(), gl\_\-search\_\-mode, hist\_\-last, hist\_\-prev(), and search\_\-update().
+
+Referenced by Getlinem(), and search\_\-addchar().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=167pt]{Getline_8c_19a8833a6643d6d93b023b33f9344c49_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_2a70d511cb480dcd1aeb46d63396f950}{
+\index{Getline.c@{Getline.c}!search_forw@{search\_\-forw}}
+\index{search_forw@{search\_\-forw}!Getline.c@{Getline.c}}
+\subsubsection[search\_\-forw]{\setlength{\rightskip}{0pt plus 5cm}static void search\_\-forw (int {\em s})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_2a70d511cb480dcd1aeb46d63396f950}
+
+
+
+
+Definition at line 1597 of file Getline.c.
+
+References gl\_\-buf, gl\_\-fixup(), gl\_\-putc(), gl\_\-search\_\-mode, hist\_\-last, hist\_\-next(), and search\_\-update().
+
+Referenced by Getlinem(), and search\_\-addchar().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=166pt]{Getline_8c_2a70d511cb480dcd1aeb46d63396f950_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_423e523cc4e5c6ce59fc0fc35a9697ea}{
+\index{Getline.c@{Getline.c}!search_term@{search\_\-term}}
+\index{search_term@{search\_\-term}!Getline.c@{Getline.c}}
+\subsubsection[search\_\-term]{\setlength{\rightskip}{0pt plus 5cm}static void search\_\-term ()\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_423e523cc4e5c6ce59fc0fc35a9697ea}
+
+
+
+
+Definition at line 1553 of file Getline.c.
+
+References gl\_\-buf, gl\_\-fixup(), Gl\_\-in\_\-hook, gl\_\-pos, gl\_\-prompt, gl\_\-search\_\-mode, and hist\_\-last.
+
+Referenced by Getlinem().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=150pt]{Getline_8c_423e523cc4e5c6ce59fc0fc35a9697ea_cgraph}
+\end{center}
+\end{figure}
+\hypertarget{Getline_8c_cd9aee6e0807f83d5c23b7bc2ff16231}{
+\index{Getline.c@{Getline.c}!search_update@{search\_\-update}}
+\index{search_update@{search\_\-update}!Getline.c@{Getline.c}}
+\subsubsection[search\_\-update]{\setlength{\rightskip}{0pt plus 5cm}static void search\_\-update (int {\em c})\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_cd9aee6e0807f83d5c23b7bc2ff16231}
+
+
+
+
+Definition at line 1494 of file Getline.c.
+
+References gl\_\-putc(), and hist\_\-last.
+
+Referenced by search\_\-addchar(), search\_\-back(), and search\_\-forw().
+
+Here is the call graph for this function:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=110pt]{Getline_8c_cd9aee6e0807f83d5c23b7bc2ff16231_cgraph}
+\end{center}
+\end{figure}
+
+
+\subsection{Variable Documentation}
+\hypertarget{Getline_8c_55d3ac30e4850f299a4d79a2683806cb}{
+\index{Getline.c@{Getline.c}!gl_buf@{gl\_\-buf}}
+\index{gl_buf@{gl\_\-buf}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-buf]{\setlength{\rightskip}{0pt plus 5cm}char \hyperlink{Getline_8c_55d3ac30e4850f299a4d79a2683806cb}{gl\_\-buf}\mbox{[}BUF\_\-SIZE\mbox{]}\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_55d3ac30e4850f299a4d79a2683806cb}
+
+
+
+
+Definition at line 272 of file Getline.c.
+
+Referenced by Getlinem(), gl\_\-addchar(), gl\_\-back\_\-1\_\-word(), gl\_\-del(), gl\_\-fixup(), gl\_\-fwd\_\-1\_\-word(), gl\_\-kill(), gl\_\-kill\_\-1\_\-word(), gl\_\-kill\_\-back\_\-1\_\-word(), gl\_\-kill\_\-region(), gl\_\-newline(), gl\_\-transpose(), gl\_\-yank(), search\_\-addchar(), search\_\-back(), search\_\-forw(), and search\_\-term().\hypertarget{Getline_8c_bb203f62e351273f83732d223cf7c31f}{
+\index{Getline.c@{Getline.c}!gl_cnt@{gl\_\-cnt}}
+\index{gl_cnt@{gl\_\-cnt}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-cnt]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_bb203f62e351273f83732d223cf7c31f}{gl\_\-cnt} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_bb203f62e351273f83732d223cf7c31f}
+
+
+
+
+Definition at line 271 of file Getline.c.
+
+Referenced by Getlinem(), gl\_\-addchar(), gl\_\-del(), gl\_\-fixup(), gl\_\-fwd\_\-1\_\-word(), gl\_\-kill(), gl\_\-kill\_\-1\_\-word(), gl\_\-kill\_\-region(), gl\_\-newline(), gl\_\-transpose(), and gl\_\-yank().\hypertarget{Getline_8c_74bfc882d1e203ae8025d2f177dc325f}{
+\index{Getline.c@{Getline.c}!gl_dsuspc@{gl\_\-dsuspc}}
+\index{gl_dsuspc@{gl\_\-dsuspc}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-dsuspc]{\setlength{\rightskip}{0pt plus 5cm}char \hyperlink{Getline_8c_74bfc882d1e203ae8025d2f177dc325f}{gl\_\-dsuspc} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_74bfc882d1e203ae8025d2f177dc325f}
+
+
+
+
+Definition at line 278 of file Getline.c.
+
+Referenced by Getlinem(), and gl\_\-char\_\-init().\hypertarget{Getline_8c_0f75a96ef89d563b1d6e0d33e6393239}{
+\index{Getline.c@{Getline.c}!gl_eof@{gl\_\-eof}}
+\index{gl_eof@{gl\_\-eof}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-eof]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_0f75a96ef89d563b1d6e0d33e6393239}{gl\_\-eof} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_0f75a96ef89d563b1d6e0d33e6393239}
+
+
+
+
+Definition at line 262 of file Getline.c.
+
+Referenced by Getlinem(), and Gl\_\-eof().\hypertarget{Getline_8c_61d4581ca5282abe15cbcc74213a94f9}{
+\index{Getline.c@{Getline.c}!gl_erase_line@{gl\_\-erase\_\-line}}
+\index{gl_erase_line@{gl\_\-erase\_\-line}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-erase\_\-line]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_61d4581ca5282abe15cbcc74213a94f9}{gl\_\-erase\_\-line} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_61d4581ca5282abe15cbcc74213a94f9}
+
+
+
+
+Definition at line 270 of file Getline.c.
+
+Referenced by Gl\_\-config(), and gl\_\-newline().\hypertarget{Getline_8c_7ebc25e8509b7b84cc07e10ced5eb694}{
+\index{Getline.c@{Getline.c}!gl_extent@{gl\_\-extent}}
+\index{gl_extent@{gl\_\-extent}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-extent]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_7ebc25e8509b7b84cc07e10ced5eb694}{gl\_\-extent} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_7ebc25e8509b7b84cc07e10ced5eb694}
+
+
+
+
+Definition at line 266 of file Getline.c.
+
+Referenced by Getlinem(), gl\_\-addchar(), gl\_\-fixup(), gl\_\-transpose(), and gl\_\-yank().\hypertarget{Getline_8c_c7655631f248a9c980d1b7974639d9e6}{
+\index{Getline.c@{Getline.c}!gl_histfile@{gl\_\-histfile}}
+\index{gl_histfile@{gl\_\-histfile}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-histfile]{\setlength{\rightskip}{0pt plus 5cm}char \hyperlink{Getline_8c_c7655631f248a9c980d1b7974639d9e6}{gl\_\-histfile}\mbox{[}256\mbox{]}\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_c7655631f248a9c980d1b7974639d9e6}
+
+
+
+
+Definition at line 281 of file Getline.c.
+
+Referenced by Gl\_\-histadd(), and Gl\_\-histinit().\hypertarget{Getline_8c_f3a7308de9b610f1230c5f54befd2b9a}{
+\index{Getline.c@{Getline.c}!Gl_in_hook@{Gl\_\-in\_\-hook}}
+\index{Gl_in_hook@{Gl\_\-in\_\-hook}!Getline.c@{Getline.c}}
+\subsubsection[Gl\_\-in\_\-hook]{\setlength{\rightskip}{0pt plus 5cm}int($\ast$) \hyperlink{Getline_8c_f3a7308de9b610f1230c5f54befd2b9a}{Gl\_\-in\_\-hook}(char $\ast$buf)=0}}
+\label{Getline_8c_f3a7308de9b610f1230c5f54befd2b9a}
+
+
+
+
+Definition at line 243 of file Getline.c.
+
+Referenced by Getlinem(), and search\_\-term().\hypertarget{Getline_8c_530bc6f98e7807246ab93a1056a22211}{
+\index{Getline.c@{Getline.c}!gl_init_done@{gl\_\-init\_\-done}}
+\index{gl_init_done@{gl\_\-init\_\-done}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-init\_\-done]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_530bc6f98e7807246ab93a1056a22211}{gl\_\-init\_\-done} = -1\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_530bc6f98e7807246ab93a1056a22211}
+
+
+
+
+Definition at line 260 of file Getline.c.
+
+Referenced by gl\_\-cleanup(), gl\_\-init(), and gl\_\-redraw().\hypertarget{Getline_8c_3316befdd86d49873d6d0d2e84e800dd}{
+\index{Getline.c@{Getline.c}!gl_intrc@{gl\_\-intrc}}
+\index{gl_intrc@{gl\_\-intrc}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-intrc]{\setlength{\rightskip}{0pt plus 5cm}char \hyperlink{Getline_8c_3316befdd86d49873d6d0d2e84e800dd}{gl\_\-intrc} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_3316befdd86d49873d6d0d2e84e800dd}
+
+
+
+
+Definition at line 275 of file Getline.c.
+
+Referenced by Getlinem(), and gl\_\-char\_\-init().\hypertarget{Getline_8c_c589fb8abd0b14513bd0c4593ab5cadb}{
+\index{Getline.c@{Getline.c}!gl_killbuf@{gl\_\-killbuf}}
+\index{gl_killbuf@{gl\_\-killbuf}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-killbuf]{\setlength{\rightskip}{0pt plus 5cm}char \hyperlink{Getline_8c_c589fb8abd0b14513bd0c4593ab5cadb}{gl\_\-killbuf}\mbox{[}BUF\_\-SIZE\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_c589fb8abd0b14513bd0c4593ab5cadb}
+
+
+
+
+Definition at line 273 of file Getline.c.
+
+Referenced by gl\_\-kill(), gl\_\-kill\_\-region(), and gl\_\-yank().\hypertarget{Getline_8c_9e39f121e80f71b767a8c22e16a0a226}{
+\index{Getline.c@{Getline.c}!gl_mark@{gl\_\-mark}}
+\index{gl_mark@{gl\_\-mark}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-mark]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_9e39f121e80f71b767a8c22e16a0a226}{gl\_\-mark} = -1\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_9e39f121e80f71b767a8c22e16a0a226}
+
+
+
+
+Definition at line 310 of file Getline.c.
+
+Referenced by gl\_\-exch(), gl\_\-kill\_\-back\_\-1\_\-word(), gl\_\-newline(), gl\_\-set\_\-mark(), gl\_\-wipe(), and gl\_\-yank().\hypertarget{Getline_8c_9485d52cc09fd6c0880d4e70ca25c797}{
+\index{Getline.c@{Getline.c}!gl_no_echo@{gl\_\-no\_\-echo}}
+\index{gl_no_echo@{gl\_\-no\_\-echo}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-no\_\-echo]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_9485d52cc09fd6c0880d4e70ca25c797}{gl\_\-no\_\-echo} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_9485d52cc09fd6c0880d4e70ca25c797}
+
+
+
+
+Definition at line 268 of file Getline.c.
+
+Referenced by Gl\_\-config(), and gl\_\-fixup().\hypertarget{Getline_8c_7f7957926207f30e875bb787f2dc7a3d}{
+\index{Getline.c@{Getline.c}!gl_notty@{gl\_\-notty}}
+\index{gl_notty@{gl\_\-notty}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-notty]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_7f7957926207f30e875bb787f2dc7a3d}{gl\_\-notty} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_7f7957926207f30e875bb787f2dc7a3d}
+
+
+
+
+Definition at line 261 of file Getline.c.
+
+Referenced by Getlinem(), gl\_\-char\_\-cleanup(), gl\_\-char\_\-init(), gl\_\-init(), gl\_\-putc(), and gl\_\-puts().\hypertarget{Getline_8c_5b29019cf7968853ffb03243c3bea424}{
+\index{Getline.c@{Getline.c}!Gl_out_hook@{Gl\_\-out\_\-hook}}
+\index{Gl_out_hook@{Gl\_\-out\_\-hook}!Getline.c@{Getline.c}}
+\subsubsection[Gl\_\-out\_\-hook]{\setlength{\rightskip}{0pt plus 5cm}int($\ast$) \hyperlink{Getline_8c_5b29019cf7968853ffb03243c3bea424}{Gl\_\-out\_\-hook}(char $\ast$buf)=0}}
+\label{Getline_8c_5b29019cf7968853ffb03243c3bea424}
+
+
+
+
+Definition at line 244 of file Getline.c.
+
+Referenced by gl\_\-newline().\hypertarget{Getline_8c_9024eafac53bfdf2232bf173e993845a}{
+\index{Getline.c@{Getline.c}!gl_overwrite@{gl\_\-overwrite}}
+\index{gl_overwrite@{gl\_\-overwrite}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-overwrite]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_9024eafac53bfdf2232bf173e993845a}{gl\_\-overwrite} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_9024eafac53bfdf2232bf173e993845a}
+
+
+
+
+Definition at line 267 of file Getline.c.
+
+Referenced by Getlinem(), gl\_\-addchar(), and gl\_\-yank().\hypertarget{Getline_8c_a98e28c464dc7ca1a561c2aac2d1f1c0}{
+\index{Getline.c@{Getline.c}!gl_passwd@{gl\_\-passwd}}
+\index{gl_passwd@{gl\_\-passwd}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-passwd]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_a98e28c464dc7ca1a561c2aac2d1f1c0}{gl\_\-passwd} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_a98e28c464dc7ca1a561c2aac2d1f1c0}
+
+
+
+
+Definition at line 269 of file Getline.c.
+
+Referenced by gl\_\-fixup(), and gl\_\-putc().\hypertarget{Getline_8c_040281afbe3857e88c8928746984aa15}{
+\index{Getline.c@{Getline.c}!gl_pos@{gl\_\-pos}}
+\index{gl_pos@{gl\_\-pos}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-pos]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_040281afbe3857e88c8928746984aa15}{gl\_\-pos}\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_040281afbe3857e88c8928746984aa15}
+
+
+
+
+Definition at line 271 of file Getline.c.
+
+Referenced by Getlinem(), gl\_\-addchar(), gl\_\-back\_\-1\_\-word(), gl\_\-del(), gl\_\-exch(), gl\_\-fixup(), gl\_\-fwd\_\-1\_\-word(), gl\_\-kill(), gl\_\-kill\_\-1\_\-word(), gl\_\-kill\_\-back\_\-1\_\-word(), gl\_\-redraw(), gl\_\-set\_\-mark(), gl\_\-transpose(), gl\_\-wipe(), gl\_\-yank(), and search\_\-term().\hypertarget{Getline_8c_ab670c13ac5378e3c439beebc0fdbe6c}{
+\index{Getline.c@{Getline.c}!gl_prompt@{gl\_\-prompt}}
+\index{gl_prompt@{gl\_\-prompt}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-prompt]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \hyperlink{Getline_8c_ab670c13ac5378e3c439beebc0fdbe6c}{gl\_\-prompt}\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_ab670c13ac5378e3c439beebc0fdbe6c}
+
+
+
+
+Definition at line 274 of file Getline.c.
+
+Referenced by Getlinem(), gl\_\-addchar(), gl\_\-back\_\-1\_\-word(), gl\_\-del(), gl\_\-exch(), gl\_\-fwd\_\-1\_\-word(), gl\_\-kill(), gl\_\-kill\_\-1\_\-word(), gl\_\-newline(), gl\_\-redraw(), gl\_\-transpose(), gl\_\-wipe(), gl\_\-yank(), and search\_\-term().\hypertarget{Getline_8c_e04b98935d9fe3c71398c4d28d3477bc}{
+\index{Getline.c@{Getline.c}!gl_quitc@{gl\_\-quitc}}
+\index{gl_quitc@{gl\_\-quitc}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-quitc]{\setlength{\rightskip}{0pt plus 5cm}char \hyperlink{Getline_8c_e04b98935d9fe3c71398c4d28d3477bc}{gl\_\-quitc} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_e04b98935d9fe3c71398c4d28d3477bc}
+
+
+
+
+Definition at line 276 of file Getline.c.
+
+Referenced by Getlinem(), and gl\_\-char\_\-init().\hypertarget{Getline_8c_17c85c52fc2ba8b95cd30777835f076b}{
+\index{Getline.c@{Getline.c}!gl_savehist@{gl\_\-savehist}}
+\index{gl_savehist@{gl\_\-savehist}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-savehist]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_17c85c52fc2ba8b95cd30777835f076b}{gl\_\-savehist} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_17c85c52fc2ba8b95cd30777835f076b}
+
+
+
+
+Definition at line 280 of file Getline.c.
+
+Referenced by Gl\_\-histadd(), Gl\_\-histinit(), and hist\_\-init().\hypertarget{Getline_8c_3425dfcd249ed4b5c439727afff7edb7}{
+\index{Getline.c@{Getline.c}!gl_scroll@{gl\_\-scroll}}
+\index{gl_scroll@{gl\_\-scroll}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-scroll]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_3425dfcd249ed4b5c439727afff7edb7}{gl\_\-scroll} = 27\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_3425dfcd249ed4b5c439727afff7edb7}
+
+
+
+
+Definition at line 264 of file Getline.c.
+
+Referenced by gl\_\-fixup(), and Gl\_\-setwidth().\hypertarget{Getline_8c_3063e9d42fe363bf22e21c5e77c4400b}{
+\index{Getline.c@{Getline.c}!gl_search_mode@{gl\_\-search\_\-mode}}
+\index{gl_search_mode@{gl\_\-search\_\-mode}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-search\_\-mode]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_3063e9d42fe363bf22e21c5e77c4400b}{gl\_\-search\_\-mode} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_3063e9d42fe363bf22e21c5e77c4400b}
+
+
+
+
+Definition at line 279 of file Getline.c.
+
+Referenced by Getlinem(), search\_\-back(), search\_\-forw(), and search\_\-term().\hypertarget{Getline_8c_f8145cf01d4e6042f3e0ea077628a62b}{
+\index{Getline.c@{Getline.c}!gl_suspc@{gl\_\-suspc}}
+\index{gl_suspc@{gl\_\-suspc}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-suspc]{\setlength{\rightskip}{0pt plus 5cm}char \hyperlink{Getline_8c_f8145cf01d4e6042f3e0ea077628a62b}{gl\_\-suspc} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_f8145cf01d4e6042f3e0ea077628a62b}
+
+
+
+
+Definition at line 277 of file Getline.c.
+
+Referenced by Getlinem(), and gl\_\-char\_\-init().\hypertarget{Getline_8c_e85d40db728ac8437000be3c637b98ab}{
+\index{Getline.c@{Getline.c}!Gl_tab_hook@{Gl\_\-tab\_\-hook}}
+\index{Gl_tab_hook@{Gl\_\-tab\_\-hook}!Getline.c@{Getline.c}}
+\subsubsection[Gl\_\-tab\_\-hook]{\setlength{\rightskip}{0pt plus 5cm}int($\ast$) \hyperlink{Getline_8c_e85d40db728ac8437000be3c637b98ab}{Gl\_\-tab\_\-hook}(char $\ast$buf, int prompt\_\-width, int $\ast$loc) = gl\_\-tab}}
+\label{Getline_8c_e85d40db728ac8437000be3c637b98ab}
+
+
+
+
+Definition at line 245 of file Getline.c.
+
+Referenced by Getlinem().\hypertarget{Getline_8c_47ad6029530fe4c2b9e47f2dcfbf1690}{
+\index{Getline.c@{Getline.c}!gl_termw@{gl\_\-termw}}
+\index{gl_termw@{gl\_\-termw}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-termw]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_47ad6029530fe4c2b9e47f2dcfbf1690}{gl\_\-termw} = 80\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_47ad6029530fe4c2b9e47f2dcfbf1690}
+
+
+
+
+Definition at line 263 of file Getline.c.
+
+Referenced by gl\_\-fixup(), and Gl\_\-setwidth().\hypertarget{Getline_8c_219531cddf67f1009a3d23c599f0138c}{
+\index{Getline.c@{Getline.c}!gl_width@{gl\_\-width}}
+\index{gl_width@{gl\_\-width}!Getline.c@{Getline.c}}
+\subsubsection[gl\_\-width]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_219531cddf67f1009a3d23c599f0138c}{gl\_\-width} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_219531cddf67f1009a3d23c599f0138c}
+
+
+
+
+Definition at line 265 of file Getline.c.
+
+Referenced by gl\_\-fixup(), and gl\_\-newline().\hypertarget{Getline_8c_9c38739947d87672dcff17eea472ff15}{
+\index{Getline.c@{Getline.c}!hist_buf@{hist\_\-buf}}
+\index{hist_buf@{hist\_\-buf}!Getline.c@{Getline.c}}
+\subsubsection[hist\_\-buf]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \hyperlink{Getline_8c_9c38739947d87672dcff17eea472ff15}{hist\_\-buf}\mbox{[}HIST\_\-SIZE\mbox{]}\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_9c38739947d87672dcff17eea472ff15}
+
+
+
+
+Definition at line 1311 of file Getline.c.\hypertarget{Getline_8c_d423cb43eed8acd80db4934961572503}{
+\index{Getline.c@{Getline.c}!hist_last@{hist\_\-last}}
+\index{hist_last@{hist\_\-last}!Getline.c@{Getline.c}}
+\subsubsection[hist\_\-last]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_d423cb43eed8acd80db4934961572503}{hist\_\-last} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_d423cb43eed8acd80db4934961572503}
+
+
+
+
+Definition at line 1310 of file Getline.c.
+
+Referenced by Gl\_\-histadd(), hist\_\-next(), hist\_\-prev(), search\_\-addchar(), search\_\-back(), search\_\-forw(), search\_\-term(), and search\_\-update().\hypertarget{Getline_8c_538589ed0904801d52cc530d17f7e11d}{
+\index{Getline.c@{Getline.c}!hist_pos@{hist\_\-pos}}
+\index{hist_pos@{hist\_\-pos}!Getline.c@{Getline.c}}
+\subsubsection[hist\_\-pos]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_538589ed0904801d52cc530d17f7e11d}{hist\_\-pos} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_538589ed0904801d52cc530d17f7e11d}
+
+
+
+
+Definition at line 1310 of file Getline.c.\hypertarget{Getline_8c_7ce7e9ca8c99bcaf60aa84a9a80e8da9}{
+\index{Getline.c@{Getline.c}!search_forw_flg@{search\_\-forw\_\-flg}}
+\index{search_forw_flg@{search\_\-forw\_\-flg}!Getline.c@{Getline.c}}
+\subsubsection[search\_\-forw\_\-flg]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_7ce7e9ca8c99bcaf60aa84a9a80e8da9}{search\_\-forw\_\-flg} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_7ce7e9ca8c99bcaf60aa84a9a80e8da9}
+
+
+
+
+Definition at line 1490 of file Getline.c.\hypertarget{Getline_8c_1fe5136e5469e4c2203602fe7707a816}{
+\index{Getline.c@{Getline.c}!search_last@{search\_\-last}}
+\index{search_last@{search\_\-last}!Getline.c@{Getline.c}}
+\subsubsection[search\_\-last]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_1fe5136e5469e4c2203602fe7707a816}{search\_\-last} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_1fe5136e5469e4c2203602fe7707a816}
+
+
+
+
+Definition at line 1491 of file Getline.c.\hypertarget{Getline_8c_5eae76c34824a5898c448ab1bba1635c}{
+\index{Getline.c@{Getline.c}!search_pos@{search\_\-pos}}
+\index{search_pos@{search\_\-pos}!Getline.c@{Getline.c}}
+\subsubsection[search\_\-pos]{\setlength{\rightskip}{0pt plus 5cm}int \hyperlink{Getline_8c_5eae76c34824a5898c448ab1bba1635c}{search\_\-pos} = 0\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_5eae76c34824a5898c448ab1bba1635c}
+
+
+
+
+Definition at line 1489 of file Getline.c.\hypertarget{Getline_8c_b809b2dfbde0bd1565948dea9ed344ae}{
+\index{Getline.c@{Getline.c}!search_prompt@{search\_\-prompt}}
+\index{search_prompt@{search\_\-prompt}!Getline.c@{Getline.c}}
+\subsubsection[search\_\-prompt]{\setlength{\rightskip}{0pt plus 5cm}char \hyperlink{Getline_8c_b809b2dfbde0bd1565948dea9ed344ae}{search\_\-prompt}\mbox{[}101\mbox{]}\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_b809b2dfbde0bd1565948dea9ed344ae}
+
+
+
+
+Definition at line 1487 of file Getline.c.\hypertarget{Getline_8c_0516d576e0d5a1ee409ccb8bc84ef886}{
+\index{Getline.c@{Getline.c}!search_string@{search\_\-string}}
+\index{search_string@{search\_\-string}!Getline.c@{Getline.c}}
+\subsubsection[search\_\-string]{\setlength{\rightskip}{0pt plus 5cm}char \hyperlink{Getline_8c_0516d576e0d5a1ee409ccb8bc84ef886}{search\_\-string}\mbox{[}100\mbox{]}\hspace{0.3cm}{\tt  \mbox{[}static\mbox{]}}}}
+\label{Getline_8c_0516d576e0d5a1ee409ccb8bc84ef886}
+
+
+
+
+Definition at line 1488 of file Getline.c.

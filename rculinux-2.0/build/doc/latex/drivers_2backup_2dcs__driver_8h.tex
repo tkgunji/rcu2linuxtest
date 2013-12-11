@@ -1,0 +1,342 @@
+\hypertarget{drivers_2backup_2dcs__driver_8h}{
+\section{dcs\_\-driver.h File Reference}
+\label{drivers_2backup_2dcs__driver_8h}\index{dcs_driver.h@{dcs\_\-driver.h}}
+}
+
+
+This graph shows which files directly or indirectly include this file:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=114pt]{drivers_2backup_2dcs__driver_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_bdd456820d3a820c1a5551a9ed223670}{IOCTL\_\-TEST\_\-MSGBUF\_\-IN}~0x001
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_67bb430edc1fd0c5ad8e7a91524bcdb8}{IOCTL\_\-TEST\_\-MSGBUF\_\-OUT}~0x002
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_20eadb9e55b3f7e54d731c8998f9d272}{IOCTL\_\-GET\_\-MSGBUF\_\-IN\_\-SIZE}~0x003
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_042440e6cfb13be6c1393fb6289b9c2b}{IOCTL\_\-GET\_\-MSGBUF\_\-OUT\_\-SIZE}~0x004
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_543fa13071d44c6431e672bae7f81a9a}{IOCTL\_\-GET\_\-REGFILE\_\-SIZE}~0x005
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_9ce2e79a5e716592c9fb72075506ed54}{IOCTL\_\-GET\_\-VERSION\_\-V02}~0x006
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_9b5642f22157d69e6c6a26a9f56b367b}{IOCTL\_\-GET\_\-VERSION}~0x010
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_d606612d204b94b126f4e6a1806e813d}{IOCTL\_\-GET\_\-VERS\_\-STR\_\-SIZE}~0x011
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_727ab7673f1a15b6e3adc242466ee9b4}{IOCTL\_\-SET\_\-DEBUG\_\-LEVEL}~0x018
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_6d536482fdb6b5d405d3acadd3ef469d}{IOCTL\_\-SET\_\-LOG\_\-FILE}~0x019
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_d668e54ae34ce5947f23b56b14930798}{IOCTL\_\-LOCK\_\-DRIVER}~0x020
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_851b272a7f7e402588a8f6681029ceab}{IOCTL\_\-UNLOCK\_\-DRIVER}~0x021
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_e856aa8dd4e4ef56c271e418141a2b5d}{IOCTL\_\-RESET\_\-LOCK}~0x022
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_354a7ab28bf7a18640b10340c063c351}{IOCTL\_\-ACTIVATE\_\-LOCK}~0x023
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_c1dbdf63144106e0e403c79a3012ec88}{IOCTL\_\-SEIZE\_\-DRIVER}~0x024
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_d05cd0ea0518ffafc88731ed7240a090}{IOCTL\_\-RELEASE\_\-DRIVER}~0x025
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_df487c4b61442e45ea69420deaa68038}{IOCTL\_\-READ\_\-REG}~0x080
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_ef25f269bc894f3bb0993e5c75ba1256}{IOCTL\_\-WRITE\_\-REG}~0x0c0
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_a39572541652583b87c0dbbf67d4650e}{ACCESS\_\-IN\_\-BUFFER}~0x01
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_9219d6d54b3a605749fb34c09adc4217}{ACCESS\_\-OUT\_\-BUFFER}~0x02
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_77f52660fb0135a9d0371d2bb948d2bb}{ACCESS\_\-REGFILE}~0x04
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_4cd1f71bf8288ac61efa085ae8f91533}{ACCESS\_\-ALL}~(ACCESS\_\-IN\_\-BUFFER$|$ACCESS\_\-OUT\_\-BUFFER$|$ACCESS\_\-REGFILE)
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_0c2ba86c61c55c418a226ebd2b055ef0}{ACCESS\_\-REGIONS}~0x08
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_52c6ae309b7b39b9dbcc576040986b97}{VERSION\_\-STRING\_\-SIZE}~20
+\item 
+\#define \hyperlink{drivers_2backup_2dcs__driver_8h_6bfbaae758f8a232d11fb2eb2bf81609}{RELEASETYPE}~\char`\"{}debug\char`\"{}
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{drivers_2backup_2dcs__driver_8h_4cd1f71bf8288ac61efa085ae8f91533}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!ACCESS_ALL@{ACCESS\_\-ALL}}
+\index{ACCESS_ALL@{ACCESS\_\-ALL}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[ACCESS\_\-ALL]{\setlength{\rightskip}{0pt plus 5cm}\#define ACCESS\_\-ALL~(ACCESS\_\-IN\_\-BUFFER$|$ACCESS\_\-OUT\_\-BUFFER$|$ACCESS\_\-REGFILE)}}
+\label{drivers_2backup_2dcs__driver_8h_4cd1f71bf8288ac61efa085ae8f91533}
+
+
+
+
+Definition at line 69 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-read(), and dcsc\_\-write().\hypertarget{drivers_2backup_2dcs__driver_8h_a39572541652583b87c0dbbf67d4650e}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!ACCESS_IN_BUFFER@{ACCESS\_\-IN\_\-BUFFER}}
+\index{ACCESS_IN_BUFFER@{ACCESS\_\-IN\_\-BUFFER}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[ACCESS\_\-IN\_\-BUFFER]{\setlength{\rightskip}{0pt plus 5cm}\#define ACCESS\_\-IN\_\-BUFFER~0x01}}
+\label{drivers_2backup_2dcs__driver_8h_a39572541652583b87c0dbbf67d4650e}
+
+
+
+
+Definition at line 65 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by find\-Buffer\-For\-Address().\hypertarget{drivers_2backup_2dcs__driver_8h_9219d6d54b3a605749fb34c09adc4217}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!ACCESS_OUT_BUFFER@{ACCESS\_\-OUT\_\-BUFFER}}
+\index{ACCESS_OUT_BUFFER@{ACCESS\_\-OUT\_\-BUFFER}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[ACCESS\_\-OUT\_\-BUFFER]{\setlength{\rightskip}{0pt plus 5cm}\#define ACCESS\_\-OUT\_\-BUFFER~0x02}}
+\label{drivers_2backup_2dcs__driver_8h_9219d6d54b3a605749fb34c09adc4217}
+
+
+
+
+Definition at line 66 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by find\-Buffer\-For\-Address().\hypertarget{drivers_2backup_2dcs__driver_8h_77f52660fb0135a9d0371d2bb948d2bb}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!ACCESS_REGFILE@{ACCESS\_\-REGFILE}}
+\index{ACCESS_REGFILE@{ACCESS\_\-REGFILE}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[ACCESS\_\-REGFILE]{\setlength{\rightskip}{0pt plus 5cm}\#define ACCESS\_\-REGFILE~0x04}}
+\label{drivers_2backup_2dcs__driver_8h_77f52660fb0135a9d0371d2bb948d2bb}
+
+
+
+
+Definition at line 67 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by find\-Buffer\-For\-Address().\hypertarget{drivers_2backup_2dcs__driver_8h_0c2ba86c61c55c418a226ebd2b055ef0}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!ACCESS_REGIONS@{ACCESS\_\-REGIONS}}
+\index{ACCESS_REGIONS@{ACCESS\_\-REGIONS}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[ACCESS\_\-REGIONS]{\setlength{\rightskip}{0pt plus 5cm}\#define ACCESS\_\-REGIONS~0x08}}
+\label{drivers_2backup_2dcs__driver_8h_0c2ba86c61c55c418a226ebd2b055ef0}
+
+
+
+
+Definition at line 71 of file drivers/backup/dcs\_\-driver.h.\hypertarget{drivers_2backup_2dcs__driver_8h_354a7ab28bf7a18640b10340c063c351}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_ACTIVATE_LOCK@{IOCTL\_\-ACTIVATE\_\-LOCK}}
+\index{IOCTL_ACTIVATE_LOCK@{IOCTL\_\-ACTIVATE\_\-LOCK}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-ACTIVATE\_\-LOCK]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-ACTIVATE\_\-LOCK~0x023}}
+\label{drivers_2backup_2dcs__driver_8h_354a7ab28bf7a18640b10340c063c351}
+
+
+
+
+Definition at line 58 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by activate\_\-device\_\-lock(), and dcsc\_\-ioctl().\hypertarget{drivers_2backup_2dcs__driver_8h_20eadb9e55b3f7e54d731c8998f9d272}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_GET_MSGBUF_IN_SIZE@{IOCTL\_\-GET\_\-MSGBUF\_\-IN\_\-SIZE}}
+\index{IOCTL_GET_MSGBUF_IN_SIZE@{IOCTL\_\-GET\_\-MSGBUF\_\-IN\_\-SIZE}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-GET\_\-MSGBUF\_\-IN\_\-SIZE]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-GET\_\-MSGBUF\_\-IN\_\-SIZE~0x003}}
+\label{drivers_2backup_2dcs__driver_8h_20eadb9e55b3f7e54d731c8998f9d272}
+
+
+
+
+Definition at line 45 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl(), and open\-Device().\hypertarget{drivers_2backup_2dcs__driver_8h_042440e6cfb13be6c1393fb6289b9c2b}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_GET_MSGBUF_OUT_SIZE@{IOCTL\_\-GET\_\-MSGBUF\_\-OUT\_\-SIZE}}
+\index{IOCTL_GET_MSGBUF_OUT_SIZE@{IOCTL\_\-GET\_\-MSGBUF\_\-OUT\_\-SIZE}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-GET\_\-MSGBUF\_\-OUT\_\-SIZE]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-GET\_\-MSGBUF\_\-OUT\_\-SIZE~0x004}}
+\label{drivers_2backup_2dcs__driver_8h_042440e6cfb13be6c1393fb6289b9c2b}
+
+
+
+
+Definition at line 46 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl(), and open\-Device().\hypertarget{drivers_2backup_2dcs__driver_8h_543fa13071d44c6431e672bae7f81a9a}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_GET_REGFILE_SIZE@{IOCTL\_\-GET\_\-REGFILE\_\-SIZE}}
+\index{IOCTL_GET_REGFILE_SIZE@{IOCTL\_\-GET\_\-REGFILE\_\-SIZE}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-GET\_\-REGFILE\_\-SIZE]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-GET\_\-REGFILE\_\-SIZE~0x005}}
+\label{drivers_2backup_2dcs__driver_8h_543fa13071d44c6431e672bae7f81a9a}
+
+
+
+
+Definition at line 47 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl(), and open\-Device().\hypertarget{drivers_2backup_2dcs__driver_8h_d606612d204b94b126f4e6a1806e813d}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_GET_VERS_STR_SIZE@{IOCTL\_\-GET\_\-VERS\_\-STR\_\-SIZE}}
+\index{IOCTL_GET_VERS_STR_SIZE@{IOCTL\_\-GET\_\-VERS\_\-STR\_\-SIZE}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-GET\_\-VERS\_\-STR\_\-SIZE]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-GET\_\-VERS\_\-STR\_\-SIZE~0x011}}
+\label{drivers_2backup_2dcs__driver_8h_d606612d204b94b126f4e6a1806e813d}
+
+
+
+
+Definition at line 52 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl(), print\-Driver\-Info(), and rcuf\_\-ioctl().\hypertarget{drivers_2backup_2dcs__driver_8h_9b5642f22157d69e6c6a26a9f56b367b}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_GET_VERSION@{IOCTL\_\-GET\_\-VERSION}}
+\index{IOCTL_GET_VERSION@{IOCTL\_\-GET\_\-VERSION}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-GET\_\-VERSION]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-GET\_\-VERSION~0x010}}
+\label{drivers_2backup_2dcs__driver_8h_9b5642f22157d69e6c6a26a9f56b367b}
+
+
+
+
+Definition at line 49 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl(), print\-Driver\-Info(), and rcuf\_\-ioctl().\hypertarget{drivers_2backup_2dcs__driver_8h_9ce2e79a5e716592c9fb72075506ed54}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_GET_VERSION_V02@{IOCTL\_\-GET\_\-VERSION\_\-V02}}
+\index{IOCTL_GET_VERSION_V02@{IOCTL\_\-GET\_\-VERSION\_\-V02}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-GET\_\-VERSION\_\-V02]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-GET\_\-VERSION\_\-V02~0x006}}
+\label{drivers_2backup_2dcs__driver_8h_9ce2e79a5e716592c9fb72075506ed54}
+
+
+
+
+Definition at line 48 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl(), and print\-Driver\-Info().\hypertarget{drivers_2backup_2dcs__driver_8h_d668e54ae34ce5947f23b56b14930798}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_LOCK_DRIVER@{IOCTL\_\-LOCK\_\-DRIVER}}
+\index{IOCTL_LOCK_DRIVER@{IOCTL\_\-LOCK\_\-DRIVER}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-LOCK\_\-DRIVER]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-LOCK\_\-DRIVER~0x020}}
+\label{drivers_2backup_2dcs__driver_8h_d668e54ae34ce5947f23b56b14930798}
+
+
+
+
+Definition at line 55 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl(), and lock\_\-device().\hypertarget{drivers_2backup_2dcs__driver_8h_df487c4b61442e45ea69420deaa68038}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_READ_REG@{IOCTL\_\-READ\_\-REG}}
+\index{IOCTL_READ_REG@{IOCTL\_\-READ\_\-REG}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-READ\_\-REG]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-READ\_\-REG~0x080}}
+\label{drivers_2backup_2dcs__driver_8h_df487c4b61442e45ea69420deaa68038}
+
+
+
+
+Definition at line 61 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl(), and open\-Device().\hypertarget{drivers_2backup_2dcs__driver_8h_d05cd0ea0518ffafc88731ed7240a090}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_RELEASE_DRIVER@{IOCTL\_\-RELEASE\_\-DRIVER}}
+\index{IOCTL_RELEASE_DRIVER@{IOCTL\_\-RELEASE\_\-DRIVER}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-RELEASE\_\-DRIVER]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-RELEASE\_\-DRIVER~0x025}}
+\label{drivers_2backup_2dcs__driver_8h_d05cd0ea0518ffafc88731ed7240a090}
+
+
+
+
+Definition at line 60 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl(), and release\_\-device().\hypertarget{drivers_2backup_2dcs__driver_8h_e856aa8dd4e4ef56c271e418141a2b5d}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_RESET_LOCK@{IOCTL\_\-RESET\_\-LOCK}}
+\index{IOCTL_RESET_LOCK@{IOCTL\_\-RESET\_\-LOCK}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-RESET\_\-LOCK]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-RESET\_\-LOCK~0x022}}
+\label{drivers_2backup_2dcs__driver_8h_e856aa8dd4e4ef56c271e418141a2b5d}
+
+
+
+
+Definition at line 57 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl(), and reset\_\-device\_\-lock().\hypertarget{drivers_2backup_2dcs__driver_8h_c1dbdf63144106e0e403c79a3012ec88}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_SEIZE_DRIVER@{IOCTL\_\-SEIZE\_\-DRIVER}}
+\index{IOCTL_SEIZE_DRIVER@{IOCTL\_\-SEIZE\_\-DRIVER}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-SEIZE\_\-DRIVER]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-SEIZE\_\-DRIVER~0x024}}
+\label{drivers_2backup_2dcs__driver_8h_c1dbdf63144106e0e403c79a3012ec88}
+
+
+
+
+Definition at line 59 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl(), and seize\_\-device().\hypertarget{drivers_2backup_2dcs__driver_8h_727ab7673f1a15b6e3adc242466ee9b4}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_SET_DEBUG_LEVEL@{IOCTL\_\-SET\_\-DEBUG\_\-LEVEL}}
+\index{IOCTL_SET_DEBUG_LEVEL@{IOCTL\_\-SET\_\-DEBUG\_\-LEVEL}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-SET\_\-DEBUG\_\-LEVEL]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-SET\_\-DEBUG\_\-LEVEL~0x018}}
+\label{drivers_2backup_2dcs__driver_8h_727ab7673f1a15b6e3adc242466ee9b4}
+
+
+
+
+Definition at line 53 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl(), dcsc\-Driver\-Debug(), and rcuf\_\-ioctl().\hypertarget{drivers_2backup_2dcs__driver_8h_6d536482fdb6b5d405d3acadd3ef469d}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_SET_LOG_FILE@{IOCTL\_\-SET\_\-LOG\_\-FILE}}
+\index{IOCTL_SET_LOG_FILE@{IOCTL\_\-SET\_\-LOG\_\-FILE}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-SET\_\-LOG\_\-FILE]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-SET\_\-LOG\_\-FILE~0x019}}
+\label{drivers_2backup_2dcs__driver_8h_6d536482fdb6b5d405d3acadd3ef469d}
+
+
+
+
+Definition at line 54 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl(), and rcuf\_\-ioctl().\hypertarget{drivers_2backup_2dcs__driver_8h_bdd456820d3a820c1a5551a9ed223670}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_TEST_MSGBUF_IN@{IOCTL\_\-TEST\_\-MSGBUF\_\-IN}}
+\index{IOCTL_TEST_MSGBUF_IN@{IOCTL\_\-TEST\_\-MSGBUF\_\-IN}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-TEST\_\-MSGBUF\_\-IN]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-TEST\_\-MSGBUF\_\-IN~0x001}}
+\label{drivers_2backup_2dcs__driver_8h_bdd456820d3a820c1a5551a9ed223670}
+
+
+
+
+Definition at line 43 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl().\hypertarget{drivers_2backup_2dcs__driver_8h_67bb430edc1fd0c5ad8e7a91524bcdb8}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_TEST_MSGBUF_OUT@{IOCTL\_\-TEST\_\-MSGBUF\_\-OUT}}
+\index{IOCTL_TEST_MSGBUF_OUT@{IOCTL\_\-TEST\_\-MSGBUF\_\-OUT}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-TEST\_\-MSGBUF\_\-OUT]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-TEST\_\-MSGBUF\_\-OUT~0x002}}
+\label{drivers_2backup_2dcs__driver_8h_67bb430edc1fd0c5ad8e7a91524bcdb8}
+
+
+
+
+Definition at line 44 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl().\hypertarget{drivers_2backup_2dcs__driver_8h_851b272a7f7e402588a8f6681029ceab}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_UNLOCK_DRIVER@{IOCTL\_\-UNLOCK\_\-DRIVER}}
+\index{IOCTL_UNLOCK_DRIVER@{IOCTL\_\-UNLOCK\_\-DRIVER}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-UNLOCK\_\-DRIVER]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-UNLOCK\_\-DRIVER~0x021}}
+\label{drivers_2backup_2dcs__driver_8h_851b272a7f7e402588a8f6681029ceab}
+
+
+
+
+Definition at line 56 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl(), and unlock\_\-device().\hypertarget{drivers_2backup_2dcs__driver_8h_ef25f269bc894f3bb0993e5c75ba1256}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!IOCTL_WRITE_REG@{IOCTL\_\-WRITE\_\-REG}}
+\index{IOCTL_WRITE_REG@{IOCTL\_\-WRITE\_\-REG}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[IOCTL\_\-WRITE\_\-REG]{\setlength{\rightskip}{0pt plus 5cm}\#define IOCTL\_\-WRITE\_\-REG~0x0c0}}
+\label{drivers_2backup_2dcs__driver_8h_ef25f269bc894f3bb0993e5c75ba1256}
+
+
+
+
+Definition at line 62 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl().\hypertarget{drivers_2backup_2dcs__driver_8h_6bfbaae758f8a232d11fb2eb2bf81609}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!RELEASETYPE@{RELEASETYPE}}
+\index{RELEASETYPE@{RELEASETYPE}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[RELEASETYPE]{\setlength{\rightskip}{0pt plus 5cm}\#define RELEASETYPE~\char`\"{}debug\char`\"{}}}
+\label{drivers_2backup_2dcs__driver_8h_6bfbaae758f8a232d11fb2eb2bf81609}
+
+
+
+
+Definition at line 78 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl(), init\_\-module(), and rcuf\_\-ioctl().\hypertarget{drivers_2backup_2dcs__driver_8h_52c6ae309b7b39b9dbcc576040986b97}{
+\index{drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}!VERSION_STRING_SIZE@{VERSION\_\-STRING\_\-SIZE}}
+\index{VERSION_STRING_SIZE@{VERSION\_\-STRING\_\-SIZE}!drivers/backup/dcs_driver.h@{drivers/backup/dcs\_\-driver.h}}
+\subsubsection[VERSION\_\-STRING\_\-SIZE]{\setlength{\rightskip}{0pt plus 5cm}\#define VERSION\_\-STRING\_\-SIZE~20}}
+\label{drivers_2backup_2dcs__driver_8h_52c6ae309b7b39b9dbcc576040986b97}
+
+
+
+
+Definition at line 74 of file drivers/backup/dcs\_\-driver.h.
+
+Referenced by dcsc\_\-ioctl(), and rcuf\_\-ioctl().

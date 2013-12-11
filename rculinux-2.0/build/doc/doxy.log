@@ -1,0 +1,87 @@
+/rcu2/rculinux-2.0/drivers/dcs_driver.h:31: Warning: group rcubus_driver already documented. Skipping documentation.
+/rcu2/rculinux-2.0/dcscMsgBufferInterface/driver_include/dcs_driver.h:31: Warning: group rcubus_driver already documented. Skipping documentation.
+/rcu2/rculinux-2.0/drivers/backup/dcs_driver.h:24: Warning: the name `dcs_driver.h' supplied as the second argument in the \file statement matches the following input files:
+   /rcu2/rculinux-2.0/drivers/backup/dcs_driver.h
+   /rcu2/rculinux-2.0/drivers/dcs_driver.h
+   /rcu2/rculinux-2.0/dcscMsgBufferInterface/driver_include/dcs_driver.h
+Please use a more specific name by including a (larger) part of the path!
+/rcu2/rculinux-2.0/drivers/dcs_driver.h:24: Warning: the name `dcs_driver.h' supplied as the second argument in the \file statement matches the following input files:
+   /rcu2/rculinux-2.0/drivers/backup/dcs_driver.h
+   /rcu2/rculinux-2.0/drivers/dcs_driver.h
+   /rcu2/rculinux-2.0/dcscMsgBufferInterface/driver_include/dcs_driver.h
+Please use a more specific name by including a (larger) part of the path!
+/rcu2/rculinux-2.0/dcscMsgBufferInterface/driver_include/dcs_driver.h:24: Warning: the name `dcs_driver.h' supplied as the second argument in the \file statement matches the following input files:
+   /rcu2/rculinux-2.0/drivers/backup/dcs_driver.h
+   /rcu2/rculinux-2.0/drivers/dcs_driver.h
+   /rcu2/rculinux-2.0/dcscMsgBufferInterface/driver_include/dcs_driver.h
+Please use a more specific name by including a (larger) part of the path!
+/rcu2/rculinux-2.0/doc/mainpage.c:46: Warning: unable to resolve reference to `msg_buffer_interface' for \ref command
+/rcu2/rculinux-2.0/doc/mainpage.c:50: Warning: unable to resolve reference to `sm_tools' for \ref command
+/rcu2/rculinux-2.0/doc/mainpage.c:54: Warning: unable to resolve reference to `rcubus_driver:' for \ref command
+/rcu2/rculinux-2.0/doc/mainpage.c:56: Warning: unable to resolve reference to `msg_buffer_interface' for \ref command
+/rcu2/rculinux-2.0/doc/mainpage.c:46: Warning: unable to resolve reference to `msg_buffer_interface' for \ref command
+/rcu2/rculinux-2.0/doc/mainpage.c:50: Warning: unable to resolve reference to `sm_tools' for \ref command
+/rcu2/rculinux-2.0/doc/mainpage.c:54: Warning: unable to resolve reference to `rcubus_driver:' for \ref command
+/rcu2/rculinux-2.0/doc/mainpage.c:56: Warning: unable to resolve reference to `msg_buffer_interface' for \ref command
+/rcu2/rculinux-2.0/src/cmdInterpreter.c:619: Warning: The following parameters of execWriteCmd(const char **arrayArg, int iNofArgs, int iMode) are not documented:
+  parameter arrayArg
+  parameter iNofArgs
+
+/rcu2/rculinux-2.0/drivers/backup/dcs_driver.c:322: Warning: argument `iTimeOut' of command @param is not found in the argument list of checkAndLock(int iSeizeCode, int pid)
+/rcu2/rculinux-2.0/drivers/backup/dcs_driver.c:322: Warning: The following parameters of checkAndLock(int iSeizeCode, int pid) are not documented:
+  parameter pid
+
+/rcu2/rculinux-2.0/drivers/dcs_driver.c:341: Warning: argument `iTimeOut' of command @param is not found in the argument list of checkAndLock(int iSeizeCode, int pid)
+/rcu2/rculinux-2.0/drivers/dcs_driver.c:341: Warning: The following parameters of checkAndLock(int iSeizeCode, int pid) are not documented:
+  parameter pid
+
+/rcu2/rculinux-2.0/src/framehelpers.h:99: Warning: argument `pframaddr' of command @param is not found in the argument list of getFrameAddressFromLine(char line[255], int *pframeaddr)
+/rcu2/rculinux-2.0/src/framehelpers.h:99: Warning: The following parameters of getFrameAddressFromLine(char line[255], int *pframeaddr) are not documented:
+  parameter pframeaddr
+
+/rcu2/rculinux-2.0/src/framehelpers.h:99: Warning: argument `pframaddr' of command @param is not found in the argument list of getFrameAddressFromLine(char line[255], int *pframeaddr)
+/rcu2/rculinux-2.0/src/framehelpers.h:99: Warning: The following parameters of getFrameAddressFromLine(char line[255], int *pframeaddr) are not documented:
+  parameter pframeaddr
+
+/rcu2/rculinux-2.0/src/mrshellprim.h:443: Warning: The following parameters of buildArgumentsFromCommandLine(char *pCmdLine, char **pTargetArray, int iArraySize, int bSeparate, int iDebugFlag) are not documented:
+  parameter iDebugFlag
+
+/rcu2/rculinux-2.0/src/mrshellprim.h:484: Warning: argument `pFloat' of command @param is not found in the argument list of mrShellPrimGetData(TArgDef *arrayDef, const char *pCmd, void **ppData, int iType)
+/rcu2/rculinux-2.0/src/mrshellprim.h:337: Warning: argument `pSeparator' of command @param is not found in the argument list of ScanArguments(const char **arrayArg, int iNofArgs, int iFirstArgStart, TArgDef *arrayDef, TFctMode *pMode)
+/rcu2/rculinux-2.0/src/mrshellprim.h:342: Warning: Found unknown command `\0'
+/rcu2/rculinux-2.0/src/mrshellprim.h:337: Warning: argument `flags' of command @param is not found in the argument list of ScanArguments(const char **arrayArg, int iNofArgs, int iFirstArgStart, TArgDef *arrayDef, TFctMode *pMode)
+/rcu2/rculinux-2.0/src/mrshellprim.h:337: Warning: The following parameters of ScanArguments(const char **arrayArg, int iNofArgs, int iFirstArgStart, TArgDef *arrayDef, TFctMode *pMode) are not documented:
+  parameter pMode
+
+/rcu2/rculinux-2.0/src/mrshellprim.h:443: Warning: The following parameters of buildArgumentsFromCommandLine(char *pCmdLine, char **pTargetArray, int iArraySize, int bSeparate, int iDebugFlag) are not documented:
+  parameter iDebugFlag
+
+/rcu2/rculinux-2.0/src/mrshellprim.h:484: Warning: argument `pFloat' of command @param is not found in the argument list of mrShellPrimGetData(TArgDef *arrayDef, const char *pCmd, void **ppData, int iType)
+/rcu2/rculinux-2.0/src/mrshellprim.h:337: Warning: argument `pSeparator' of command @param is not found in the argument list of ScanArguments(const char **arrayArg, int iNofArgs, int iFirstArgStart, TArgDef *arrayDef, TFctMode *pMode)
+/rcu2/rculinux-2.0/src/mrshellprim.h:342: Warning: Found unknown command `\0'
+/rcu2/rculinux-2.0/src/mrshellprim.h:337: Warning: argument `flags' of command @param is not found in the argument list of ScanArguments(const char **arrayArg, int iNofArgs, int iFirstArgStart, TArgDef *arrayDef, TFctMode *pMode)
+/rcu2/rculinux-2.0/src/mrshellprim.h:337: Warning: The following parameters of ScanArguments(const char **arrayArg, int iNofArgs, int iFirstArgStart, TArgDef *arrayDef, TFctMode *pMode) are not documented:
+  parameter pMode
+
+/rcu2/rculinux-2.0/dcscMsgBufferInterface/dcscMsgBufferInterface.h:37: Warning: unable to resolve reference to `message_buffer_interface' for \ref command
+/rcu2/rculinux-2.0/dcscMsgBufferInterface/dcscMsgBufferInterface.h:37: Warning: unable to resolve reference to `message_buffer_interface' for \ref command
+/rcu2/rculinux-2.0/dcscMsgBufferInterface/dcscMsgBufferInterface.h:508: Warning: argument `pCommand' of command @param is not found in the argument list of dcscExecuteCommand(__u32 *pBuffer, int iSize, __u32 **ppTarget, int *ppTargetSize, unsigned int operation)
+/rcu2/rculinux-2.0/dcscMsgBufferInterface/dcscMsgBufferInterface.h:508: Warning: The following parameters of dcscExecuteCommand(__u32 *pBuffer, int iSize, __u32 **ppTarget, int *ppTargetSize, unsigned int operation) are not documented:
+  parameter pBuffer
+
+/rcu2/rculinux-2.0/dcscMsgBufferInterface/dcscMsgBufferInterface.h:373: Warning: argument `flags' of command @param is not found in the argument list of initRcuAccessExt(const char *pDeviceName, TdcscInitArguments *pArg)
+/rcu2/rculinux-2.0/dcscMsgBufferInterface/dcscMsgBufferInterface.h:373: Warning: argument `iMIBSize' of command @param is not found in the argument list of initRcuAccessExt(const char *pDeviceName, TdcscInitArguments *pArg)
+/rcu2/rculinux-2.0/dcscMsgBufferInterface/dcscMsgBufferInterface.h:373: Warning: The following parameters of initRcuAccessExt(const char *pDeviceName, TdcscInitArguments *pArg) are not documented:
+  parameter pArg
+
+/rcu2/rculinux-2.0/dcscMsgBufferInterface/dcscMsgBufferInterface.h:741: Warning: argument `iWordSize' of command @param is not found in the argument list of printBufferHex(unsigned char *pBuffer, int iBufferSize, int wordSize, const char *pMessage)
+/rcu2/rculinux-2.0/dcscMsgBufferInterface/dcscMsgBufferInterface.h:741: Warning: The following parameters of printBufferHex(unsigned char *pBuffer, int iBufferSize, int wordSize, const char *pMessage) are not documented:
+  parameter wordSize
+
+/rcu2/rculinux-2.0/dcscMsgBufferInterface/dcscMsgBufferInterface.h:700: Warning: argument `firstSec' of command @param is not found in the argument list of rcuFlashErase(int startSec, int stopSec)
+/rcu2/rculinux-2.0/dcscMsgBufferInterface/dcscMsgBufferInterface.h:700: Warning: argument `lastSec' of command @param is not found in the argument list of rcuFlashErase(int startSec, int stopSec)
+/rcu2/rculinux-2.0/dcscMsgBufferInterface/dcscMsgBufferInterface.h:700: Warning: The following parameters of rcuFlashErase(int startSec, int stopSec) are not documented:
+  parameter startSec
+  parameter stopSec
+
+/rcu2/rculinux-2.0/dcscMsgBufferInterface/selectmapInterface.h:69: Warning: explicit link request to 'of' could not be resolved

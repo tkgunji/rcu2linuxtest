@@ -1,0 +1,12 @@
+\hypertarget{main_intro}{}\section{Introduction}\label{main_intro}
+\hypertarget{main_overview}{}\section{Overview}\label{main_overview}
+\begin{center}\end{center} \hypertarget{main_sysregs}{}\section{System requirements}\label{main_sysregs}
+The package can be built on Linux systems. In order to test the specific hardware access a DCS board is necessary. The ARM linux runs in an embedded environment, to build applications for it one needs a {\em Cross Compiler\/}.\hypertarget{main_sw_components}{}\section{The S/W Components}\label{main_sw_components}
+\begin{itemize}
+\item The msg\_\-buffer\_\-interface specifies a memory mapped interface between the DCS board and the RCU motherboard. The \hyperlink{group__dcsc__msg__buffer__access}{Message Buffer Encoding} module does the job of encoding data buffers in the specific format.\item The \hyperlink{group__rcu__sh}{rcu-sh} is a low level shell-like tool to access the RCU memory space.\item The sm\_\-tools module hosts tools to access the {\em Select\-Map(tm)\/} interface of the Xilinx FPGA.\end{itemize}
+\hypertarget{main_drivers}{}\section{The drivers}\label{main_drivers}
+\begin{itemize}
+\item rcubus\_\-driver: The driver provides the access to memory/registers inside the DCS board firmware. Althoug it was originally written to feature the msg\_\-buffer\_\-interface and the communication between the DCS board and the RCU motherboard, it does not contain any RCU specific code. The driver can be used to access three memory regions of configurable location and size inside the firmware address space.\end{itemize}
+\hypertarget{main_mpg_links}{}\section{Related links on the web}\label{main_mpg_links}
+\begin{itemize}
+\item \href{http://www.ift.uib.no/~kjeks/wiki/index.php?title=Detector_Control_System_%28DCS%29_for_ALICE_Front-end_electronics}{\tt Detector Control System for the ALICE TPC electronics }\item \href{http://ep-ed-alice-tpc.web.cern.ch/ep-ed-alice-tpc/}{\tt ALICE TPC electronics pages}\item \href{http://www.kip.uni-heidelberg.de/ti/DCS-Board/current/}{\tt DCS board pages}\item \href{http://www.}{\tt DCS board linux pages}\item \href{http://www.}{\tt u\-Clinux pages}\item \href{http://alicedcs.web.cern.ch/AliceDCS/}{\tt ALICE DCS pages}\item \href{http://www.ztt.fh-worms.de/en/projects/Alice-FEEControl/index.shtml}{\tt Fee\-Com Software pages (ZTT Worms)} \end{itemize}

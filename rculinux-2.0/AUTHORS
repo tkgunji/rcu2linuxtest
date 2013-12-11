@@ -1,0 +1,13 @@
+Package: RCU shell and DCS board tools
+
+This package implements the RCU shell for the DCS board.
+All contributions are under the terms of the GNU General Public License 
+as published by the Free Software Foundation. Also see files ChangeLog and THANKS
+
+This packages is maintained by Matthias.Richter@ift.uib.no
+
+Authors:
+Matthias Richter
+Dominik Fehlker (Xilinx Virtex frame tools)
+
+Please send bug reports and suggestions to Matthias.Richter@ift.uib.no
