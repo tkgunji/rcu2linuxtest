@@ -1,3 +1,3 @@
 rcu2linux direcrory
 -- driver 
--- rcu-sh application  
+-- rcu-sh and simple-io application  
