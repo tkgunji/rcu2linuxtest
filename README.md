@@ -1,3 +1,3 @@
 rcu2linux direcrory
--- driver 
--- rcu-sh application  
+-- driver to access FPGA registers
+-- rcu-sh and simple-io application  

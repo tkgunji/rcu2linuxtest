@@ -1,4 +1,4 @@
-Package: dcsctools
+*** Package: dcsctools
 
 This package implements the DCS board tools and the 
 rcu-sh. All contributions are under the terms of the 
