@@ -767,7 +767,8 @@ static int dcsc_read(struct file* filp, char* buf, size_t count, loff_t* f_pos)
       u32Offset/=sizeof(u32);
       pu32Source+=u32Offset;
       //mrlogmessage(LOG_READ_WRITE|LOG_DBG, MR_KERN_DEBUG "read: reading %d byte(s) from %s at 0x%8p to buffer 0x%8p", u32Count, pBufferName, pu32Source, buf);
-      mrlogmessage(LOG_INFO, MR_KERN_DEBUG "read: reading %d byte(s) from %s at 0x%8p to buffer 0x%8p", u32Count, pBufferName, pu32Source, buf);
+      //mrlogmessage(LOG_INFO, MR_KERN_DEBUG "read: reading %d byte(s) from %s at 0x%8p to buffer 0x%8p", u32Count, pBufferName, pu32Source, buf);
+      mrlogmessage(LOG_INFO, KERN_INFO "read: reading %d byte(s) from %s at 0x%x to buffer 0x%x", u32Count, pBufferName, pu32Source, buf);
       dcs_read((u32)pu32Source, u32Count, (u32*)buf);
       iResult=(int)u32Count;
       if (f_pos) *f_pos=filp->f_pos+iResult;
@@ -799,7 +800,8 @@ static int dcsc_write(struct file* filp, const char* buf, size_t count, loff_t* 
   lPos=filp->f_pos;
   if (filp && buf && count>=0 && lPos>=0){
     //mrlogmessage(LOG_READ_WRITE|LOG_DBG, MR_KERN_DEBUG "write: count=%d f_pos=0x%08x", count, lPos);
-    mrlogmessage(LOG_INFO, MR_KERN_DEBUG "write: count=%d f_pos=0x%08x", count, lPos);
+    mrlogmessage(LOG_INFO, KERN_INFO "write: count=%d f_pos=0x%08x", count, lPos);
+    //mrlogmessage(LOG_INFO, MR_KERN_DEBUG "write: count=%d f_pos=0x%08x", count, lPos);
     if (iAccessMode==ACCESS_ALL) {
       if (lPos < dcsc_msgbuf_in_size) {
 	if (count + lPos <= dcsc_msgbuf_in_size) {
@@ -837,7 +839,8 @@ static int dcsc_write(struct file* filp, const char* buf, size_t count, loff_t* 
       u32Offset/=sizeof(u32);
       pu32Target+=u32Offset;
       //mrlogmessage(LOG_READ_WRITE|LOG_DBG, MR_KERN_DEBUG "write: writing %d byte(s) from buffer 0x%8p to %s at 0x%8p", u32Count, (u32*)buf, pBufferName, pu32Target);
-      mrlogmessage(LOG_INFO, MR_KERN_DEBUG "write: writing %d byte(s) from buffer 0x%8p to %s at 0x%8p", u32Count, (u32*)buf, pBufferName, pu32Target);
+      //  mrlogmessage(LOG_INFO, MR_KERN_DEBUG "write: writing %d byte(s) from buffer 0x%8p to %s at 0x%8p", u32Count, (u32*)buf, pBufferName, pu32Target);
+      mrlogmessage(LOG_INFO, KERN_INFO "write: writing %d byte(s) from buffer 0x%8p to %s at 0x%8p", u32Count, (u32*)buf, pBufferName, pu32Target);
       dcs_write((u32)pu32Target, u32Count, (u32*)buf);
       iResult=(int)u32Count;
       if (f_pos) *f_pos=filp->f_pos+iResult;

@@ -72,22 +72,46 @@ static char *sample_end;
 /*
  * address list for the commnication to s2m-mos
  */
+/// fabric_1 registers
+static u32* apbbus1_in_physaddr  = ((u32 *) 0x50000000);
+static int apbbus1_in_loc   = 0x50000000;
+static int apbbus1_in_size   = 0x10000000;
+static u32* apbbus1_in_virtbase=NULL;
 
-static u32* apbbus_in_physaddr  = ((u32 *) 0x50000000);
-static int apbbus_in_size   = 0x400;
+module_param(apbbus1_in_size, int, S_IRUSR | S_IWUSR);
+module_param(apbbus1_in_physaddr, uint, S_IRUSR | S_IWUSR);
 
-static u32* apbbus_in_virtbase=NULL;
+/// fabric_0 registers
+static u32* apbbus0_in_physaddr  = ((u32 *) 0x30000000);
+static int apbbus0_in_loc   = 0x30000000;
+static int apbbus0_in_size   = 0x10000000;
+static u32* apbbus0_in_virtbase=NULL;
 
-module_param(apbbus_in_size, int, S_IRUSR | S_IWUSR);
-module_param(apbbus_in_physaddr, uint, S_IRUSR | S_IWUSR);
+module_param(apbbus0_in_size, int, S_IRUSR | S_IWUSR);
+module_param(apbbus0_in_physaddr, uint, S_IRUSR | S_IWUSR);
 
+/// radmon 
+static u32* spi_in_physaddr  = ((u32 *) 0x40001000);
+static int spi_in_loc  = 0x40001000;
+static int spi_in_size   = 0x1000;
+static u32* spi_in_virtbase=NULL;
+
+module_param(spi_in_size, int, S_IRUSR | S_IWUSR);
+module_param(spi_in_physaddr, uint, S_IRUSR | S_IWUSR);
+
+
+/// i2c
+static u32* i2c_in_physaddr  = ((u32 *) 0x40002000);
+static int i2c_in_loc  = 0x40002000;
+static int i2c_in_size   = 0x1000;
+static u32* i2c_in_virtbase=NULL;
+
+module_param(i2c_in_size, int, S_IRUSR | S_IWUSR);
+module_param(i2c_in_physaddr, uint, S_IRUSR | S_IWUSR);
 
 /*
  * internal functions 
  */
-
-
-
 static int memtest(u32 begin, u32 size) {
   u32 i,rd;
   int ret=0;
@@ -201,7 +225,7 @@ static int sample_release(struct inode *inode, struct file *file)
 static ssize_t sample_read(struct file *filp, char *buffer,
 			   size_t length, loff_t * offset)
 {
-  char * addr;
+  const char* pBufferName="<not specified name>";
   unsigned int len = 0;
   int ret = 0;
   u32 u32Count=0;
@@ -210,7 +234,6 @@ static ssize_t sample_read(struct file *filp, char *buffer,
   u32 u32Offset= 0;
 
   lPos=filp->f_pos;
-  u32Offset= lPos;
   /*
    * Check that the user has supplied a valid buffer
    */
@@ -218,39 +241,43 @@ static ssize_t sample_read(struct file *filp, char *buffer,
     ret = -EINVAL;
     goto Done;
   }
-  
-  /*
-   * Get access to the device "data"
-   */
-  //addr = sample_str + *offset;
-  
-  /*
-   * Check for an EOF condition.
-   */
-  //  if (addr >= sample_end) {
-  //    ret = 0;
-  //    goto Done;
-  //  }
-  
-  /*
-   * Read in the required or remaining number of bytes into
-   * the user buffer
-   */
-  //  len = addr + length < sample_end ? length : sample_end - addr;
-  
-  /////////////////////////////////
-  //pu32Source = apbbus_in_virtbase + (0x40000 + u32Offset)/sizeof(u32);
-  pu32Source = apbbus_in_virtbase + (u32Offset)/sizeof(u32);
-  u32Count = length;
-  dcs_read((u32)pu32Source, u32Count, (u32*)buffer);
-  d_printk(0, "read data=0x%x (address = 0x%x)\n", buffer, pu32Source);
 
+  if (filp && buffer && length>=0 && lPos>=0){
 
-  /////////////////////////////////
-  //  strncpy(buffer, addr, len);
-  //  *offset += len;
-  len = (int)u32Count;
-  ret = len;
+    //if(lPos <  apbbus0_in_physaddr){
+    //d_printk(0, "read: access mode not yet implemented.. address is not ready in use");
+    if(lPos>=apbbus0_in_loc && lPos<apbbus0_in_loc+apbbus0_in_size){
+      u32Offset= lPos - apbbus0_in_loc;
+      pu32Source = apbbus0_in_virtbase;
+      pBufferName="FPGA Fabric FIC 0";
+    }else if(lPos>=apbbus1_in_loc && lPos<apbbus1_in_loc+apbbus1_in_size){
+      u32Offset= lPos - apbbus1_in_loc; 
+      pu32Source = apbbus1_in_virtbase;
+      pBufferName="FPGA Fabric FIC 1";
+    }else if(lPos>=spi_in_loc && lPos<spi_in_loc+spi_in_size){
+      u32Offset= lPos - spi_in_loc; 
+      pu32Source = spi_in_virtbase;
+      pBufferName="SPI address space";
+    }else if(lPos>=i2c_in_loc && lPos<i2c_in_loc+i2c_in_size){
+      u32Offset= lPos - i2c_in_loc; 
+      pu32Source = i2c_in_virtbase;
+      pBufferName="I2C address space";
+    }
+
+    if(pu32Source!=NULL){
+      u32Offset<<=4; 
+      u32Offset/=sizeof(u32);
+      pu32Source += u32Offset;
+      u32Count = length;
+
+      dcs_read((u32)pu32Source, u32Count, (u32*)buffer);
+      d_printk(0, "read data=0x%x (address = 0x%x)  IPos=0x%x\n", buffer, pu32Source, lPos);
+      /////////////////////////////////
+      len = (int)u32Count;
+      ret = len;
+    }
+    
+  }
 
  Done:
   d_printk(0, "length=%d,len=%d,ret=%d\n", length, len, ret);
@@ -269,21 +296,44 @@ static ssize_t sample_write(struct file *filp, const char *buffer,
   u32 u32Offset=0;
   u32 u32Count= 0;
   u32* pu32Target=NULL;
+  const char* pBufferName="<not specified name>";
 
   if (filp==NULL) {
     return -EFAULT;
   }
   lPos=filp->f_pos;
   
-  u32Count= length;
-  u32Offset=lPos;
+  if (filp && buffer && length>=0 && lPos>=0){
+    if(lPos>=apbbus0_in_loc && lPos<apbbus0_in_loc+apbbus0_in_size){
+      u32Offset= lPos - apbbus0_in_loc;
+      pu32Target = apbbus0_in_virtbase;
+      pBufferName="FPGA Fabric FIC 0";
+    }else if(lPos>=apbbus1_in_loc && lPos<apbbus1_in_loc+apbbus1_in_size){
+      u32Offset= lPos - apbbus1_in_loc; 
+      pu32Target = apbbus1_in_virtbase;
+      pBufferName="FPGA Fabric FIC 1";
+    }else if(lPos>=spi_in_loc && lPos<spi_in_loc+spi_in_size){
+      u32Offset= lPos - spi_in_loc; 
+      pu32Target = spi_in_virtbase;
+      pBufferName="SPI address space";
+    }else if(lPos>=i2c_in_loc && lPos<i2c_in_loc+i2c_in_size){
+      u32Offset= lPos - i2c_in_loc; 
+      pu32Target = i2c_in_virtbase;
+      pBufferName="I2C address space";
+    }
 
-  //  pu32Target = apbbus_in_virtbase + (0x40000 + u32Offset)/sizeof(u32);
-  pu32Target = apbbus_in_virtbase + (u32Offset)/sizeof(u32);
+    if(pu32Target!=NULL){
+      u32Offset<<=4; 
+      u32Offset/=sizeof(u32);
+      pu32Target += u32Offset;
+      u32Count= length;
 
-  d_printk(0, "write data=0x%x (address = 0x%x, length=%d)\n", (u32*)buffer, pu32Target, u32Count);
-  dcs_write((u32)pu32Target, u32Count,  (u32*)buffer);
-  iResult=(int)u32Count;
+      d_printk(0, "write data=0x%x (address = 0x%x, length=%d)\n", (u32*)buffer, pu32Target, u32Count);
+      dcs_write((u32)pu32Target, u32Count,  (u32*)buffer);
+      
+      iResult=(int)u32Count;
+    }
+  }
 
   d_printk(3, "length=%d\n", length);
   return iResult;
@@ -325,22 +375,39 @@ static struct file_operations sample_fops = {
  */
 void cleanupRealBuffers(void)
 {
-  if (apbbus_in_virtbase) iounmap((void *)apbbus_in_virtbase);
+  if (apbbus1_in_virtbase) iounmap((void *)apbbus1_in_virtbase);
+  if (apbbus0_in_virtbase) iounmap((void *)apbbus0_in_virtbase);
+  if (spi_in_virtbase) iounmap((void *)spi_in_virtbase);
+  if (i2c_in_virtbase) iounmap((void *)i2c_in_virtbase);
 }
 int initRealBuffers(void)
 {
   int iResult=0;
   int iNofErr=0;
 
-  apbbus_in_virtbase  = (u32*) ioremap_nocache((u32)apbbus_in_physaddr,apbbus_in_size);
-  d_printk(0, "Remapped MSGBUF_IN from 0x%p to 0x%p",apbbus_in_physaddr, apbbus_in_virtbase);
-  if(apbbus_in_virtbase==NULL && apbbus_in_size>0 ){
+  apbbus1_in_virtbase  = (u32*) ioremap_nocache((u32)apbbus1_in_physaddr,apbbus1_in_size);
+  d_printk(0, "Remapped MSGBUF_IN from 0x%p to 0x%p",apbbus1_in_physaddr, apbbus1_in_virtbase);
+  if(apbbus1_in_virtbase==NULL && apbbus1_in_size>0 ){
     iResult=-EIO;
   }
-  /////// test the buffer
-  //iNofErr=memtest((u32) (apbbus_in_virtbase + 0x40040/sizeof(u32)) , 2*4);
-  //d_printk(0, "Memtest # of errors = %d\n", iNofErr);
 
+  apbbus0_in_virtbase  = (u32*) ioremap_nocache((u32)apbbus0_in_physaddr,apbbus0_in_size);
+  d_printk(0, "Remapped MSGBUF_IN from 0x%p to 0x%p",apbbus0_in_physaddr, apbbus0_in_virtbase);
+  if(apbbus0_in_virtbase==NULL && apbbus0_in_size>0 ){
+    iResult=-EIO;
+  }
+
+  spi_in_virtbase  = (u32*) ioremap_nocache((u32)spi_in_physaddr,spi_in_size);
+  d_printk(0, "Remapped MSGBUF_IN from 0x%p to 0x%p",spi_in_physaddr, spi_in_virtbase);
+  if(spi_in_virtbase==NULL && spi_in_size>0 ){
+    iResult=-EIO;
+  }
+
+  i2c_in_virtbase  = (u32*) ioremap_nocache((u32)i2c_in_physaddr,i2c_in_size);
+  d_printk(0, "Remapped MSGBUF_IN from 0x%p to 0x%p",i2c_in_physaddr, i2c_in_virtbase);
+  if(i2c_in_virtbase==NULL && i2c_in_size>0 ){
+    iResult=-EIO;
+  }
   return iResult;
 }
 
@@ -398,5 +465,5 @@ module_init(sample_init_module);
 module_exit(sample_cleanup_module);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Vladimir Khusainov, vlad@emcraft.com");
-MODULE_DESCRIPTION("Sample device driver");
+MODULE_AUTHOR("Taku Gunji, Taku.Gunji@cern.ch");
+MODULE_DESCRIPTION("Sample device driver for Rcu2");
