@@ -1,1 +1,0 @@
-cmd_/rcu2/rculinux-2.0/drivers/sample2.ko := arm-uclinuxeabi-ld -EL -r  -T /rcu2/release/linux-cortexm-1.11.0/linux/scripts/module-common.lds  -o /rcu2/rculinux-2.0/drivers/sample2.ko /rcu2/rculinux-2.0/drivers/sample2.o /rcu2/rculinux-2.0/drivers/sample2.mod.o
