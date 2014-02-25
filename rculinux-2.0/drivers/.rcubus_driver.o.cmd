@@ -1,1 +1,0 @@
-cmd_/rcu2/rculinux-2.0/drivers/rcubus_driver.o := arm-uclinuxeabi-ld -EL    -r -o /rcu2/rculinux-2.0/drivers/rcubus_driver.o /rcu2/rculinux-2.0/drivers/dcs_driver.o /rcu2/rculinux-2.0/drivers/mrKernLogging.o 

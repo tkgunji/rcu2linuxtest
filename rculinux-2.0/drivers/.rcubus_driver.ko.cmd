@@ -1,1 +1,0 @@
-cmd_/rcu2/rculinux-2.0/drivers/rcubus_driver.ko := arm-uclinuxeabi-ld -EL -r  -T /rcu2/release/linux-cortexm-1.11.0/linux/scripts/module-common.lds  -o /rcu2/rculinux-2.0/drivers/rcubus_driver.ko /rcu2/rculinux-2.0/drivers/rcubus_driver.o /rcu2/rculinux-2.0/drivers/rcubus_driver.mod.o
