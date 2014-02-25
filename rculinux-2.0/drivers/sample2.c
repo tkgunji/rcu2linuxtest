@@ -271,7 +271,7 @@ static ssize_t sample_read(struct file *filp, char *buffer,
       u32Count = length;
 
       dcs_read((u32)pu32Source, u32Count, (u32*)buffer);
-      d_printk(0, "read data=0x%x (address = 0x%x)  IPos=0x%x\n", buffer, pu32Source, lPos);
+      d_printk(3, "read data=0x%x (address = 0x%x)  IPos=0x%x\n", buffer, pu32Source, lPos);
       /////////////////////////////////
       len = (int)u32Count;
       ret = len;
@@ -280,7 +280,7 @@ static ssize_t sample_read(struct file *filp, char *buffer,
   }
 
  Done:
-  d_printk(0, "length=%d,len=%d,ret=%d\n", length, len, ret);
+  d_printk(3, "length=%d,len=%d,ret=%d\n", length, len, ret);
   return ret;
 }
 
@@ -328,7 +328,7 @@ static ssize_t sample_write(struct file *filp, const char *buffer,
       pu32Target += u32Offset;
       u32Count= length;
 
-      d_printk(0, "write data=0x%x (address = 0x%x, length=%d)\n", (u32*)buffer, pu32Target, u32Count);
+      d_printk(3, "write data=0x%x (address = 0x%x, length=%d)\n", (u32*)buffer, pu32Target, u32Count);
       dcs_write((u32)pu32Target, u32Count,  (u32*)buffer);
       
       iResult=(int)u32Count;
@@ -353,7 +353,7 @@ static loff_t sample_seek(struct file* filp, loff_t off, int ref)
   }
   if (lPosition>=0) filp->f_pos=lPosition;
 
-  d_printk(0, "filp->f_pos = %d\n", lPosition);
+  d_printk(3, "filp->f_pos = %d\n", lPosition);
 
   return lPosition;
 }
