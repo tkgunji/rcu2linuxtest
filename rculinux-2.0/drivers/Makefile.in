@@ -5,6 +5,7 @@
 # a user space program, edit the two goals below to
 # exclude one or the other. 
 top_srcdir	= ..
+current_dir = ${PWD}/../
 
 #all		: apps modules
 all		: modules
@@ -43,8 +44,8 @@ rcubus_driver-objs := dcs_driver.o mrKernLogging.o
 # these loadable modules are built
 KERNELDIR	:=  $(INSTALL_ROOT)/linux
 KERNEL_INC	= $(KERNELDIR)/include
-SOURCEDIR 	:= /rcu2/rculinux-2.0/drivers
-BUILDDIR 	:= /rcu2/rculinux-2.0/build/drivers
+SOURCEDIR 	:= $(current_dir)/drivers
+BUILDDIR 	:= $(current_dir)/build/drivers
 
 # Build the modules in this directory
 modules		:

@@ -43,8 +43,8 @@ rcubus_driver-objs := dcs_driver.o mrKernLogging.o
 # these loadable modules are built
 KERNELDIR	:=  $(INSTALL_ROOT)/linux
 KERNEL_INC	= $(KERNELDIR)/include
-SOURCEDIR 	:= /rcu2/rculinux-2.0/drivers
-BUILDDIR 	:= /rcu2/rculinux-2.0/build/drivers
+SOURCEDIR 	:= $(top_srcdir)/drivers
+BUILDDIR 	:= $(top_srcdir)/build/drivers
 
 
 # Build the modules in this directory

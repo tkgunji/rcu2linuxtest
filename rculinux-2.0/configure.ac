@@ -36,7 +36,7 @@ arm-*-linux*|arm-*linux*)
 #  KSRC=/usr/local/arm/armlinux/kernel/linux-2.4.21-rmk1-dcs1 ;
 #  KSRC=/home/trd/firmware/firmware.371/linux-2.4.21 ;
 #  KVERS=2.4;;
-  KSRC=/rcu2/release/linux-cortexm-1.11.0 ;
+  KSRC=${INSTALL_ROOT} ;
   KVERS=1.11;;
 *-*-linux*) 
   KVERS=`uname -r` 
